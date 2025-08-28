@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Section from "@/components/section";
 import ProjectCard from "@/components/project-card";
 import { projects } from "@/lib/projects";
+import Image from "next/image";
 
 export default function HomePage() {
   return (
@@ -37,13 +38,21 @@ export default function HomePage() {
             initial={{ scale: 0.96, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="aspect-square rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900 dark:to-slate-800 shadow-inner"
-          />
+            className="aspect-square rounded-2xl overflow-hidden shadow-inner"
+          >
+            <Image
+              src="/images/KRISHNA.jpg"  // 👈 put your picture in public/images/
+              alt="My Picture"
+              width={400}
+    height={400}
+    className="object-cover w-full h-full"
+  />
+</motion.div>
         </motion.div>
       </section>
 
       {/* PROJECTS */}
-      <Section id="projects" title="Projects" subtitle="A few things I’ve built recently">
+      <Section id="projects" title="Projects" subtitle="A few things I have built recently">
         <div className="grid gap-6 sm:grid-cols-2">
           {projects.map((p) => <ProjectCard key={p.title} p={p} />)}
         </div>
