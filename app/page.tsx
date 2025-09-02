@@ -5,9 +5,7 @@ import Section from "@/components/section";
 import ProjectCard from "@/components/project-card";
 import { projects } from "@/lib/projects";
 import Image from "next/image";
-import { useState } from "react";
-import { i } from "framer-motion/client";
-import { useRef, useLayoutEffect } from "react";
+import { useState, useEffect, useRef, useLayoutEffect } from "react";
 
 const cards = [
   {
@@ -49,6 +47,53 @@ function rectAnchors(n: number, pad = 0.12) {
   return pts;
 }
 
+// Distribute items per side (top, right, bottom, left) with equal spacing
+function rectAnchorsSides(counts: [number, number, number, number], pad = 0.12) {
+  const [top, right, bottom, left] = counts;
+  const pts: { x: number; y: number }[] = [];
+  const span = 1 - 2 * pad;
+
+  const placeTop = (n: number) => {
+    for (let i = 0; i < n; i++) {
+      const u = (i + 1) / (n + 1);
+      pts.push({ x: pad + span * u, y: pad });
+    }
+  };
+  const placeRight = (n: number) => {
+    for (let i = 0; i < n; i++) {
+      const u = (i + 1) / (n + 1);
+      pts.push({ x: 1 - pad, y: pad + span * u });
+    }
+  };
+  const placeBottom = (n: number) => {
+    for (let i = 0; i < n; i++) {
+      const u = (i + 1) / (n + 1);
+      pts.push({ x: 1 - pad - span * u, y: 1 - pad });
+    }
+  };
+  const placeLeft = (n: number) => {
+    for (let i = 0; i < n; i++) {
+      const u = (i + 1) / (n + 1);
+      pts.push({ x: pad, y: 1 - pad - span * u });
+    }
+  };
+
+  placeTop(top);
+  placeRight(right);
+  placeBottom(bottom);
+  placeLeft(left);
+  return pts;
+}
+
+// Smart split across sides for N items
+function rectAnchorsSmart(n: number, pad = 0.12) {
+  const base = Math.floor(n / 4);
+  const rem = n % 4;
+  const counts: [number, number, number, number] = [base, base, base, base];
+  for (let i = 0; i < rem; i++) counts[i] += 1; // distribute remainder to top/right/bottom/left
+  return rectAnchorsSides(counts, pad);
+}
+
 
 export default function HomePage() {
   const [index, setIndex] = useState(0);
@@ -80,6 +125,14 @@ export default function HomePage() {
     return () => ro.disconnect();
   }, [index]);
 
+  // Auto-advance cards every 2 seconds
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % cards.length);
+    }, 2000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <>
       {/* HERO */}
@@ -92,7 +145,7 @@ export default function HomePage() {
         >
           <div>
             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
-              Hi, I'm Krishna Singh
+              Hi, I&apos;m Krishna Singh
             </h1>
             <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
               Full-stack developer & ML data analyst. I build fast, delightful
@@ -133,16 +186,7 @@ export default function HomePage() {
 
       {/* TECH STACK - FIXED */}
   <Section id="tech" title="Tech Stack" subtitle="Tools I use to ship">
-        <div className="relative w-full h-[650px] flex items-center justify-center overflow-hidden">
-          {/* LEFT ARROW */}
-          <button
-            onClick={() => setIndex((i) => (i - 1 + cards.length) % cards.length)}
-            className="absolute left-8 z-40 group bg-gradient-to-r from-slate-800 to-slate-700 hover:from-blue-600 hover:to-blue-500 text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110"
-          >
-            <svg className="w-6 h-6 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
+  <div className="relative w-full h-[650px] flex items-center justify-center overflow-hidden">
 
           {/* CARDS CONTAINER (measured) */}
           <div ref={containerRef} className="relative w-[550px] h-[550px] flex items-center justify-center">
@@ -178,7 +222,9 @@ export default function HomePage() {
                       const rx = titleBox.w / 2 + 6; // little padding
                       const ry = titleBox.h / 2 + 6;
 
-                      const anchors = rectAnchors(cards[index].techs.length, 0.13);
+                      const anchors = index === 0
+                        ? rectAnchorsSmart(cards[index].techs.length, 0.16)
+                        : rectAnchors(cards[index].techs.length, 0.13);
                       return anchors.map((a, j) => {
                         const tx = a.x * box.w;
                         const ty = a.y * box.h;
@@ -214,7 +260,9 @@ export default function HomePage() {
 
                   {/* Tech items aligned to the box edges */}
                   {(() => {
-                    const anchors = rectAnchors(cards[index].techs.length, 0.13);
+                    const anchors = index === 0
+                      ? rectAnchorsSmart(cards[index].techs.length, 0.16)
+                      : rectAnchors(cards[index].techs.length, 0.13);
                     return cards[index].techs.map((tech, j) => {
                       const x = anchors[j].x * box.w;
                       const y = anchors[j].y * box.h;
@@ -223,7 +271,7 @@ export default function HomePage() {
                           key={tech}
                           initial={{ scale: 0.8, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
-                          transition={{ delay: 0.35 + j * 0.06, type: "spring", stiffness: 200, damping: 18 }}
+                          transition={{ delay: 0.35 + j * 0.06, type: "spring", stiffness: 400, damping: 18 }}
                           whileHover={{ scale: 1.08, y: -2, boxShadow: "0 12px 40px rgba(59,130,246,0.35)" }}
                           className="absolute z-20 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-slate-700/90 text-white text-sm font-semibold px-4 py-2 shadow-xl border border-slate-500 backdrop-blur"
                           style={{ left: x, top: y }}
@@ -238,26 +286,9 @@ export default function HomePage() {
             </AnimatePresence>
           </div>
 
-          {/* RIGHT ARROW */}
-          <button
-            onClick={() => setIndex((i) => (i + 1) % cards.length)}
-            className="absolute right-8 z-40 group bg-gradient-to-r from-slate-800 to-slate-700 hover:from-blue-600 hover:to-blue-500 text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110"
-          >
-            <svg className="w-6 h-6 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+          
 
-          {/* DOTS */}
-          <div className="absolute bottom-8 flex space-x-3">
-            {cards.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setIndex(i)}
-                className={`w-4 h-4 rounded-full transition-all duration-300 ${i === index ? "bg-blue-500 scale-125 shadow-lg" : "bg-slate-400 hover:bg-slate-300 hover:scale-110"}`}
-              />
-            ))}
-          </div>
+          
         </div>
       </Section>
 
