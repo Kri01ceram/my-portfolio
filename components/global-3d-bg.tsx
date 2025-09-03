@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { useTheme } from "next-themes";
 
 type Props = { className?: string };
+type BubbleData = { vx: number; vy: number; radius: number };
 
 export default function Global3DBackground({ className = "" }: Props) {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -20,7 +21,10 @@ export default function Global3DBackground({ className = "" }: Props) {
     const mount = mountRef.current;
     if (!mount) return;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const isMobile =
+      typeof window !== "undefined" &&
+      (window.matchMedia?.("(max-width: 640px)").matches || window.matchMedia?.("(pointer: coarse)").matches);
+    const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.2 : 2);
     const prefersReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -52,9 +56,10 @@ export default function Global3DBackground({ className = "" }: Props) {
     const colorSet = resolvedTheme === "dark" ? colorsDark : colorsLight;
 
     const rand = (min: number, max: number) => Math.random() * (max - min) + min;
-    const count = 10;
-    for (let i = 0; i < count; i++) {
-      const geo = new THREE.SphereGeometry(rand(1.0, 2.2), 32, 32);
+  const count = isMobile ? 6 : 10;
+  for (let i = 0; i < count; i++) {
+      const radius = rand(1.0, 2.2);
+      const geo = new THREE.SphereGeometry(radius, 32, 32);
   const mat = new THREE.MeshStandardMaterial({
         color: new THREE.Color(colorSet[i % colorSet.length]),
         metalness: 0.15,
@@ -69,22 +74,21 @@ export default function Global3DBackground({ className = "" }: Props) {
   mat.emissiveIntensity = 0.25;
       materials.push(mat);
       const mesh = new THREE.Mesh(geo, mat);
-      const baseX = rand(-4.0, 4.0);
-      const baseY = rand(-3.0, 3.0);
-      const baseZ = rand(-1.8, 1.8);
-      const ampX = rand(0.4, 0.9);
-      const ampY = rand(0.3, 0.8);
-      mesh.position.set(baseX, baseY, baseZ);
-      mesh.userData = {
-        baseX,
-        baseY,
-        baseZ,
-        ampX,
-        ampY,
-        speedX: rand(0.03, 0.06) * (Math.random() > 0.5 ? 1 : -1),
-        speedY: rand(0.02, 0.05) * (Math.random() > 0.5 ? 1 : -1),
-        phase: Math.random() * Math.PI * 2,
-      };
+      const startZ = rand(-1.8, 1.8);
+      // Spawn across the full visible window at this depth
+      const fov = THREE.MathUtils.degToRad(camera.fov);
+      const dist = Math.max(0.1, camera.position.z - startZ);
+      const halfH = Math.tan(fov / 2) * dist;
+      const halfW = halfH * camera.aspect;
+      mesh.position.set(
+        rand(-halfW + radius, halfW - radius),
+        rand(-halfH + radius, halfH - radius),
+        startZ
+      );
+      // Velocity in world units per second (scaled by delta)
+      const vx = (isMobile ? rand(0.3, 0.7) : rand(0.5, 1.2)) * (Math.random() > 0.5 ? 1 : -1);
+      const vy = (isMobile ? rand(0.25, 0.6) : rand(0.4, 1.0)) * (Math.random() > 0.5 ? 1 : -1);
+  mesh.userData = { vx, vy, radius } as BubbleData;
       bubbles.push(mesh);
       scene.add(mesh);
     }
@@ -115,22 +119,36 @@ export default function Global3DBackground({ className = "" }: Props) {
 
     // Animation
     const clock = new THREE.Clock();
-    const animate = () => {
-      const t = clock.getElapsedTime();
+  const animate = () => {
+      const dt = clock.getDelta();
       for (const b of bubbles) {
-        const { baseX, baseY, ampX, ampY, speedX, speedY, phase } = b.userData as {
-          baseX: number;
-          baseY: number;
-          ampX: number;
-          ampY: number;
-          speedX: number;
-          speedY: number;
-          phase: number;
-        };
+        const data = b.userData as BubbleData;
         if (!prefersReduced) {
-          // Oscillate around base positions to keep within bounds
-          b.position.x = baseX + Math.sin(t * speedX + phase) * ampX;
-          b.position.y = baseY + Math.cos(t * speedY + phase) * ampY;
+          // Compute viewport bounds at this bubble's depth
+          const fov = THREE.MathUtils.degToRad(camera.fov);
+          const dist = Math.max(0.1, camera.position.z - b.position.z);
+          const halfH = Math.tan(fov / 2) * dist;
+          const halfW = halfH * camera.aspect;
+          const marginX = data.radius;
+          const marginY = data.radius;
+
+          // Update position with velocity
+          b.position.x += data.vx * dt;
+          b.position.y += data.vy * dt;
+
+          // Wrap around edges for continuous roaming
+          if (b.position.x > halfW + marginX) {
+            b.position.x = -halfW - marginX;
+          } else if (b.position.x < -halfW - marginX) {
+            b.position.x = halfW + marginX;
+          }
+          if (b.position.y > halfH + marginY) {
+            b.position.y = -halfH - marginY;
+          } else if (b.position.y < -halfH - marginY) {
+            b.position.y = halfH + marginY;
+          }
+
+          // Subtle rotation for life
           b.rotation.x += 0.0015;
           b.rotation.y += 0.0012;
         }
@@ -143,12 +161,27 @@ export default function Global3DBackground({ className = "" }: Props) {
       renderer.render(scene, camera);
       rafRef.current = requestAnimationFrame(animate);
     };
-    animate();
+    const start = () => {
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    const stop = () => {
+      if (!rafRef.current) return;
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    };
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else start();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    start();
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       ro.disconnect();
       window.removeEventListener("mousemove", onMouseMove);
+  document.removeEventListener("visibilitychange", onVisibility);
       mount.removeChild(renderer.domElement);
       renderer.dispose();
       // cleanup

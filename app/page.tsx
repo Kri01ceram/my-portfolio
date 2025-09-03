@@ -144,15 +144,15 @@ export default function HomePage() {
       x: 30,
       scale: 0.99,
       filter: "blur(4px)",
-      clipPath: "circle(0% at 50% 50%)",
+    clipPath: "circle(0% at 50% 50%)",
     },
     animate: {
       opacity: 1,
       x: 0,
       scale: 1,
       filter: "blur(0px)",
-      clipPath: "circle(140% at 50% 50%)",
-  transition: { duration: 0.75, ease: [0.22, 0.61, 0.36, 1] },
+    clipPath: "circle(120% at 50% 50%)",
+  transition: { duration: 0.6, ease: [0.22, 0.61, 0.36, 1] },
     },
     exit: {
       opacity: 0,
@@ -160,7 +160,7 @@ export default function HomePage() {
       scale: 0.985,
       filter: "blur(6px)",
       clipPath: "circle(0% at 50% 50%)",
-  transition: { duration: 0.6, ease: [0.22, 0.61, 0.36, 1] },
+  transition: { duration: 0.5, ease: [0.22, 0.61, 0.36, 1] },
     },
   } as const;
 
@@ -330,7 +330,7 @@ export default function HomePage() {
                           key={tech}
           initial={{ scale: 0.94, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.3 + j * 0.05, type: "spring", stiffness: 160, damping: 22 }}
+          transition={{ delay: 0.25 + j * 0.05, type: "spring", stiffness: 130, damping: 20 }}
                           whileHover={{ scale: 1.08, y: -2, boxShadow: "0 12px 40px rgba(59,130,246,0.25)" }}
                           className="absolute z-20 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white text-slate-800 dark:bg-slate-700/90 dark:text-white text-[0.9rem] md:text-base font-semibold px-4 py-2.5 shadow-lg md:shadow-xl border border-slate-300 dark:border-slate-500 backdrop-blur"
                           style={{ left: x, top: y }}

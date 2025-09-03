@@ -10,6 +10,11 @@ export default function ThreeBg({ className = "" }: { className?: string }) {
   useEffect(() => {
     const mount = mountRef.current;
     if (!mount) return;
+    const isMobile =
+      typeof window !== "undefined" &&
+      (window.matchMedia?.("(max-width: 640px)").matches || window.matchMedia?.("(pointer: coarse)").matches);
+    const prefersReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
 
     const width = mount.clientWidth || 600;
     const height = mount.clientHeight || 600;
@@ -19,9 +24,9 @@ export default function ThreeBg({ className = "" }: { className?: string }) {
     const camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 100);
     camera.position.set(0, 0, 6);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 2));
     mount.appendChild(renderer.domElement);
 
     // Responsive
@@ -59,9 +64,9 @@ export default function ThreeBg({ className = "" }: { className?: string }) {
     const clock = new THREE.Clock();
     const animate = () => {
       const t = clock.getElapsedTime();
-      mesh.rotation.x = t * 0.12;
-      mesh.rotation.y = t * 0.18;
-      const s = 1 + Math.sin(t * 0.6) * 0.03;
+      mesh.rotation.x = t * (isMobile ? 0.08 : 0.12);
+      mesh.rotation.y = t * (isMobile ? 0.12 : 0.18);
+      const s = 1 + Math.sin(t * 0.6) * (isMobile ? 0.02 : 0.03);
       mesh.scale.set(s, s, s);
       renderer.render(scene, camera);
       frameRef.current = requestAnimationFrame(animate);
