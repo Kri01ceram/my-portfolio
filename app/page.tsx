@@ -167,22 +167,22 @@ export default function HomePage() {
   return (
     <>
       {/* HERO */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-6 py-24 sm:py-28 lg:py-32">
+  <section className="mx-auto max-w-6xl px-4 sm:px-6 py-14 sm:py-16 lg:py-18">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="grid items-center gap-10 lg:gap-16 sm:grid-cols-2"
+          className="grid items-center gap-8 lg:gap-12 sm:grid-cols-2"
         >
           <div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
               Hi, I&apos;m Krishna Singh
             </h1>
-            <p className="mt-5 text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-prose">
+            <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-prose">
               Full-stack developer & ML data analyst. I build fast, delightful
               web experiences with Next.js, React, and modern tooling.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
+            <div className="mt-6 flex flex-wrap gap-3 sm:gap-3.5">
               <a href="#projects" className="rounded-xl px-5 py-2.5 bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60">
                 View Projects
               </a>
@@ -210,17 +210,17 @@ export default function HomePage() {
 
       {/* PROJECTS */}
       <Section id="projects" title="Projects" subtitle="A few things I have built recently">
-        <div className="mt-6 md:mt-8 grid gap-6 sm:gap-8 sm:grid-cols-2">
+        <div className="mt-4 md:mt-6 grid gap-5 sm:gap-6 sm:grid-cols-2">
           {projects.map((p) => <ProjectCard key={p.title} p={p} />)}
         </div>
       </Section>
 
       {/* TECH STACK - FIXED */}
   <Section id="tech" title="Tech Stack" subtitle="Tools I use to ship">
-        <div className="relative w-full h-[600px] md:h-[650px] lg:h-[720px] flex items-center justify-center overflow-visible">
+        <div className="relative w-full h-[520px] md:h-[560px] lg:h-[600px] flex items-center justify-center overflow-visible">
 
           {/* CARDS CONTAINER (measured) */}
-          <div ref={containerRef} className="relative w-[520px] h-[520px] md:w-[560px] md:h-[560px] lg:w-[600px] lg:h-[600px] flex items-center justify-center">
+          <div ref={containerRef} className="relative w-[500px] h-[500px] md:w-[520px] md:h-[520px] lg:w-[560px] lg:h-[560px] flex items-center justify-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={index}
@@ -354,13 +354,57 @@ export default function HomePage() {
 
       {/* CONTACT */}
       <Section id="contact" title="Contact" subtitle="Let's build something together">
-        <div className="space-y-3">
-          <p className="text-slate-600 dark:text-slate-300">
-            Email: <a className="underline" href="mailto:0.krishna1120@gmail.com">0.krishna1120@gmail.com</a>
-          </p>
-          <p className="text-slate-600 dark:text-slate-300">
-            LinkedIn: <a className="underline" href="https://www.linkedin.com/in/krishna-singh-172642323/" target="_blank" rel="noreferrer noopener">krishna-singh-172642323</a>
-          </p>
+    <div className="relative">
+          <motion.div
+      className="relative rounded-3xl border border-white/10 dark:border-white/5 bg-white/5 dark:bg-white/5/5 backdrop-blur-xl overflow-hidden shadow-2xl"
+      whileHover={{ scale: 1.005 }}
+            transition={{ type: "spring", stiffness: 220, damping: 22 }}
+          >
+            {/* Animated border */}
+            <div className="pointer-events-none absolute inset-0 rounded-3xl p-[2px]">
+              <motion.div
+                className="h-full w-full rounded-[inherit]"
+                style={{
+                  background:
+                    "conic-gradient(from 90deg at 50% 50%, rgba(99,102,241,0.85), rgba(56,189,248,0.85), rgba(251,113,133,0.85), rgba(99,102,241,0.85))",
+                  WebkitMask:
+                    "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+                  WebkitMaskComposite: "xor",
+                  maskComposite: "exclude",
+                  padding: "2px",
+                }}
+                animate={{ rotate: [0, 180, 360] }}
+                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+              />
+            </div>
+
+            {/* Floating glow */}
+            <motion.div
+              className="pointer-events-none absolute -top-16 -right-16 h-56 w-56 rounded-full bg-sky-400/25 blur-3xl"
+              animate={{ x: [0, 25, -10, 0], y: [0, -15, 20, 0] }}
+              transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+            />
+
+            {/* Subtle grid */}
+            <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-25 dark:opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:24px_24px]" />
+
+            <div className="relative p-5 sm:p-6">
+              <p className="text-base sm:text-lg text-slate-700 dark:text-slate-200">
+                Email: <a className="font-medium underline underline-offset-4 decoration-sky-500/70 hover:decoration-sky-500" href="mailto:0.krishna1120@gmail.com">0.krishna1120@gmail.com</a>
+              </p>
+              <p className="mt-2.5 text-base sm:text-lg text-slate-700 dark:text-slate-200">
+                LinkedIn: <a className="font-medium underline underline-offset-4 decoration-violet-500/70 hover:decoration-violet-500" href="https://www.linkedin.com/in/krishna-singh-172642323/" target="_blank" rel="noreferrer noopener">krishna-singh-172642323</a>
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <a href="mailto:0.krishna1120@gmail.com" className="rounded-xl px-5 py-2.5 bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60">
+                  Say Hello
+                </a>
+                <a href="#projects" className="rounded-xl px-5 py-2.5 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900/40 transition">
+                  See Projects
+                </a>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </Section>
     </>

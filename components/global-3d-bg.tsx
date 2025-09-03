@@ -45,16 +45,17 @@ export default function Global3DBackground({ className = "" }: Props) {
 
     // Bubbles (transparent spheres) with varying sizes/positions
   const bubbles: THREE.Mesh[] = [];
-    const materials: THREE.MeshStandardMaterial[] = [];
-    const colorsLight = [0x60a5fa, 0x34d399, 0xf472b6, 0xf59e0b]; // blue, green, pink, amber
-    const colorsDark = [0x3b82f6, 0x22c55e, 0xec4899, 0xf59e0b];
+  const materials: THREE.MeshStandardMaterial[] = [];
+  // Vibrant palettes
+  const colorsLight = [0x22d3ee, 0xa78bfa, 0xfb7185, 0xf59e0b, 0x4ade80]; // cyan-400, violet-400, rose-400, amber-500, green-400
+  const colorsDark = [0x06b6d4, 0x8b5cf6, 0xf43f5e, 0xf59e0b, 0x22c55e]; // cyan-500, violet-500, rose-500, amber-500, green-500
     const colorSet = resolvedTheme === "dark" ? colorsDark : colorsLight;
 
     const rand = (min: number, max: number) => Math.random() * (max - min) + min;
-    const count = 12;
+    const count = 10;
     for (let i = 0; i < count; i++) {
       const geo = new THREE.SphereGeometry(rand(1.0, 2.2), 32, 32);
-      const mat = new THREE.MeshStandardMaterial({
+  const mat = new THREE.MeshStandardMaterial({
         color: new THREE.Color(colorSet[i % colorSet.length]),
         metalness: 0.15,
         roughness: 0.55,
@@ -63,10 +64,23 @@ export default function Global3DBackground({ className = "" }: Props) {
         depthWrite: false,
         blending: THREE.AdditiveBlending,
       });
+  // soft emissive glow for vibrancy
+  mat.emissive = new THREE.Color(colorSet[i % colorSet.length]);
+  mat.emissiveIntensity = 0.25;
       materials.push(mat);
       const mesh = new THREE.Mesh(geo, mat);
-      mesh.position.set(rand(-4.5, 4.5), rand(-3.5, 3.5), rand(-2.2, 2.2));
+      const baseX = rand(-4.0, 4.0);
+      const baseY = rand(-3.0, 3.0);
+      const baseZ = rand(-1.8, 1.8);
+      const ampX = rand(0.4, 0.9);
+      const ampY = rand(0.3, 0.8);
+      mesh.position.set(baseX, baseY, baseZ);
       mesh.userData = {
+        baseX,
+        baseY,
+        baseZ,
+        ampX,
+        ampY,
         speedX: rand(0.03, 0.06) * (Math.random() > 0.5 ? 1 : -1),
         speedY: rand(0.02, 0.05) * (Math.random() > 0.5 ? 1 : -1),
         phase: Math.random() * Math.PI * 2,
@@ -104,10 +118,19 @@ export default function Global3DBackground({ className = "" }: Props) {
     const animate = () => {
       const t = clock.getElapsedTime();
       for (const b of bubbles) {
-        const { speedX, speedY, phase } = b.userData as { speedX: number; speedY: number; phase: number };
+        const { baseX, baseY, ampX, ampY, speedX, speedY, phase } = b.userData as {
+          baseX: number;
+          baseY: number;
+          ampX: number;
+          ampY: number;
+          speedX: number;
+          speedY: number;
+          phase: number;
+        };
         if (!prefersReduced) {
-          b.position.x += Math.sin(t * speedX + phase) * 0.007;
-          b.position.y += Math.cos(t * speedY + phase) * 0.005;
+          // Oscillate around base positions to keep within bounds
+          b.position.x = baseX + Math.sin(t * speedX + phase) * ampX;
+          b.position.y = baseY + Math.cos(t * speedY + phase) * ampY;
           b.rotation.x += 0.0015;
           b.rotation.y += 0.0012;
         }
@@ -142,17 +165,20 @@ export default function Global3DBackground({ className = "" }: Props) {
     const mats = materialsRef.current;
     const lights = lightsRef.current;
     if (!mats || !lights) return;
-    const colorsLight = [0x60a5fa, 0x34d399, 0xf472b6, 0xf59e0b];
-    const colorsDark = [0x3b82f6, 0x22c55e, 0xec4899, 0xf59e0b];
+    const colorsLight = [0x22d3ee, 0xa78bfa, 0xfb7185, 0xf59e0b, 0x4ade80];
+    const colorsDark = [0x06b6d4, 0x8b5cf6, 0xf43f5e, 0xf59e0b, 0x22c55e];
     const set = resolvedTheme === "dark" ? colorsDark : colorsLight;
     mats.forEach((m, i) => {
       m.color.setHex(set[i % set.length]);
-      m.opacity = resolvedTheme === "dark" ? 0.22 : 0.26;
+      m.opacity = resolvedTheme === "dark" ? 0.22 : 0.28;
+  if ((m as THREE.MeshStandardMaterial).emissive) (m as THREE.MeshStandardMaterial).emissive.setHex(set[i % set.length]);
+  // slightly adjust glow by theme
+  (m as THREE.MeshStandardMaterial).emissiveIntensity = resolvedTheme === "dark" ? 0.22 : 0.26;
       m.needsUpdate = true;
     });
-    lights.ambient.intensity = resolvedTheme === "dark" ? 0.55 : 0.7;
-    lights.dir.intensity = resolvedTheme === "dark" ? 0.45 : 0.6;
-    lights.rim.intensity = resolvedTheme === "dark" ? 0.45 : 0.6;
+    lights.ambient.intensity = resolvedTheme === "dark" ? 0.6 : 0.75;
+    lights.dir.intensity = resolvedTheme === "dark" ? 0.5 : 0.65;
+    lights.rim.intensity = resolvedTheme === "dark" ? 0.5 : 0.65;
   }, [resolvedTheme]);
 
   return <div ref={mountRef} className={className} />;
