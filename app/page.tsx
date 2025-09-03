@@ -24,6 +24,10 @@ const cards = [
     techs: ["Docker", "Kubernetes", "AWS", "Terraform", "CI/CD", "Linux"],
   },
 ];
+
+// Single source of truth for the animated border's full rotation duration (0 -> 360deg)
+const BORDER_ROTATION_S = 12; // seconds
+const CARD_ADVANCE_MS = (BORDER_ROTATION_S * 1000) / 4; // 90deg step
 // Generate N points around a rectangle perimeter (clockwise), padded from edges
 function rectAnchors(n: number, pad = 0.12) {
   const pts: { x: number; y: number }[] = [];
@@ -125,11 +129,11 @@ export default function HomePage() {
     return () => ro.disconnect();
   }, [index]);
 
-  // Auto-advance cards every 2 seconds
+  // Auto-advance when the border completes a 90° rotation
   useEffect(() => {
     const id = setInterval(() => {
       setIndex((i) => (i + 1) % cards.length);
-    }, 2000);
+    }, CARD_ADVANCE_MS);
     return () => clearInterval(id);
   }, []);
 
@@ -226,9 +230,37 @@ export default function HomePage() {
                 exit="exit"
                 className="absolute inset-0 will-change-[clip-path,transform,opacity,filter]"
               >
-                <div className="w-full h-full bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-800 dark:via-slate-700 dark:to-slate-800 rounded-3xl shadow-xl md:shadow-2xl relative overflow-visible border border-slate-200 dark:border-slate-700 backdrop-blur-sm">
-                  {/* Background */}
+                <div className="w-full h-full bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-800 dark:via-slate-700 dark:to-slate-800 rounded-3xl shadow-xl md:shadow-2xl relative overflow-visible border border-slate-200/70 dark:border-slate-700/70 backdrop-blur-sm">
+                  {/* Animated border */}
+          <div className="pointer-events-none absolute inset-0 rounded-3xl p-[2px]">
+                    <motion.div
+                      className="h-full w-full rounded-[inherit]"
+                      style={{
+                        background:
+                          "conic-gradient(from 90deg at 50% 50%, rgba(99,102,241,0.85), rgba(56,189,248,0.85), rgba(251,113,133,0.85), rgba(99,102,241,0.85))",
+                        WebkitMask:
+                          "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+                        WebkitMaskComposite: "xor",
+                        maskComposite: "exclude",
+                        padding: "2px",
+                      }}
+                      animate={{ rotate: [0, 180, 360] }}
+            transition={{ duration: BORDER_ROTATION_S, repeat: Infinity, ease: "linear" }}
+                    />
+                  </div>
+
+                  {/* Background gradient wash */}
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-500/5 dark:to-purple-500/5 rounded-3xl" />
+
+                  {/* Floating glow blob */}
+                  <motion.div
+                    className="pointer-events-none absolute -top-16 -right-16 h-56 w-56 rounded-full bg-fuchsia-500/25 blur-3xl"
+                    animate={{ x: [0, 25, -10, 0], y: [0, -15, 20, 0] }}
+                    transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+                  />
+
+                  {/* Subtle grid overlay */}
+                  <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-25 dark:opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:24px_24px]" />
 
                   {/* Center title (absolute true center) */}
                   <motion.div
