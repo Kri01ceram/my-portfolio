@@ -175,7 +175,7 @@ export default function HomePage() {
           className="grid items-center gap-8 lg:gap-12 sm:grid-cols-2"
         >
           <div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-gradient-brand">
               Hi, I&apos;m Krishna Singh
             </h1>
             <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-prose">
@@ -360,23 +360,8 @@ export default function HomePage() {
       whileHover={{ scale: 1.005 }}
             transition={{ type: "spring", stiffness: 220, damping: 22 }}
           >
-            {/* Animated border */}
-            <div className="pointer-events-none absolute inset-0 rounded-3xl p-[2px]">
-              <motion.div
-                className="h-full w-full rounded-[inherit]"
-                style={{
-                  background:
-                    "conic-gradient(from 90deg at 50% 50%, rgba(99,102,241,0.85), rgba(56,189,248,0.85), rgba(251,113,133,0.85), rgba(99,102,241,0.85))",
-                  WebkitMask:
-                    "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-                  WebkitMaskComposite: "xor",
-                  maskComposite: "exclude",
-                  padding: "2px",
-                }}
-                animate={{ rotate: [0, 180, 360] }}
-                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-              />
-            </div>
+            {/* Static subtle outline (no rotating beam) */}
+            <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-white/10 dark:ring-white/10" />
 
             {/* Floating glow */}
             <motion.div

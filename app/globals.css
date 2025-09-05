@@ -120,6 +120,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Brand gradient text (matches Project titles) */
+.text-gradient-brand{
+  background: linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 html {
   scroll-behavior: smooth;
 }
