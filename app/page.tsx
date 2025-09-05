@@ -10,17 +10,17 @@ import { useState, useEffect, useRef, useLayoutEffect } from "react";
 const cards = [
   {
     title: "Web Development",
-    gradient: "bg-gradient-to-r from-blue-500 to-indigo-600",
+    gradient: "bg-gradient-to-r from-sky-600 via-violet-600 to-rose-600",
     techs: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js", "Prisma", "PostgreSQL", "Framer Motion"],
   },
   {
     title: "ML Engineer",
-    gradient: "bg-gradient-to-r from-green-500 to-emerald-600",
+    gradient: "bg-gradient-to-r from-sky-600 via-violet-600 to-rose-600",
     techs: ["Python", "NumPy", "Pandas", "Scikit-learn", "TensorFlow", "PyTorch", "Matplotlib"],
   },
   {
     title: "DevOps Engineer",
-    gradient: "bg-gradient-to-r from-orange-500 to-red-600",
+    gradient: "bg-gradient-to-r from-sky-600 via-violet-600 to-rose-600",
     techs: ["Docker", "Kubernetes", "AWS", "Terraform", "CI/CD", "Linux"],
   },
 ];
@@ -175,9 +175,18 @@ export default function HomePage() {
           className="grid items-center gap-8 lg:gap-12 sm:grid-cols-2"
         >
           <div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-gradient-brand">
-              Hi, I&apos;m Krishna Singh
-            </h1>
+            <div className="relative inline-block pb-2">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-gradient-brand">
+                Hi, I&apos;m Krishna Singh
+              </h1>
+              <span className="pointer-events-none absolute -bottom-0.5 left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-sky-400 via-violet-400 to-rose-400 opacity-80" />
+              <motion.span
+                aria-hidden
+                className="pointer-events-none absolute -bottom-0.5 left-0 h-[3px] w-16 rounded-full bg-white/60 mix-blend-overlay"
+                animate={{ x: ["0%", "100%", "0%"] }}
+                transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </div>
             <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-prose">
               Full-stack developer & ML data analyst. I build fast, delightful
               web experiences with Next.js, React, and modern tooling.
@@ -230,7 +239,7 @@ export default function HomePage() {
                 exit="exit"
                 className="absolute inset-0 will-change-[clip-path,transform,opacity,filter]"
               >
-                <div className="w-full h-full bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-800 dark:via-slate-700 dark:to-slate-800 rounded-3xl shadow-xl md:shadow-2xl relative overflow-visible border border-slate-200/70 dark:border-slate-700/70 backdrop-blur-sm">
+                <div className="w-full h-full rounded-3xl shadow-xl md:shadow-2xl relative overflow-visible border border-white/30 dark:border-white/10 bg-white/50 dark:bg-slate-900/30 backdrop-blur-xl">
                   {/* Animated border */}
           <div className="pointer-events-none absolute inset-0 rounded-3xl p-[2px]">
                     <motion.div
@@ -250,7 +259,7 @@ export default function HomePage() {
                   </div>
 
                   {/* Background gradient wash */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-500/5 dark:to-purple-500/5 rounded-3xl" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-sky-400/8 via-violet-400/8 to-rose-400/8 dark:from-sky-400/4 dark:via-violet-400/4 dark:to-rose-400/4 rounded-3xl" />
 
                   {/* Floating glow blob */}
                   <motion.div
@@ -259,8 +268,9 @@ export default function HomePage() {
                     transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
                   />
 
-                  {/* Subtle grid overlay */}
-                  <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-25 dark:opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:24px_24px]" />
+                  {/* Subtle grid overlay (theme-aware) */}
+                  <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-30 hidden dark:block [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:24px_24px]" />
+                  <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-30 dark:hidden [background-image:linear-gradient(rgba(15,23,42,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.06)_1px,transparent_1px)] [background-size:24px_24px]" />
 
                   {/* Center title (absolute true center) */}
                   <motion.div
@@ -268,7 +278,7 @@ export default function HomePage() {
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.4 }}
-                    className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-full px-8 py-4 text-xl font-bold shadow-2xl text-white ${cards[index].gradient} border border-slate-200 dark:border-white/20`}
+                    className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 rounded-full px-8 py-4 text-xl font-bold shadow-2xl text-white ${cards[index].gradient} border border-white/50 dark:border-white/30 shadow-[inset_0_0_0_1.25px_rgba(255,255,255,0.18)]`}
                   >
                     {cards[index].title}
                   </motion.div>
@@ -328,14 +338,16 @@ export default function HomePage() {
                       return (
                         <motion.div
                           key={tech}
-          initial={{ scale: 0.94, opacity: 0 }}
+                           initial={{ scale: 0.96, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.25 + j * 0.05, type: "spring", stiffness: 130, damping: 20 }}
                           whileHover={{ scale: 1.08, y: -2, boxShadow: "0 12px 40px rgba(59,130,246,0.25)" }}
-                          className="absolute z-20 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white text-slate-800 dark:bg-slate-700/90 dark:text-white text-[0.9rem] md:text-base font-semibold px-4 py-2.5 shadow-lg md:shadow-xl border border-slate-300 dark:border-slate-500 backdrop-blur"
+                           className="absolute z-20 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white/80 dark:bg-slate-800/80 text-[0.9rem] md:text-base font-semibold px-4 py-2.5 shadow-lg md:shadow-xl border border-slate-200 dark:border-slate-600 backdrop-blur"
                           style={{ left: x, top: y }}
                         >
-                          {tech}
+                           <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,_#60a5fa,_#a78bfa,_#f472b6)] dark:bg-[linear-gradient(90deg,_#93c5fd,_#c4b5fd,_#f9a8d4)]">
+                             {tech}
+                           </span>
                         </motion.div>
                       );
                     });
@@ -356,12 +368,15 @@ export default function HomePage() {
       <Section id="contact" title="Contact" subtitle="Let's build something together">
     <div className="relative">
           <motion.div
-      className="relative rounded-3xl border border-white/10 dark:border-white/5 bg-white/5 dark:bg-white/5/5 backdrop-blur-xl overflow-hidden shadow-2xl"
+      className="relative rounded-3xl border border-white/30 dark:border-white/10 bg-white/50 dark:bg-slate-900/30 backdrop-blur-xl overflow-hidden shadow-2xl"
       whileHover={{ scale: 1.005 }}
             transition={{ type: "spring", stiffness: 220, damping: 22 }}
           >
             {/* Static subtle outline (no rotating beam) */}
             <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-white/10 dark:ring-white/10" />
+
+            {/* Background gradient wash to match brand */}
+            <div className="absolute inset-0 bg-gradient-to-br from-sky-400/8 via-violet-400/8 to-rose-400/8 dark:from-sky-400/4 dark:via-violet-400/4 dark:to-rose-400/4 rounded-3xl" />
 
             {/* Floating glow */}
             <motion.div
@@ -370,15 +385,16 @@ export default function HomePage() {
               transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
             />
 
-            {/* Subtle grid */}
-            <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-25 dark:opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:24px_24px]" />
+            {/* Subtle grid (theme-aware) */}
+            <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-30 hidden dark:block [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:24px_24px]" />
+            <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-30 dark:hidden [background-image:linear-gradient(rgba(15,23,42,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.06)_1px,transparent_1px)] [background-size:24px_24px]" />
 
             <div className="relative p-5 sm:p-6">
               <p className="text-base sm:text-lg text-slate-700 dark:text-slate-200">
-                Email: <a className="font-medium underline underline-offset-4 decoration-sky-500/70 hover:decoration-sky-500" href="mailto:0.krishna1120@gmail.com">0.krishna1120@gmail.com</a>
+                <span className="text-gradient-brand">Email:</span> <a className="font-medium underline underline-offset-4 decoration-sky-500/70 hover:decoration-sky-500" href="mailto:0.krishna1120@gmail.com">0.krishna1120@gmail.com</a>
               </p>
               <p className="mt-2.5 text-base sm:text-lg text-slate-700 dark:text-slate-200">
-                LinkedIn: <a className="font-medium underline underline-offset-4 decoration-violet-500/70 hover:decoration-violet-500" href="https://www.linkedin.com/in/krishna-singh-172642323/" target="_blank" rel="noreferrer noopener">krishna-singh-172642323</a>
+                <span className="text-gradient-brand">LinkedIn:</span> <a className="font-medium underline underline-offset-4 decoration-violet-500/70 hover:decoration-violet-500" href="https://www.linkedin.com/in/krishna-singh-172642323/" target="_blank" rel="noreferrer noopener">krishna-singh-172642323</a>
               </p>
               <div className="mt-5 flex flex-wrap gap-3">
                 <a href="mailto:0.krishna1120@gmail.com" className="rounded-xl px-5 py-2.5 bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60">

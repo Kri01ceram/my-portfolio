@@ -10,6 +10,7 @@ export default function Global3DBackground({ className = "" }: Props) {
   const { resolvedTheme } = useTheme();
   const reduced = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 640px), (pointer: coarse)");
@@ -17,6 +18,11 @@ export default function Global3DBackground({ className = "" }: Props) {
     update();
     mq.addEventListener?.("change", update);
     return () => mq.removeEventListener?.("change", update);
+  }, []);
+
+  useEffect(() => {
+    // Ensure client and server markup match before animating
+    setMounted(true);
   }, []);
 
   const palette = useMemo(() => {
@@ -44,7 +50,7 @@ export default function Global3DBackground({ className = "" }: Props) {
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_50%_10%,rgba(99,102,241,0.25),transparent),radial-gradient(120%_120%_at_50%_90%,rgba(56,189,248,0.22),transparent)] dark:bg-[radial-gradient(120%_120%_at_50%_10%,rgba(99,102,241,0.18),transparent),radial-gradient(120%_120%_at_50%_90%,rgba(6,182,212,0.18),transparent)]" />
 
       {/* Soft aurora bands (no rotating beam) */}
-      {!reduced && (
+  {mounted && !reduced && (
         <>
           <motion.div
             className="absolute inset-x-0 top-[10%] h-40 -z-10"
@@ -76,13 +82,13 @@ export default function Global3DBackground({ className = "" }: Props) {
       )}
 
       {/* Glow blobs */}
-      {blobs.map((b, idx) => (
+      {mounted && !reduced && blobs.map((b, idx) => (
         <motion.div
           key={idx}
           className="absolute -z-10 rounded-full blur-3xl"
           style={{
-            width: b.size,
-            height: b.size,
+            width: `${b.size}px`,
+            height: `${b.size}px`,
             left: `${b.startX}%`,
             top: `${b.startY}%`,
             background: `radial-gradient(circle at 30% 30%, ${b.color}66, ${b.color}22, transparent)`
