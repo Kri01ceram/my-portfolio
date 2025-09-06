@@ -11,7 +11,7 @@ const cards = [
   {
     title: "Web Development",
     gradient: "bg-gradient-to-r from-sky-600 via-violet-600 to-rose-600",
-    techs: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js", "Prisma", "PostgreSQL", "Framer Motion"],
+    techs: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js", "Firebase", "PostgreSQL", "Framer Motion"],
   },
   {
     title: "ML Engineer",
@@ -219,7 +219,7 @@ export default function HomePage() {
 
       {/* PROJECTS */}
       <Section id="projects" title="Projects" subtitle="A few things I have built recently">
-        <div className="mt-4 md:mt-6 grid gap-5 sm:gap-6 sm:grid-cols-2">
+        <div className="mt-4 md:mt-6 grid gap-5 sm:gap-6 sm:grid-cols-2 items-stretch">
           {projects.map((p) => <ProjectCard key={p.title} p={p} />)}
         </div>
       </Section>

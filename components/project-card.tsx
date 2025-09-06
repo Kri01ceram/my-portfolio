@@ -35,13 +35,13 @@ export default function ProjectCard({ p }: { p: Project }) {
   };
 
   return (
-    <div className="[perspective:1200px]">
+    <div className="h-full [perspective:1200px]">
       <motion.div
         ref={cardRef}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
         style={{ rotateX, rotateY }}
-        className="group relative rounded-3xl border border-white/10 dark:border-white/5 bg-white/5 dark:bg-white/5/5 shadow-2xl overflow-hidden will-change-transform"
+        className="group relative h-full rounded-3xl border border-white/10 dark:border-white/5 bg-white/5 dark:bg-white/5/5 shadow-2xl overflow-hidden will-change-transform"
         whileHover={{ scale: 1.02 }}
         transition={{ type: "spring", stiffness: 220, damping: 20 }}
       >
@@ -64,7 +64,7 @@ export default function ProjectCard({ p }: { p: Project }) {
         </div>
 
         {/* Inner surface */}
-        <div className="relative rounded-[inherit] bg-gradient-to-br from-white/10 via-white/5 to-transparent dark:from-slate-900/50 dark:via-slate-900/30 backdrop-blur-xl">
+  <div className="relative rounded-[inherit] bg-gradient-to-br from-white/10 via-white/5 to-transparent dark:from-slate-900/50 dark:via-slate-900/30 backdrop-blur-xl h-full">
           {/* Floating glow blob */}
           <motion.div
             className="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full bg-fuchsia-500/25 blur-3xl"
@@ -76,7 +76,7 @@ export default function ProjectCard({ p }: { p: Project }) {
           <div className="pointer-events-none absolute inset-0 opacity-25 dark:opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:22px_22px]" />
 
           {/* Content */}
-          <div className="relative p-5 sm:p-6">
+          <div className="relative p-5 sm:p-6 h-full flex flex-col">
             <div className="flex items-start justify-between gap-3">
               <h3 className="text-lg sm:text-xl font-semibold tracking-tight bg-clip-text text-transparent bg-[linear-gradient(90deg,_#60a5fa,_#a78bfa,_#f472b6)]">
                 {p.title}
@@ -115,7 +115,7 @@ export default function ProjectCard({ p }: { p: Project }) {
               {p.description}
             </p>
 
-            <div className="mt-4 flex flex-wrap gap-2.5">
+            <div className="mt-4 flex flex-wrap gap-2.5 mt-auto">
               {p.tags.map((t) => (
                 <motion.span
                   key={t}

@@ -9,8 +9,9 @@ export const projects: Project[] = [
     repo: "https://github.com/your/repo",
   },
   {
-    title: "ML Data Analyzer",
-    description: "Interactive dashboards and model inference for data analytics.",
-    tags: ["React", "Python", "FastAPI", "Docker"],
+    title: "Credit Risk Detection",
+    description: "Supervised learning model trained on real-world bank data to assess borrower risk. Includes feature engineering, model comparison, and explainability to support underwriting decisions.",
+    tags: ["Python", "Pandas", "Scikit-learn", "XGBoost", "EDA"],
+    repo: "https://github.com/your/credit-risk-detection",
   },
 ];
