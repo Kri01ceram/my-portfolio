@@ -207,7 +207,7 @@ export default function HomePage() {
             className="aspect-square rounded-2xl overflow-hidden shadow-inner"
           >
             <Image
-              src="/images/KRISHNA.jpg"
+              src="/images/KRISHNA.png"
               alt="My Picture"
               width={400}
               height={400}
