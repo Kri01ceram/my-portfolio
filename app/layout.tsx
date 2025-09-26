@@ -44,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Global3DBackground className="w-full h-full opacity-90 [mask-image:radial-gradient(85%_85%_at_50%_50%,_black_65%,_transparent_98%)]" />
           </div>
           <Header />
-          <main className="min-h-screen">{children}</main>
+            <main className="min-h-screen notebook-paper">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

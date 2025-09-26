@@ -24,8 +24,8 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-xl bg-white/40 dark:bg-slate-950/25 border-b border-white/20 dark:border-white/10 [mask-image:linear-gradient(to_bottom,black,black,transparent)]">
-      <nav className="mx-auto max-w-6xl px-4 sm:px-6 py-3.5 flex items-center justify-between">
+    <header className="sticky top-0 z-40 backdrop-blur-xl bg-white/50 dark:bg-slate-950/30 border-b border-white/30 dark:border-white/10 [mask-image:linear-gradient(to_bottom,black,black,transparent)]">
+      <nav className="mx-auto max-w-[1400px] px-3 sm:px-5 lg:px-6 py-3.5 flex items-center justify-between">
         <Link href="/" className="font-bold text-xl tracking-tight text-gradient-brand hover:opacity-90 transition">
           Krishna Singh
         </Link>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import Section from "@/components/section";
 import ProjectCard from "@/components/project-card";
 import { projects } from "@/lib/projects";
@@ -101,6 +101,27 @@ function rectAnchorsSmart(n: number, pad = 0.12) {
 
 export default function HomePage() {
   const [index, setIndex] = useState(0);
+  // 3D tilt motion values for hero avatar
+  const tiltX = useMotionValue(0); // rotateX
+  const tiltY = useMotionValue(0); // rotateY
+  const rX = useSpring(tiltX, { stiffness: 120, damping: 18, mass: 0.5 });
+  const rY = useSpring(tiltY, { stiffness: 120, damping: 18, mass: 0.5 });
+  const MAX_TILT = 16; // degrees
+
+  function handlePointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const rx = ((y / rect.height) - 0.5) * -MAX_TILT; // invert vertical for natural feel
+    const ry = ((x / rect.width) - 0.5) * MAX_TILT;
+    tiltX.set(rx);
+    tiltY.set(ry);
+  }
+
+  function resetTilt() {
+    tiltX.set(0);
+    tiltY.set(0);
+  }
     // Measure container and title to compute precise line endpoints
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -167,7 +188,7 @@ export default function HomePage() {
   return (
     <>
       {/* HERO */}
-  <section className="mx-auto max-w-6xl px-4 sm:px-6 py-14 sm:py-16 lg:py-18">
+  <section className="mx-auto max-w-[1400px] px-3 sm:px-5 lg:px-6 py-14 sm:py-16 lg:py-18">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -200,20 +221,89 @@ export default function HomePage() {
               </a>
             </div>
           </div>
-          <motion.div
-            initial={{ scale: 0.96, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="aspect-square rounded-2xl overflow-hidden shadow-inner"
-          >
-            <Image
-              src="/images/KRISHNA.png"
-              alt="My Picture"
-              width={400}
-              height={400}
-              className="object-cover w-full h-full"
-            />
-          </motion.div>
+          <div className="mx-auto w-full max-w-[380px] sm:max-w-[420px] md:max-w-[450px] lg:max-w-[480px]" style={{ perspective: 1400 }}>
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              onPointerMove={handlePointerMove}
+              onPointerLeave={resetTilt}
+              whileHover={{ scale: 1.035 }}
+              className="group relative aspect-square select-none"
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              {/* Base shadow disc behind (farther back) */}
+              <div
+                aria-hidden
+                className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_65%,rgba(0,0,0,0.55),transparent_70%)] blur-2xl opacity-70"
+                style={{ transform: "translateZ(-90px) scale(0.94)" }}
+              />
+              {/* Rotating gradient ring (mid plane) */}
+              <motion.div
+                aria-hidden
+                className="absolute inset-0 rounded-full p-[4px] shadow-[0_0_0_1px_rgba(255,255,255,0.15)]"
+                style={{
+                  background: "conic-gradient(from 0deg, #22d3ee, #3b82f6, #6366f1, #22d3ee)",
+                  WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+                  WebkitMaskComposite: "xor",
+                  maskComposite: "exclude",
+                  filter: "brightness(1) saturate(1.05)",
+                  transform: "translateZ(0px)",
+                }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                whileHover={{ filter: "brightness(1.25) saturate(1.25)" }}
+              />
+              {/* Glow aura that intensifies on hover */}
+              <div
+                aria-hidden
+                className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition duration-500 blur-2xl"
+                style={{
+                  background: "radial-gradient(circle at 50% 50%, rgba(56,189,248,0.55), rgba(99,102,241,0.25) 45%, transparent 70%)",
+                  transform: "translateZ(-40px)",
+                }}
+              />
+              {/* Parallax highlight */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 rounded-full opacity-0 group-hover:opacity-70 transition duration-700"
+                style={{
+                  background: "linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 60%)",
+                  mixBlendMode: "overlay",
+                  transform: "translateZ(70px) rotateZ(0.0001deg)",
+                }}
+              />
+              {/* Image container (front plane) */}
+              <motion.div
+                className="relative h-full w-full rounded-full overflow-hidden shadow-xl shadow-sky-900/10 ring-1 ring-white/20 dark:ring-white/10"
+                style={{
+                  rotateX: rX,
+                  rotateY: rY,
+                  transformStyle: "preserve-3d",
+                  transform: "translateZ(55px)",
+                }}
+              >
+                <Image
+                  src="/images/KRISHNA.png"
+                  alt="Portrait of Krishna Singh"
+                  width={600}
+                  height={600}
+                  className="object-cover w-full h-full select-none"
+                  draggable={false}
+                  priority
+                />
+                {/* Inner subtle depth ring */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 rounded-full"
+                  style={{
+                    background: "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.18), rgba(255,255,255,0) 65%)",
+                    mixBlendMode: "soft-light",
+                  }}
+                />
+              </motion.div>
+            </motion.div>
+          </div>
         </motion.div>
       </section>
 
@@ -225,7 +315,7 @@ export default function HomePage() {
       </Section>
 
       {/* TECH STACK - FIXED */}
-  <Section id="tech" title="Tech Stack" subtitle="Tools I use to ship">
+      <Section id="tech" title="Tech Stack" subtitle="Tools I use to ship">
         <div className="relative w-full h-[520px] md:h-[560px] lg:h-[600px] flex items-center justify-center overflow-visible">
 
           {/* CARDS CONTAINER (measured) */}
