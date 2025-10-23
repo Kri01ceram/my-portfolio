@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useLayoutEffect, useState } from "react";
-import { motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform, useMotionValueEvent } from "framer-motion";
 import type { Achievement } from "@/lib/achievements";
 import { achievements as data } from "@/lib/achievements";
 
@@ -32,15 +32,16 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
   const { scrollYProgress } = useScroll({ target: targetRef, offset: ["start end", "end start"] });
   const smooth = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.6 });
 
-  const [w, setW] = useState(800);
-  const [trainW, setTrainW] = useState(80);
+  // Measure height for vertical travel
+  const [h, setH] = useState(400);
+  const [trainH, setTrainH] = useState(80);
   const trainRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const el = targetRef.current;
     if (!el) return;
     const ro = new ResizeObserver(([entry]) => {
-      setW(entry.contentRect.width);
+      setH(entry.contentRect.height);
     });
     ro.observe(el);
     return () => ro.disconnect();
@@ -49,10 +50,10 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
   useLayoutEffect(() => {
     const tr = trainRef.current;
     if (!tr) return;
-    setTrainW(tr.getBoundingClientRect().width);
+    setTrainH(tr.getBoundingClientRect().height);
   }, []);
 
-  const xPx = useTransform(smooth, [0, 1], [0, Math.max(0, w - trainW)]);
+  const yPx = useTransform(smooth, [0, 1], [0, Math.max(0, h - trainH)]);
 
   const [active, setActive] = useState(0);
   useMotionValueEvent(smooth, "change", (v) => {
@@ -61,66 +62,53 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
     setActive(idx);
   });
 
+  const denom = Math.max(1, achievements.length - 1);
+
   return (
     <div ref={targetRef} className="relative w-full">
-      {/* Track */}
-      <div className="relative h-[220px] sm:h-[260px] lg:h-[300px] overflow-visible">
-        <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[3px] rounded bg-gradient-to-r from-sky-400/70 via-blue-500/70 to-indigo-500/70" />
+      {/* Vertical track (short and compact) */}
+      <div className="relative h-[360px] sm:h-[420px] overflow-visible">
+        <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[3px] rounded bg-gradient-to-b from-sky-400/70 via-blue-500/70 to-indigo-500/70" />
 
-        {/* Stations */}
+        {/* Stations with alternating side labels */}
         {achievements.map((a, i) => {
-          const pct = (i / (achievements.length - 1)) * 100;
+          const pct = (i / denom) * 100;
           const reached = i <= active;
+          const isLeft = i % 2 === 0;
           return (
-            <div key={a.id} className="absolute top-1/2 -translate-y-1/2" style={{ left: `${pct}%` }}>
-              <div className="-translate-x-1/2 flex flex-col items-center gap-2">
-                <div className={`h-3 w-3 rounded-full ring-2 ${reached ? "bg-blue-500 ring-blue-300" : "bg-slate-300 ring-slate-200 dark:bg-slate-700 dark:ring-slate-600"}`} />
-                <div className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 whitespace-nowrap">
-                  {a.date}
+            <div key={a.id} className="absolute left-1/2 -translate-x-1/2" style={{ top: `${pct}%` }}>
+              {/* Dot */}
+              <div className={`h-3 w-3 rounded-full ring-2 ${reached ? "bg-blue-500 ring-blue-300" : "bg-slate-300 ring-slate-200 dark:bg-slate-700 dark:ring-slate-600"}`} />
+              {/* Connector line to label */}
+              <div
+                className={`absolute top-1/2 -translate-y-1/2 h-[2px] ${isLeft ? "right-[calc(50%+6px)] w-16" : "left-[calc(50%+6px)] w-16"} bg-slate-300/70 dark:bg-slate-600/70`}
+              />
+              {/* Label bubble */}
+              <div
+                className={`absolute top-1/2 -translate-y-1/2 ${isLeft ? "right-[calc(50%+72px)] text-right" : "left-[calc(50%+72px)]"}`}
+              >
+                <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/60 backdrop-blur px-3.5 py-2 shadow-sm">
+                  <div className="text-[0.8rem] font-semibold text-slate-900 dark:text-slate-100">{a.title}</div>
+                  <div className="text-xs text-slate-700 dark:text-slate-300">{a.date}</div>
                 </div>
               </div>
             </div>
           );
         })}
 
-        {/* Train */}
+        {/* Train moving vertically */}
         <motion.div
           ref={trainRef}
-          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2"
-          style={{ x: xPx }}
+          className="absolute left-1/2 -translate-x-1/2"
+          style={{ y: yPx }}
         >
           <div className="flex flex-col items-center">
-            <TrainIcon />
-            <div className="mt-1 h-1.5 w-16 rounded-full bg-black/15 blur-[2px] dark:bg-white/10" />
+            <div className="rotate-90">
+              <TrainIcon />
+            </div>
+            <div className="mt-1 h-4 w-2 rounded-full bg-black/10 blur-[1px] dark:bg-white/10" />
           </div>
         </motion.div>
-
-        {/* Active achievement card */}
-        <AnimatePresence mode="popLayout">
-          <motion.div
-            key={achievements[active]?.id}
-            initial={{ opacity: 0, y: 16, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 160, damping: 20 }}
-            className="absolute left-1/2 top-[10%] -translate-x-1/2 sm:top-[12%]"
-          >
-            <div className="rounded-2xl border border-white/20 dark:border-white/10 bg-white/70 dark:bg-slate-900/50 backdrop-blur-md shadow-xl px-4 py-3 sm:px-5 sm:py-4 max-w-[88vw] sm:max-w-[620px]">
-              <div className="flex items-start gap-3">
-                <div className="text-2xl leading-none">
-                  {achievements[active]?.icon ?? "🎯"}
-                </div>
-                <div>
-                  <div className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">{achievements[active]?.title}</div>
-                  <div className="text-xs sm:text-sm text-slate-700 dark:text-slate-300">{achievements[active]?.date}</div>
-                  <div className="mt-1.5 text-sm sm:text-base text-slate-700/90 dark:text-slate-300/90">
-                    {achievements[active]?.description}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
       </div>
     </div>
   );
