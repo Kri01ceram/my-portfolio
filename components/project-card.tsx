@@ -16,8 +16,8 @@ export default function ProjectCard({ p }: { p: Project }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rotateX = useTransform(y, [-0.5, 0.5], [8, -8]);
-  const rotateY = useTransform(x, [-0.5, 0.5], [-8, 8]);
+  const rotateX = useTransform(y, [-0.5, 0.5], [6, -6]);
+  const rotateY = useTransform(x, [-0.5, 0.5], [-6, 6]);
 
   const onMouseMove = (e: React.MouseEvent) => {
     const el = cardRef.current;
@@ -51,7 +51,7 @@ export default function ProjectCard({ p }: { p: Project }) {
             className="h-full w-full rounded-[inherit]"
             style={{
               background:
-                "conic-gradient(from 90deg at 50% 50%, rgba(99,102,241,0.8), rgba(56,189,248,0.8), rgba(251,113,133,0.8), rgba(99,102,241,0.8))",
+                "conic-gradient(from 90deg at 50% 50%, rgba(56,189,248,0.85), rgba(59,130,246,0.85), rgba(99,102,241,0.85), rgba(56,189,248,0.85))",
               WebkitMask:
                 "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
               WebkitMaskComposite: "xor",
@@ -67,18 +67,18 @@ export default function ProjectCard({ p }: { p: Project }) {
   <div className="relative rounded-[inherit] bg-gradient-to-br from-white/10 via-white/5 to-transparent dark:from-slate-900/50 dark:via-slate-900/30 backdrop-blur-xl h-full">
           {/* Floating glow blob */}
           <motion.div
-            className="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full bg-fuchsia-500/25 blur-3xl"
+            className="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full bg-sky-400/25 blur-3xl"
             animate={{ x: [0, 20, -10, 0], y: [0, -10, 15, 0] }}
             transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           />
 
           {/* Subtle grid */}
-          <div className="pointer-events-none absolute inset-0 opacity-25 dark:opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:22px_22px]" />
+          <div className="pointer-events-none absolute inset-0 opacity-20 dark:opacity-15 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:22px_22px]" />
 
           {/* Content */}
           <div className="relative p-5 sm:p-6 h-full flex flex-col">
             <div className="flex items-start justify-between gap-3">
-              <h3 className="text-lg sm:text-xl font-semibold tracking-tight bg-clip-text text-transparent bg-[linear-gradient(90deg,_#60a5fa,_#a78bfa,_#f472b6)]">
+              <h3 className="text-lg sm:text-xl font-semibold tracking-tight bg-clip-text text-transparent bg-[linear-gradient(90deg,_#22d3ee,_#3b82f6,_#6366f1)]">
                 {p.title}
               </h3>
               <div className="flex items-center gap-2">
@@ -122,7 +122,7 @@ export default function ProjectCard({ p }: { p: Project }) {
                   whileHover={{ y: -2 }}
                   className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/10 px-2.5 py-1 text-xs text-slate-700 dark:text-slate-200 backdrop-blur [box-shadow:inset_0_1px_0_0_rgba(255,255,255,.12)]"
                 >
-                  <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-tr from-sky-400 to-fuchsia-400" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-tr from-sky-400 to-indigo-400" />
                   {t}
                 </motion.span>
               ))}

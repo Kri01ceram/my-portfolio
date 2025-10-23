@@ -194,10 +194,22 @@ export default function HomePage() {
       <Section id="tech" title="Tech Stack" subtitle="Tools I use to ship">
         <div className="mt-4 md:mt-6 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((c) => (
-            <div key={c.title} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/40 backdrop-blur shadow-md hover:shadow-xl transition">
+            <motion.div
+              key={c.title}
+              whileHover={{ y: -4 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              className="group relative rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/40 backdrop-blur shadow-sm hover:shadow-xl"
+            >
+              {/* top accent */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-[3px] rounded-t-2xl bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-500 opacity-70" />
               <div className="p-5">
-                <div className={`text-lg font-bold bg-clip-text text-transparent ${c.gradient}`}>
-                  {c.title}
+                <div className="flex items-center justify-between">
+                  <div className={`text-lg font-bold bg-clip-text text-transparent ${c.gradient}`}>
+                    {c.title}
+                  </div>
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-sky-400/20 to-indigo-500/20 text-slate-700 dark:text-slate-200">
+                    •
+                  </span>
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2.5">
                   {c.techs.map((t) => (
@@ -208,7 +220,7 @@ export default function HomePage() {
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </Section>
@@ -218,18 +230,31 @@ export default function HomePage() {
       <Section id="achievements" title="Achievements" subtitle="Milestones I'm proud of">
         <div className="mt-4 md:mt-6 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
           {achievements.map((a) => (
-            <div key={a.id} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/40 backdrop-blur shadow-md hover:shadow-xl transition">
+            <motion.div
+              key={a.id}
+              whileHover={{ y: -4 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              className="relative rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-900/40 backdrop-blur shadow-sm hover:shadow-xl"
+            >
+              {/* left accent bar */}
+              <div className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-2xl bg-gradient-to-b from-sky-400 via-blue-500 to-indigo-500 opacity-80" />
               <div className="p-5">
                 <div className="flex items-start gap-3">
-                  <div className="text-2xl">{a.icon ?? "🏆"}</div>
-                  <div>
-                    <div className="text-lg font-bold text-slate-900 dark:text-slate-100">{a.title}</div>
-                    <div className="text-sm text-slate-700 dark:text-slate-300">{a.date}</div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-sky-400/20 to-indigo-500/20 text-xl">
+                    {a.icon ?? "🏆"}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="text-lg font-bold text-slate-900 dark:text-slate-100 truncate">{a.title}</div>
+                      <span className="text-xs px-2 py-1 rounded-md bg-slate-900/5 dark:bg-white/10 text-slate-700 dark:text-slate-300 whitespace-nowrap">{a.date}</span>
+                    </div>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-700/90 dark:text-slate-300/90">
+                      {a.description}
+                    </p>
                   </div>
                 </div>
-                <p className="mt-3 text-sm text-slate-700/90 dark:text-slate-300/90">{a.description}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </Section>
