@@ -26,7 +26,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 backdrop-blur-xl bg-white/50 dark:bg-slate-950/30 border-b border-white/30 dark:border-white/10 [mask-image:linear-gradient(to_bottom,black,black,transparent)]">
       <nav className="mx-auto max-w-[1400px] px-3 sm:px-5 lg:px-6 py-3.5 flex items-center justify-between">
-        <Link href="/" className="font-bold text-xl tracking-tight text-gradient-brand hover:opacity-90 transition">
+        <Link href="/" className="font-bold text-xl tracking-tight text-foreground hover:opacity-80 transition">
           Krishna Singh
         </Link>
         <div className="flex items-center gap-5 sm:gap-6">
@@ -35,12 +35,10 @@ export default function Header() {
               key={link.href}
               href={link.href}
               onClick={(e) => handleSmoothScroll(e, link.href)}
-              className="group relative text-sm font-medium text-slate-700 dark:text-slate-200 transition-colors duration-200"
+              className="group relative text-sm font-medium text-foreground/90 hover:text-foreground transition-colors duration-200"
             >
-              <span className="bg-clip-text text-transparent bg-[linear-gradient(90deg,_#60a5fa,_#a78bfa,_#f472b6)] group-hover:opacity-100 opacity-90">
-                {link.label}
-              </span>
-              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gradient-to-r from-sky-400 via-violet-400 to-rose-400 transition-all duration-300 group-hover:w-full"></span>
+              {link.label}
+              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current/60 transition-all duration-300 group-hover:w-full"></span>
             </a>
           ))}
           <ThemeToggle />
