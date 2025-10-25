@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import ThemeToggle from "./theme-toggle";
 
 const links = [
   { href: "#projects", label: "Projects" },
@@ -24,8 +23,8 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-xl bg-white/50 dark:bg-slate-950/30 border-b border-white/30 dark:border-white/10 [mask-image:linear-gradient(to_bottom,black,black,transparent)]">
-      <nav className="mx-auto max-w-[1400px] px-3 sm:px-5 lg:px-6 py-3.5 flex items-center justify-between">
+    <header className="sticky top-0 z-40 backdrop-blur-xl bg-white/70 border-b border-black/10 [mask-image:linear-gradient(to_bottom,black,black,transparent)]">
+      <nav className="mx-auto max-w-[1100px] px-3 sm:px-5 lg:px-6 py-3.5 flex items-center justify-between">
         <Link href="/" className="font-bold text-xl tracking-tight text-foreground hover:opacity-80 transition">
           Krishna Singh
         </Link>
@@ -41,7 +40,6 @@ export default function Header() {
               <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current/60 transition-all duration-300 group-hover:w-full"></span>
             </a>
           ))}
-          <ThemeToggle />
         </div>
       </nav>
     </header>
