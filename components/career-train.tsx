@@ -47,8 +47,8 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
 
   return (
     <div ref={targetRef} className="relative w-full">
-      {/* Vertical track (short and compact) */}
-      <div className="relative h-[380px] sm:h-[460px] overflow-visible">
+      {/* Vertical track (more compact) */}
+      <div className="relative h-[260px] sm:h-[320px] overflow-visible">
         {/* Base track */}
         <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] rounded bg-slate-200" />
         {/* Progress fill */}
@@ -65,19 +65,18 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
           return (
             <div key={a.id} className="absolute left-1/2 -translate-x-1/2" style={{ top: `${pct}%` }}>
               {/* Dot */}
-              <div className={`h-3 w-3 rounded-full ring-2 ${reached ? "bg-slate-900 ring-slate-500" : "bg-white ring-slate-300"}`} />
+              <div className={`h-2.5 w-2.5 rounded-full ring-2 ${reached ? "bg-slate-900 ring-slate-500" : "bg-white ring-slate-300"}`} />
               {/* Connector line to label */}
               <div
-                className={`absolute top-1/2 -translate-y-1/2 h-[2px] ${isLeft ? "right-[calc(50%+6px)] w-20" : "left-[calc(50%+6px)] w-20"} bg-slate-200`}
+                className={`absolute top-1/2 -translate-y-1/2 h-px ${isLeft ? "right-[calc(50%+6px)] w-14 sm:w-16" : "left-[calc(50%+6px)] w-14 sm:w-16"} bg-slate-200`}
               />
               {/* Label bubble */}
               <div
-                className={`absolute top-1/2 -translate-y-1/2 ${isLeft ? "right-[calc(50%+86px)] text-right" : "left-[calc(50%+86px)]"}`}
+                className={`absolute top-1/2 -translate-y-1/2 ${isLeft ? "right-[calc(50%+70px)] text-right" : "left-[calc(50%+70px)]"}`}
               >
-                <div className="rounded-xl border border-slate-200 bg-white px-3.5 py-2 shadow-sm">
-                  <div className="text-[0.85rem] font-semibold text-slate-900">{a.title}</div>
-                  <div className="text-[11px] text-slate-500">{a.date}</div>
-                  {a.description && <div className="mt-1 text-[11px] leading-relaxed text-slate-600 line-clamp-2 max-w-[320px]">{a.description}</div>}
+                <div className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 shadow-sm max-w-[240px]" title={a.description || a.title}>
+                  <div className="text-[0.82rem] font-semibold text-slate-900 truncate">{a.title}</div>
+                  <div className="text-[10px] text-slate-500">{a.date}</div>
                 </div>
               </div>
             </div>
@@ -87,7 +86,7 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
         {/* Minimal current-position indicator */}
         <motion.div ref={trainRef} className="absolute left-1/2 -translate-x-1/2" style={{ y: yPx }}>
           <div className="relative flex items-center justify-center">
-            <div className="h-4 w-4 rounded-full bg-slate-900 ring-4 ring-slate-100 shadow-sm" />
+            <div className="h-3 w-3 rounded-full bg-slate-900 ring-3 ring-slate-100 shadow-sm" />
           </div>
         </motion.div>
       </div>
