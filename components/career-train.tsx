@@ -74,9 +74,17 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
               <div
                 className={`absolute top-1/2 -translate-y-1/2 ${isLeft ? "right-[calc(50%+70px)] text-right" : "left-[calc(50%+70px)]"}`}
               >
-                <div className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 shadow-sm max-w-[240px]" title={a.description || a.title}>
+                <div className="group rounded-lg border border-slate-200 bg-white px-3 py-1.5 shadow-sm max-w-[240px]" title={a.description || a.title}>
                   <div className="text-[0.82rem] font-semibold text-slate-900 truncate">{a.title}</div>
                   <div className="text-[10px] text-slate-500">{a.date}</div>
+                  {/* Hover-reveal summary */}
+                  {(a.description || a.title) && (
+                    <div className="overflow-hidden max-h-0 group-hover:max-h-24 transition-[max-height] duration-300 ease-out">
+                      <div className="pt-1 text-[11px] leading-relaxed text-slate-600 translate-y-[-4px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-300">
+                        {a.description || `More about ${a.title}.`}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
