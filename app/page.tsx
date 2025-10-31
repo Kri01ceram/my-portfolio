@@ -150,24 +150,27 @@ export default function HomePage() {
         <div className="mt-4 md:mt-6 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((c) => (
             <motion.div key={c.title} whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 200, damping: 20 }}>
-              <Card className="rounded-2xl">
+              <Card className="rounded-2xl group">
                 <CardHeader className="border-b">
                   <CardTitle className="text-lg text-slate-900">{c.title}</CardTitle>
-                  <CardDescription className="sr-only">Tech stack category</CardDescription>
+                  <CardDescription className="text-xs text-slate-500">Hover to view technologies</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="mt-3 flex flex-wrap gap-2.5">
-                    {c.techs.map((t) => (
-                      <Tooltip key={t}>
-                        <TooltipTrigger asChild>
-                          <span className="inline-flex items-center gap-1 rounded-full border border-input px-3 py-1.5 text-sm bg-white cursor-help">
-                            <span className="h-1.5 w-1.5 rounded-full bg-slate-500" />
-                            <span className="text-slate-800">{t}</span>
-                          </span>
-                        </TooltipTrigger>
-                        <TooltipContent sideOffset={6}>{techInfo[t] ?? `About ${t}`}</TooltipContent>
-                      </Tooltip>
-                    ))}
+                  {/* Reveal technologies on hover */}
+                  <div className="overflow-hidden max-h-0 group-hover:max-h-64 transition-[max-height] duration-300 ease-out">
+                    <div className="mt-3 flex flex-wrap gap-2.5 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
+                      {c.techs.map((t) => (
+                        <Tooltip key={t}>
+                          <TooltipTrigger asChild>
+                            <span className="inline-flex items-center gap-1 rounded-full border border-input px-3 py-1.5 text-sm bg-white cursor-help">
+                              <span className="h-1.5 w-1.5 rounded-full bg-slate-500" />
+                              <span className="text-slate-800">{t}</span>
+                            </span>
+                          </TooltipTrigger>
+                          <TooltipContent sideOffset={6}>{techInfo[t] ?? `About ${t}`}</TooltipContent>
+                        </Tooltip>
+                      ))}
+                    </div>
                   </div>
                 </CardContent>
               </Card>
