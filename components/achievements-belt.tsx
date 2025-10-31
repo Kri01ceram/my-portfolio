@@ -18,17 +18,8 @@ export default function AchievementsBelt({ items = achievements }: { items?: Ach
 
   return (
     <div className="relative overflow-hidden">
-      <div
-        className="group relative"
-        // grouping container to pause animation on hover
-      >
-        <div
-          className="flex gap-4 sm:gap-6 items-stretch [animation:marquee_linear_infinite] hover:[animation-play-state:paused]"
-          style={{
-            // CSS var not needed; duration fixed for simplicity
-            // Tailwind can't define keyframes inline; we rely on a global keyframe name 'marquee'
-          }}
-        >
+      <div className="group relative">
+        <div className="marquee-track flex gap-4 sm:gap-6 items-stretch">
           {loop.map((a, i) => (
             <div key={`${a.id}-${i}`} className="shrink-0 w-[280px] sm:w-[320px]">
               <div className="group/item rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
@@ -59,19 +50,6 @@ export default function AchievementsBelt({ items = achievements }: { items?: Ach
           ))}
         </div>
       </div>
-      {/* Keyframes definition */}
-      <style jsx>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .[animation\\:marquee_linear_infinite] {
-          animation-name: marquee;
-          animation-duration: 28s;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-        }
-      `}</style>
     </div>
   );
 }
