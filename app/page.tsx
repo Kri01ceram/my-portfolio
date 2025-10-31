@@ -149,7 +149,14 @@ export default function HomePage() {
       <Section id="tech" title="Tech Stack" subtitle="Tools I use to ship">
         <div className="mt-4 md:mt-6 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((c) => (
-            <motion.div key={c.title} whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 200, damping: 20 }}>
+            <motion.div
+              key={c.title}
+              whileHover={{ y: -4 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+            >
               <Card className="rounded-2xl group">
                 <CardHeader className="border-b">
                   <CardTitle className="text-lg text-slate-900">{c.title}</CardTitle>
@@ -157,15 +164,19 @@ export default function HomePage() {
                 </CardHeader>
                 <CardContent>
                   {/* Reveal technologies on hover */}
-                  <div className="overflow-hidden max-h-0 group-hover:max-h-64 transition-[max-height] duration-300 ease-out">
-                    <div className="mt-3 flex flex-wrap gap-2.5 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
+                  <div className="overflow-hidden max-h-0 group-hover:max-h-64 transition-[max-height] duration-400 ease-out">
+                    <div className="mt-3 flex flex-wrap gap-2.5 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition duration-400 ease-out">
                       {c.techs.map((t) => (
                         <Tooltip key={t}>
                           <TooltipTrigger asChild>
-                            <span className="inline-flex items-center gap-1 rounded-full border border-input px-3 py-1.5 text-sm bg-white cursor-help">
-                              <span className="h-1.5 w-1.5 rounded-full bg-slate-500" />
+                            <motion.span
+                              whileHover={{ y: -2, scale: 1.03 }}
+                              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                              className="inline-flex items-center gap-1 rounded-full border border-input px-3 py-1.5 text-sm bg-white cursor-help transition-colors duration-200 hover:bg-slate-50"
+                            >
+                              <span className="h-1.5 w-1.5 rounded-full bg-slate-500 transition-colors" />
                               <span className="text-slate-800">{t}</span>
-                            </span>
+                            </motion.span>
                           </TooltipTrigger>
                           <TooltipContent sideOffset={6}>{techInfo[t] ?? `About ${t}`}</TooltipContent>
                         </Tooltip>

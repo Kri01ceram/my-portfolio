@@ -65,27 +65,30 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
           return (
             <div key={a.id} className="absolute left-1/2 -translate-x-1/2" style={{ top: `${pct}%` }}>
               {/* Dot */}
-              <div className={`h-2.5 w-2.5 rounded-full ring-2 ${reached ? "bg-slate-900 ring-slate-500" : "bg-white ring-slate-300"}`} />
+              <div className={`h-2.5 w-2.5 rounded-full ring-2 transition-colors duration-300 ${reached ? "bg-slate-900 ring-slate-500" : "bg-white ring-slate-300"}`} />
               {/* Connector line to label */}
               <div
-                className={`absolute top-1/2 -translate-y-1/2 h-px ${isLeft ? "right-[calc(50%+6px)] w-14 sm:w-16" : "left-[calc(50%+6px)] w-14 sm:w-16"} bg-slate-200`}
+                className={`absolute top-1/2 -translate-y-1/2 h-px ${isLeft ? "right-[calc(50%+6px)] w-14 sm:w-16" : "left-[calc(50%+6px)] w-14 sm:w-16"} bg-slate-200 transition-colors duration-300`}
               />
               {/* Label bubble */}
-              <div
-                className={`absolute top-1/2 -translate-y-1/2 ${isLeft ? "right-[calc(50%+70px)] text-right" : "left-[calc(50%+70px)]"}`}
-              >
-                <div className="group rounded-lg border border-slate-200 bg-white px-3 py-1.5 shadow-sm max-w-[240px]" title={a.description || a.title}>
+              <div className={`absolute top-1/2 -translate-y-1/2 ${isLeft ? "right-[calc(50%+70px)] text-right" : "left-[calc(50%+70px)]"}`}>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                  className="group rounded-lg border border-slate-200 bg-white px-3 py-1.5 shadow-sm max-w-[240px] transition-shadow"
+                  title={a.description || a.title}
+                >
                   <div className="text-[0.82rem] font-semibold text-slate-900 truncate">{a.title}</div>
                   <div className="text-[10px] text-slate-500">{a.date}</div>
                   {/* Hover-reveal summary */}
                   {(a.description || a.title) && (
-                    <div className="overflow-hidden max-h-0 group-hover:max-h-24 transition-[max-height] duration-300 ease-out">
-                      <div className="pt-1 text-[11px] leading-relaxed text-slate-600 translate-y-[-4px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-300">
+                    <div className="overflow-hidden max-h-0 group-hover:max-h-24 transition-[max-height] duration-400 ease-out">
+                      <div className="pt-1 text-[11px] leading-relaxed text-slate-600 -translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-400 ease-out">
                         {a.description || `More about ${a.title}.`}
                       </div>
                     </div>
                   )}
-                </div>
+                </motion.div>
               </div>
             </div>
           );
