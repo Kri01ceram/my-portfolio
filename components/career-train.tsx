@@ -74,7 +74,7 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
               <div className={`absolute top-1/2 -translate-y-1/2 ${isLeft ? "right-[calc(50%+70px)] text-right" : "left-[calc(50%+70px)]"}`}>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                  transition={{ type: "spring", stiffness: 180, damping: 24 }}
                   className="group rounded-lg border border-slate-200 bg-white px-3 py-1.5 shadow-sm max-w-[240px] transition-shadow"
                   title={a.description || a.title}
                 >

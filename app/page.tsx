@@ -9,6 +9,7 @@ import Image from "next/image";
 import { achievements } from "@/lib/achievements";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import AchievementsBelt from "@/components/achievements-belt";
 
 const cards = [
   {
@@ -192,7 +193,7 @@ export default function HomePage() {
                           <TooltipTrigger asChild>
                             <motion.span
                               whileHover={{ y: -2, scale: 1.03 }}
-                              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                              transition={{ type: "spring", stiffness: 180, damping: 22 }}
                               className="inline-flex items-center gap-1 rounded-full border border-input px-3 py-1.5 text-sm bg-white cursor-help transition-colors duration-200 hover:bg-slate-50"
                             >
                               <span className="h-1.5 w-1.5 rounded-full bg-slate-500 transition-colors" />
@@ -213,30 +214,9 @@ export default function HomePage() {
 
 
       {/* ACHIEVEMENTS */}
-      <Section id="achievements" title="Achievements" subtitle="Milestones I'm proud of">
-        <div className="mt-4 md:mt-6 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
-          {achievements.map((a) => (
-            <motion.div key={a.id} whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 200, damping: 20 }}>
-              <Card className="rounded-2xl h-full">
-                <CardHeader className="border-b">
-                  <div className="flex items-start gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-xl">
-                      {a.icon ?? "🏆"}
-                    </div>
-                    <div className="min-w-0">
-                      <CardTitle className="text-base sm:text-lg text-slate-900 truncate">{a.title}</CardTitle>
-                      <CardDescription className="text-xs">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded bg-slate-100 text-slate-700">{a.date}</span>
-                      </CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-700">{a.description}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+      <Section id="achievements" title="Achievements" subtitle="Hover to pause and see details">
+        <div className="mt-4 md:mt-6">
+          <AchievementsBelt items={achievements} />
         </div>
       </Section>
 

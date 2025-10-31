@@ -5,6 +5,7 @@ export type Achievement = {
   description: string;
   location?: string;
   icon?: string; // emoji or icon name
+  link?: string; // optional proof or originality link
 };
 
 export const achievements: Achievement[] = [
@@ -14,6 +15,7 @@ export const achievements: Achievement[] = [
     date: "2019",
     description: "Wrote my first programs and fell in love with building things.",
     icon: "🚂",
+    link: "https://example.com/proof/start",
   },
   {
     id: "intern-ml",
@@ -21,6 +23,7 @@ export const achievements: Achievement[] = [
     date: "2021",
     description: "Explored classical ML, built data pipelines and model baselines.",
     icon: "🧠",
+    link: "https://example.com/proof/intern-ml",
   },
   {
     id: "open-source",
@@ -28,6 +31,7 @@ export const achievements: Achievement[] = [
     date: "2022",
     description: "Contributed to community tooling and UI libraries.",
     icon: "🌟",
+    link: "https://github.com/your-profile",
   },
   {
     id: "ship-portfolio",
@@ -35,6 +39,7 @@ export const achievements: Achievement[] = [
     date: "2023",
     description: "Designed and deployed my first Next.js portfolio site.",
     icon: "🚀",
+    link: "https://example.com/proof/portfolio",
   },
   {
     id: "ml-project",
@@ -42,5 +47,6 @@ export const achievements: Achievement[] = [
     date: "2024",
     description: "Delivered an end-to-end model and dashboard for insights.",
     icon: "📊",
+    link: "https://github.com/your/credit-risk-detection",
   },
 ];
