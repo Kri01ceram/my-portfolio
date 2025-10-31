@@ -7,17 +7,36 @@ import ProjectCard from "@/components/project-card";
 import { projects } from "@/lib/projects";
 import Image from "next/image";
 import { achievements } from "@/lib/achievements";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 const cards = [
   {
     title: "Web Development",
     gradient: "bg-gradient-to-r from-sky-600 via-violet-600 to-rose-600",
-    techs: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js", "Firebase", "PostgreSQL", "Framer Motion"],
+    techs: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Node.js",
+      "Firebase",
+      "PostgreSQL",
+      "Framer Motion",
+    ],
   },
   {
     title: "ML Engineer",
     gradient: "bg-gradient-to-r from-sky-600 via-violet-600 to-rose-600",
-    techs: ["Python", "NumPy", "Pandas", "Scikit-learn", "TensorFlow", "PyTorch", "Matplotlib"],
+    techs: [
+      "Python",
+      "NumPy",
+      "Pandas",
+      "Scikit-learn",
+      "TensorFlow",
+      "PyTorch",
+      "Matplotlib",
+    ],
   },
   {
     title: "DevOps Engineer",
@@ -25,6 +44,31 @@ const cards = [
     techs: ["Docker", "Kubernetes", "AWS", "Terraform", "CI/CD", "Linux"],
   },
 ];
+
+// Tech descriptions for hover tooltips (fallback to generic if missing)
+const techInfo: Record<string, string> = {
+  "Next.js": "React framework for SSR/SSG and app routing.",
+  React: "UI library for building component-based interfaces.",
+  TypeScript: "Typed superset of JavaScript for safer code.",
+  "Tailwind CSS": "Utility-first CSS framework for rapid UI building.",
+  "Node.js": "JavaScript runtime for building backends and tools.",
+  Firebase: "Backend services: auth, firestore, hosting, storage.",
+  PostgreSQL: "Open-source relational database with strong SQL support.",
+  "Framer Motion": "Production-ready animation library for React.",
+  Python: "General-purpose language for ML, data, and scripting.",
+  NumPy: "N-dimensional arrays and numeric computing.",
+  Pandas: "DataFrames and data analysis toolkit.",
+  "Scikit-learn": "Classical ML algorithms and utilities.",
+  TensorFlow: "Deep learning framework by Google.",
+  PyTorch: "Dynamic deep learning framework by Meta.",
+  Matplotlib: "Plotting library for Python.",
+  Docker: "Containerization for reproducible deployments.",
+  Kubernetes: "Orchestrates containers at scale.",
+  AWS: "Cloud services platform for compute, storage, and more.",
+  Terraform: "Infrastructure as code across multiple providers.",
+  "CI/CD": "Automated build, test, and deploy pipelines.",
+  Linux: "Operating system powering servers and dev environments.",
+};
 
 // (Tech stack simplified: removed 3D/anchor helpers)
 
@@ -89,7 +133,7 @@ export default function HomePage() {
 
       {/* PROJECTS */}
       <Section id="projects" title="Projects" subtitle="A few things I have built recently">
-        <div className="mt-4 md:mt-6 grid gap-5 sm:gap-6 sm:grid-cols-2 items-stretch">
+        <div className="mt-4 md:mt-6 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
           {projects.map((p) => <ProjectCard key={p.title} p={p} />)}
         </div>
       </Section>
@@ -105,30 +149,28 @@ export default function HomePage() {
       <Section id="tech" title="Tech Stack" subtitle="Tools I use to ship">
         <div className="mt-4 md:mt-6 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((c) => (
-            <motion.div
-              key={c.title}
-              whileHover={{ y: -4 }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              className="group relative rounded-2xl border border-slate-300 bg-white shadow-sm hover:shadow-lg"
-            >
-              {/* top accent (neutral) */}
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] rounded-t-2xl bg-slate-900/10" />
-              <div className="p-5">
-                <div className="flex items-center justify-between">
-                  <div className="text-lg font-bold text-slate-900">
-                    {c.title}
+            <motion.div key={c.title} whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 200, damping: 20 }}>
+              <Card className="rounded-2xl">
+                <CardHeader className="border-b">
+                  <CardTitle className="text-lg text-slate-900">{c.title}</CardTitle>
+                  <CardDescription className="sr-only">Tech stack category</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="mt-3 flex flex-wrap gap-2.5">
+                    {c.techs.map((t) => (
+                      <Tooltip key={t}>
+                        <TooltipTrigger asChild>
+                          <span className="inline-flex items-center gap-1 rounded-full border border-input px-3 py-1.5 text-sm bg-white cursor-help">
+                            <span className="h-1.5 w-1.5 rounded-full bg-slate-500" />
+                            <span className="text-slate-800">{t}</span>
+                          </span>
+                        </TooltipTrigger>
+                        <TooltipContent sideOffset={6}>{techInfo[t] ?? `About ${t}`}</TooltipContent>
+                      </Tooltip>
+                    ))}
                   </div>
-                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-900/5 text-slate-600">•</span>
-                </div>
-                <div className="mt-3 flex flex-wrap gap-2.5">
-                  {c.techs.map((t) => (
-                    <span key={t} className="inline-flex items-center gap-1 rounded-full border border-slate-300 px-3 py-1.5 text-sm bg-white">
-                      <span className="h-1.5 w-1.5 rounded-full bg-slate-500" />
-                      <span className="text-slate-800">{t}</span>
-                    </span>
-                  ))}
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
@@ -139,30 +181,25 @@ export default function HomePage() {
       <Section id="achievements" title="Achievements" subtitle="Milestones I'm proud of">
         <div className="mt-4 md:mt-6 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
           {achievements.map((a) => (
-            <motion.div
-              key={a.id}
-              whileHover={{ y: -4 }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              className="relative rounded-2xl border border-slate-300 bg-white shadow-sm hover:shadow-lg"
-            >
-              {/* left accent bar (neutral) */}
-              <div className="absolute left-0 top-0 bottom-0 w-[2px] rounded-l-2xl bg-slate-900/10" />
-              <div className="p-5">
-                <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900/5 text-xl">
-                    {a.icon ?? "🏆"}
-                  </div>
-                  <div className="min-w-0">
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="text-lg font-bold text-slate-900 truncate">{a.title}</div>
-                      <span className="text-xs px-2 py-1 rounded-md bg-slate-900/5 text-slate-700 whitespace-nowrap">{a.date}</span>
+            <motion.div key={a.id} whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 200, damping: 20 }}>
+              <Card className="rounded-2xl h-full">
+                <CardHeader className="border-b">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-xl">
+                      {a.icon ?? "🏆"}
                     </div>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-800/90">
-                      {a.description}
-                    </p>
+                    <div className="min-w-0">
+                      <CardTitle className="text-base sm:text-lg text-slate-900 truncate">{a.title}</CardTitle>
+                      <CardDescription className="text-xs">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded bg-slate-100 text-slate-700">{a.date}</span>
+                      </CardDescription>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-700">{a.description}</p>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
