@@ -17,6 +17,8 @@ export type Project = {
   tags: string[];
   link?: string;
   repo?: string;
+  domain?: "web" | "ml"; // project domain for filtering
+  category?: "valuable" | "practice" | "scaled"; // grouping within a domain
 };
 
 export default function ProjectCard({ p }: { p: Project }) {
