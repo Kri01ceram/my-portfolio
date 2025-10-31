@@ -10,6 +10,7 @@ import { achievements } from "@/lib/achievements";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import AchievementsBelt from "@/components/achievements-belt";
+import Link from "next/link";
 
 const cards = [
   {
@@ -142,7 +143,7 @@ export default function HomePage() {
                 <CardDescription className="text-xs text-slate-500">Applications, backends, and UI work</CardDescription>
               </CardHeader>
               <CardContent>
-                <a href="/projects/web" className="inline-flex items-center gap-2 rounded-xl border border-input px-4 py-2 bg-white hover:bg-slate-50 transition">View Web Projects →</a>
+                <Link href="/projects/web" className="inline-flex items-center gap-2 rounded-xl border border-input px-4 py-2 bg-white hover:bg-slate-50 transition">View Web Projects →</Link>
               </CardContent>
             </Card>
           </motion.div>
@@ -153,7 +154,7 @@ export default function HomePage() {
                 <CardDescription className="text-xs text-slate-500">Models, pipelines, and data science</CardDescription>
               </CardHeader>
               <CardContent>
-                <a href="/projects/ml" className="inline-flex items-center gap-2 rounded-xl border border-input px-4 py-2 bg-white hover:bg-slate-50 transition">View ML Projects →</a>
+                <Link href="/projects/ml" className="inline-flex items-center gap-2 rounded-xl border border-input px-4 py-2 bg-white hover:bg-slate-50 transition">View ML Projects →</Link>
               </CardContent>
             </Card>
           </motion.div>
