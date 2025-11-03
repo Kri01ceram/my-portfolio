@@ -50,10 +50,10 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
       {/* Vertical track (more compact) */}
       <div className="relative h-[260px] sm:h-[320px] overflow-visible">
         {/* Base track */}
-        <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] rounded bg-slate-200" />
+        <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] rounded bg-border" />
         {/* Progress fill */}
         <motion.div
-          className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] rounded bg-slate-900"
+          className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] rounded bg-primary"
           style={{ height: progressH }}
         />
 
@@ -65,25 +65,25 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
           return (
             <div key={a.id} className="absolute left-1/2 -translate-x-1/2" style={{ top: `${pct}%` }}>
               {/* Dot */}
-              <div className={`h-2.5 w-2.5 rounded-full ring-2 transition-colors duration-300 ${reached ? "bg-slate-900 ring-slate-500" : "bg-white ring-slate-300"}`} />
+              <div className={`h-2.5 w-2.5 rounded-full ring-2 transition-colors duration-300 ${reached ? "bg-primary ring-secondary" : "bg-card ring-input"}`} />
               {/* Connector line to label */}
               <div
-                className={`absolute top-1/2 -translate-y-1/2 h-px ${isLeft ? "right-[calc(50%+6px)] w-14 sm:w-16" : "left-[calc(50%+6px)] w-14 sm:w-16"} bg-slate-200 transition-colors duration-300`}
+                className={`absolute top-1/2 -translate-y-1/2 h-px ${isLeft ? "right-[calc(50%+6px)] w-14 sm:w-16" : "left-[calc(50%+6px)] w-14 sm:w-16"} bg-border transition-colors duration-300`}
               />
               {/* Label bubble */}
               <div className={`absolute top-1/2 -translate-y-1/2 ${isLeft ? "right-[calc(50%+70px)] text-right" : "left-[calc(50%+70px)]"}`}>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 180, damping: 24 }}
-                  className="group rounded-lg border border-slate-200 bg-white px-3 py-1.5 shadow-sm max-w-[240px] transition-shadow"
+                  className="group rounded-lg border border-input bg-card px-3 py-1.5 shadow-sm max-w-[240px] transition-shadow"
                   title={a.description || a.title}
                 >
-                  <div className="text-[0.82rem] font-semibold text-slate-900 truncate">{a.title}</div>
-                  <div className="text-[10px] text-slate-500">{a.date}</div>
+                  <div className="text-[0.82rem] font-semibold text-foreground truncate">{a.title}</div>
+                  <div className="text-[10px] text-foreground/60">{a.date}</div>
                   {/* Hover-reveal summary */}
                   {(a.description || a.title) && (
                     <div className="overflow-hidden max-h-0 group-hover:max-h-24 transition-[max-height] duration-400 ease-out">
-                      <div className="pt-1 text-[11px] leading-relaxed text-slate-600 -translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-400 ease-out">
+                      <div className="pt-1 text-[11px] leading-relaxed text-foreground/70 -translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-400 ease-out">
                         {a.description || `More about ${a.title}.`}
                       </div>
                     </div>
@@ -97,7 +97,7 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
         {/* Minimal current-position indicator */}
         <motion.div ref={trainRef} className="absolute left-1/2 -translate-x-1/2" style={{ y: yPx }}>
           <div className="relative flex items-center justify-center">
-            <div className="h-3 w-3 rounded-full bg-slate-900 ring-3 ring-slate-100 shadow-sm" />
+            <div className="h-3 w-3 rounded-full bg-primary ring-3 ring-secondary/30 shadow-sm" />
           </div>
         </motion.div>
       </div>

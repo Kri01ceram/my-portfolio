@@ -19,10 +19,10 @@ export default function DomainProjectsPage({ params }: { params: { domain: strin
   return (
     <section className="mx-auto max-w-[1100px] px-3 sm:px-5 lg:px-6 py-10 sm:py-12 md:py-14">
       <div className="mb-6 sm:mb-7">
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
           {domain === "web" ? "Web Development" : "Machine Learning"}
         </h1>
-        <p className="mt-1.5 text-slate-600">Browse projects by category.</p>
+        <p className="mt-1.5 text-foreground/70">Browse projects by category.</p>
       </div>
 
       <div className="space-y-8">
@@ -32,8 +32,8 @@ export default function DomainProjectsPage({ params }: { params: { domain: strin
           return (
             <div key={cat.key}>
               <Card className="rounded-2xl">
-                <CardHeader className="border-b">
-                  <CardTitle className="text-xl text-slate-900">{cat.label}</CardTitle>
+          <CardHeader className="border-b">
+            <CardTitle className="text-xl text-foreground">{cat.label}</CardTitle>
                   <CardDescription>{cat.desc}</CardDescription>
                 </CardHeader>
                 <CardContent>

@@ -90,20 +90,20 @@ export default function HomePage() {
         >
           <div>
             <div className="relative inline-block pb-2">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-slate-900">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-foreground">
                 Hi, I&apos;m Krishna Singh
               </h1>
-              <span className="pointer-events-none absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full bg-slate-900/20" />
+              <span className="pointer-events-none absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full bg-foreground/20" />
             </div>
-            <p className="mt-4 text-base sm:text-lg text-slate-700 max-w-prose">
+            <p className="mt-4 text-base sm:text-lg text-foreground/80 max-w-prose">
               Full-stack developer & ML data analyst. I build fast, delightful
               web experiences with Next.js, React, and modern tooling.
             </p>
             <div className="mt-6 flex flex-wrap gap-3 sm:gap-3.5">
-              <a href="#projects" className="rounded-xl px-5 py-2.5 bg-slate-900 text-white shadow-sm hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500/60">
+              <a href="#projects" className="rounded-xl px-5 py-2.5 bg-primary text-primary-foreground shadow-sm hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring/60">
                 View Projects
               </a>
-              <a href="#contact" className="rounded-xl px-5 py-2.5 border border-slate-300 hover:bg-slate-50 transition">
+              <a href="#contact" className="rounded-xl px-5 py-2.5 border border-input hover:bg-secondary/30 transition">
                 Contact Me
               </a>
             </div>
@@ -116,7 +116,7 @@ export default function HomePage() {
               whileHover={{ scale: 1.02 }}
               className="relative aspect-square select-none"
             >
-              <div className="absolute inset-0 rounded-full border-2 border-slate-900/70" />
+              <div className="absolute inset-0 rounded-full border-2 border-foreground/70" />
               <div className="relative h-full w-full rounded-full overflow-hidden shadow-md">
                 <Image
                   src="/images/KRISHNA.png"
@@ -139,22 +139,22 @@ export default function HomePage() {
           <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 220, damping: 20 }}>
             <Card className="rounded-2xl group">
               <CardHeader className="border-b">
-                <CardTitle className="text-lg text-slate-900">Web Development</CardTitle>
-                <CardDescription className="text-xs text-slate-500">Applications, backends, and UI work</CardDescription>
+                <CardTitle className="text-lg text-foreground">Web Development</CardTitle>
+                <CardDescription className="text-xs text-foreground/60">Applications, backends, and UI work</CardDescription>
               </CardHeader>
               <CardContent>
-                <Link href="/projects/web" className="inline-flex items-center gap-2 rounded-xl border border-input px-4 py-2 bg-white hover:bg-slate-50 transition">View Web Projects →</Link>
+                <Link href="/projects/web" className="inline-flex items-center gap-2 rounded-xl border border-input px-4 py-2 bg-card hover:bg-secondary/30 transition">View Web Projects →</Link>
               </CardContent>
             </Card>
           </motion.div>
           <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 220, damping: 20 }}>
             <Card className="rounded-2xl group">
               <CardHeader className="border-b">
-                <CardTitle className="text-lg text-slate-900">Machine Learning</CardTitle>
-                <CardDescription className="text-xs text-slate-500">Models, pipelines, and data science</CardDescription>
+                <CardTitle className="text-lg text-foreground">Machine Learning</CardTitle>
+                <CardDescription className="text-xs text-foreground/60">Models, pipelines, and data science</CardDescription>
               </CardHeader>
               <CardContent>
-                <Link href="/projects/ml" className="inline-flex items-center gap-2 rounded-xl border border-input px-4 py-2 bg-white hover:bg-slate-50 transition">View ML Projects →</Link>
+                <Link href="/projects/ml" className="inline-flex items-center gap-2 rounded-xl border border-input px-4 py-2 bg-card hover:bg-secondary/30 transition">View ML Projects →</Link>
               </CardContent>
             </Card>
           </motion.div>
@@ -182,8 +182,8 @@ export default function HomePage() {
             >
               <Card className="rounded-2xl group">
                 <CardHeader className="border-b">
-                  <CardTitle className="text-lg text-slate-900">{c.title}</CardTitle>
-                  <CardDescription className="text-xs text-slate-500">Hover to view technologies</CardDescription>
+                  <CardTitle className="text-lg text-foreground">{c.title}</CardTitle>
+                  <CardDescription className="text-xs text-foreground/60">Hover to view technologies</CardDescription>
                 </CardHeader>
                 <CardContent>
                   {/* Reveal technologies on hover */}
@@ -195,10 +195,10 @@ export default function HomePage() {
                             <motion.span
                               whileHover={{ y: -2, scale: 1.03 }}
                               transition={{ type: "spring", stiffness: 180, damping: 22 }}
-                              className="inline-flex items-center gap-1 rounded-full border border-input px-3 py-1.5 text-sm bg-white cursor-help transition-colors duration-200 hover:bg-slate-50"
+                              className="inline-flex items-center gap-1 rounded-full border border-input px-3 py-1.5 text-sm bg-card cursor-help transition-colors duration-200 hover:bg-secondary/30"
                             >
-                              <span className="h-1.5 w-1.5 rounded-full bg-slate-500 transition-colors" />
-                              <span className="text-slate-800">{t}</span>
+                              <span className="h-1.5 w-1.5 rounded-full bg-foreground transition-colors" />
+                              <span className="text-foreground">{t}</span>
                             </motion.span>
                           </TooltipTrigger>
                           <TooltipContent sideOffset={6}>{techInfo[t] ?? `About ${t}`}</TooltipContent>
@@ -225,22 +225,22 @@ export default function HomePage() {
       <Section id="contact" title="Contact" subtitle="Let's build something together">
         <div className="relative">
           <motion.div
-            className="relative rounded-3xl border border-slate-300 bg-white shadow-lg overflow-hidden"
+            className="relative rounded-3xl border border-input bg-card shadow-lg overflow-hidden"
             whileHover={{ scale: 1.003 }}
             transition={{ type: "spring", stiffness: 220, damping: 22 }}
           >
             <div className="relative p-5 sm:p-6">
-              <p className="text-base sm:text-lg text-slate-700">
-                <span className="font-semibold">Email:</span> <a className="font-medium underline underline-offset-4 decoration-slate-500/70 hover:decoration-slate-600" href="mailto:0.krishna1120@gmail.com">0.krishna1120@gmail.com</a>
+              <p className="text-base sm:text-lg text-foreground/80">
+                <span className="font-semibold">Email:</span> <a className="font-medium underline underline-offset-4 decoration-foreground/70 hover:decoration-foreground" href="mailto:0.krishna1120@gmail.com">0.krishna1120@gmail.com</a>
               </p>
-              <p className="mt-2.5 text-base sm:text-lg text-slate-700">
-                <span className="font-semibold">LinkedIn:</span> <a className="font-medium underline underline-offset-4 decoration-slate-500/70 hover:decoration-slate-600" href="https://www.linkedin.com/in/krishna-singh-172642323/" target="_blank" rel="noreferrer noopener">krishna-singh-172642323</a>
+              <p className="mt-2.5 text-base sm:text-lg text-foreground/80">
+                <span className="font-semibold">LinkedIn:</span> <a className="font-medium underline underline-offset-4 decoration-foreground/70 hover:decoration-foreground" href="https://www.linkedin.com/in/krishna-singh-172642323/" target="_blank" rel="noreferrer noopener">krishna-singh-172642323</a>
               </p>
               <div className="mt-5 flex flex-wrap gap-3">
-                <a href="mailto:0.krishna1120@gmail.com" className="rounded-xl px-5 py-2.5 bg-slate-900 text-white shadow-sm hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60">
+                <a href="mailto:0.krishna1120@gmail.com" className="rounded-xl px-5 py-2.5 bg-primary text-primary-foreground shadow-sm hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring/60">
                   Say Hello
                 </a>
-                <a href="#projects" className="rounded-xl px-5 py-2.5 border border-slate-300 hover:bg-slate-50 transition">
+                <a href="#projects" className="rounded-xl px-5 py-2.5 border border-input hover:bg-secondary/30 transition">
                   See Projects
                 </a>
               </div>
