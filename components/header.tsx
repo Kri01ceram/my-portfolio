@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const links = [
   { href: "#projects", label: "Projects" },
@@ -40,6 +41,9 @@ export default function Header() {
               <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current/60 transition-all duration-300 group-hover:w-full"></span>
             </a>
           ))}
+          <Link href="/hire">
+            <Button className="h-9 px-4 rounded-xl">Hire Me</Button>
+          </Link>
         </div>
       </nav>
     </header>
