@@ -63,9 +63,9 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
           const reached = i <= active;
           const isLeft = i % 2 === 0;
           return (
-            <div key={a.id} className="absolute left-1/2 -translate-x-1/2" style={{ top: `${pct}%` }}>
+            <div key={a.id} className="group absolute left-1/2 -translate-x-1/2" style={{ top: `${pct}%` }}>
               {/* Dot */}
-              <div className={`h-2.5 w-2.5 rounded-full ring-2 transition-colors duration-300 ${reached ? "bg-primary ring-secondary" : "bg-card ring-input"}`} />
+              <div className={`h-2.5 w-2.5 rounded-full ring-2 transition-colors duration-300 transform transition-transform ${reached ? "bg-primary ring-secondary" : "bg-card ring-input"} group-hover:scale-110`} />
               {/* Connector line to label */}
               <div
                 className={`absolute top-1/2 -translate-y-1/2 h-px ${isLeft ? "right-[calc(50%+6px)] w-14 sm:w-16" : "left-[calc(50%+6px)] w-14 sm:w-16"} bg-border transition-colors duration-300`}
@@ -73,9 +73,9 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
               {/* Label bubble */}
               <div className={`absolute top-1/2 -translate-y-1/2 ${isLeft ? "right-[calc(50%+70px)] text-right" : "left-[calc(50%+70px)]"}`}>
                 <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 180, damping: 24 }}
-                  className="group rounded-lg border border-input bg-card px-3 py-1.5 shadow-sm max-w-[240px] transition-shadow"
+                  whileHover={{ scale: 1.035, y: -2 }}
+                  transition={{ type: "spring", stiffness: 160, damping: 20, mass: 0.6 }}
+                  className="group rounded-lg border border-input bg-card px-3 py-1.5 shadow-sm hover:shadow-md max-w-[240px] transition-shadow"
                   title={a.description || a.title}
                 >
                   <div className="text-[0.82rem] font-semibold text-foreground truncate">{a.title}</div>
