@@ -251,7 +251,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Right: Contact details list */}
-                <div className="rounded-xl border border-input bg-card overflow-hidden">
+                {/* <div className="rounded-xl border border-input bg-card overflow-hidden">
                   <ul className="divide-y divide-border">
                     <li className="flex items-center gap-3 p-3">
                       <Mail className="h-4 w-4" />
@@ -278,7 +278,7 @@ export default function HomePage() {
                       </a>
                     </li>
                   </ul>
-                </div>
+                </div> */}
               </div>
             </div>
           </motion.div>

@@ -45,6 +45,9 @@
 
 :root {
   --radius: 0.625rem;
+  /* Fallback font-family variables to avoid external font fetch during build */
+  --font-geist-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   /* Brand palette: 424874 (ink), A6B1E1 (accent), DCD6F7 (surface), F4EEFF (background) */
   --background: #F4EEFF;
   --foreground: #424874;
