@@ -24,9 +24,9 @@ export default function AchievementsBelt({ items = achievements }: { items?: Ach
           {loop.map((a, i) => (
             <div key={`${a.id}-${i}`} className="shrink-0 w-[280px] sm:w-[320px]">
               <motion.div
-                whileHover={{ scale: 1.035, y: -2 }}
-                transition={{ type: "spring", stiffness: 160, damping: 20, mass: 0.6 }}
-                className="group/item rounded-2xl border border-input bg-card px-4 py-3 shadow-sm hover:shadow-md transition-shadow"
+                whileHover={{ scale: 1.03, y: -1 }}
+                transition={{ type: "spring", stiffness: 120, damping: 26, mass: 0.7 }}
+                className="group/item rounded-2xl border border-input bg-card px-4 py-3 shadow-sm hover:shadow-md transition-shadow duration-300 ease-out"
               >
                 <div className="flex items-center justify-between gap-2">
                   <div className="text-sm font-semibold text-foreground truncate">{a.title}</div>
