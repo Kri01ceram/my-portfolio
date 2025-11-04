@@ -231,48 +231,98 @@ export default function HomePage() {
             transition={{ type: "spring", stiffness: 220, damping: 22 }}
           >
             <div className="relative p-5 sm:p-6">
-              <div className="flex items-center justify-center gap-4 sm:gap-6">
-                <a
-                  href="mailto:0.krishna1120@gmail.com"
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
-                  aria-label="Email"
-                  title="Email"
-                >
-                  <Mail className="h-5 w-5 text-foreground" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/krishna-singh-172642323/"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
-                  aria-label="LinkedIn"
-                  title="LinkedIn"
-                >
-                  <Linkedin className="h-5 w-5 text-foreground" />
-                </a>
-                <a
-                  href="https://github.com/Kri01ceram"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
-                  aria-label="GitHub"
-                  title="GitHub"
-                >
-                  <Github className="h-5 w-5 text-foreground" />
-                </a>
-                <a
-                  href="https://www.instagram.com/"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
-                  aria-label="Instagram"
-                  title="Instagram"
-                >
-                  <Instagram className="h-5 w-5 text-foreground" />
-                </a>
+              <div className="grid gap-6 sm:grid-cols-2 items-start">
+                {/* Left: CTAs */}
+                <div className="space-y-4">
+                  <p className="text-base sm:text-lg text-foreground/80">
+                    Prefer email for fastest response. I’m also available on LinkedIn and GitHub.
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    <a href="mailto:0.krishna1120@gmail.com" className="rounded-xl px-5 py-2.5 bg-primary text-primary-foreground shadow-sm hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring/60">
+                      Say Hello
+                    </a>
+                    <Link href="/hire" className="rounded-xl px-5 py-2.5 border border-input hover:bg-secondary/30 transition">
+                      Hire Me
+                    </Link>
+                    <a href="#projects" className="rounded-xl px-5 py-2.5 border border-input hover:bg-secondary/30 transition">
+                      See Projects
+                    </a>
+                  </div>
+                </div>
+
+                {/* Right: Contact details list */}
+                <div className="rounded-xl border border-input bg-card overflow-hidden">
+                  <ul className="divide-y divide-border">
+                    <li className="flex items-center gap-3 p-3">
+                      <Mail className="h-4 w-4" />
+                      <a href="mailto:0.krishna1120@gmail.com" className="text-sm font-medium underline underline-offset-4 decoration-foreground/70 hover:decoration-foreground">
+                        0.krishna1120@gmail.com
+                      </a>
+                    </li>
+                    <li className="flex items-center gap-3 p-3">
+                      <Linkedin className="h-4 w-4" />
+                      <a href="https://www.linkedin.com/in/krishna-singh-172642323/" target="_blank" rel="noreferrer noopener" className="text-sm font-medium underline underline-offset-4 decoration-foreground/70 hover:decoration-foreground">
+                        linkedin.com/in/krishna-singh-172642323
+                      </a>
+                    </li>
+                    <li className="flex items-center gap-3 p-3">
+                      <Github className="h-4 w-4" />
+                      <a href="https://github.com/Kri01ceram" target="_blank" rel="noreferrer noopener" className="text-sm font-medium underline underline-offset-4 decoration-foreground/70 hover:decoration-foreground">
+                        github.com/Kri01ceram
+                      </a>
+                    </li>
+                    <li className="flex items-center gap-3 p-3">
+                      <Instagram className="h-4 w-4" />
+                      <a href="https://www.instagram.com/" target="_blank" rel="noreferrer noopener" className="text-sm font-medium underline underline-offset-4 decoration-foreground/70 hover:decoration-foreground">
+                        instagram.com/your-handle
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </motion.div>
+          {/* Icons row below the contact box */}
+          <div className="mt-4 flex items-center justify-center gap-4 sm:gap-6">
+            <a
+              href="mailto:0.krishna1120@gmail.com"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
+              aria-label="Email"
+              title="Email"
+            >
+              <Mail className="h-5 w-5 text-foreground" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/krishna-singh-172642323/"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
+              aria-label="LinkedIn"
+              title="LinkedIn"
+            >
+              <Linkedin className="h-5 w-5 text-foreground" />
+            </a>
+            <a
+              href="https://github.com/Kri01ceram"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
+              aria-label="GitHub"
+              title="GitHub"
+            >
+              <Github className="h-5 w-5 text-foreground" />
+            </a>
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
+              aria-label="Instagram"
+              title="Instagram"
+            >
+              <Instagram className="h-5 w-5 text-foreground" />
+            </a>
+          </div>
         </div>
       </Section>
     </>
