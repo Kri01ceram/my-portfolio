@@ -11,7 +11,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import AchievementsBelt from "@/components/achievements-belt";
 import Link from "next/link";
-import { Github, Linkedin, Instagram } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail } from "lucide-react";
 
 const cards = [
   {
@@ -231,48 +231,44 @@ export default function HomePage() {
             transition={{ type: "spring", stiffness: 220, damping: 22 }}
           >
             <div className="relative p-5 sm:p-6">
-              <p className="text-base sm:text-lg text-foreground/80">
-                <span className="font-semibold">Email:</span> <a className="font-medium underline underline-offset-4 decoration-foreground/70 hover:decoration-foreground" href="mailto:0.krishna1120@gmail.com">0.krishna1120@gmail.com</a>
-              </p>
-              <p className="mt-2.5 text-base sm:text-lg text-foreground/80">
-                <span className="font-semibold">LinkedIn:</span> <a className="font-medium underline underline-offset-4 decoration-foreground/70 hover:decoration-foreground" href="https://www.linkedin.com/in/krishna-singh-172642323/" target="_blank" rel="noreferrer noopener">krishna-singh-172642323</a>
-              </p>
-              {/* Socials */}
-              <div className="mt-4 flex flex-wrap gap-3">
+              <div className="flex items-center justify-center gap-4 sm:gap-6">
                 <a
-                  href="https://github.com/Kri01ceram"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="inline-flex items-center gap-2 rounded-xl border border-input bg-card px-3 py-2 text-sm text-foreground hover:bg-secondary/30 transition"
-                  aria-label="GitHub profile"
+                  href="mailto:0.krishna1120@gmail.com"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
+                  aria-label="Email"
+                  title="Email"
                 >
-                  <Github className="h-4 w-4" /> GitHub
+                  <Mail className="h-5 w-5 text-foreground" />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/krishna-singh-172642323/"
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="inline-flex items-center gap-2 rounded-xl border border-input bg-card px-3 py-2 text-sm text-foreground hover:bg-secondary/30 transition"
-                  aria-label="LinkedIn profile"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
+                  aria-label="LinkedIn"
+                  title="LinkedIn"
                 >
-                  <Linkedin className="h-4 w-4" /> LinkedIn
+                  <Linkedin className="h-5 w-5 text-foreground" />
+                </a>
+                <a
+                  href="https://github.com/Kri01ceram"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
+                  aria-label="GitHub"
+                  title="GitHub"
+                >
+                  <Github className="h-5 w-5 text-foreground" />
                 </a>
                 <a
                   href="https://www.instagram.com/"
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="inline-flex items-center gap-2 rounded-xl border border-input bg-card px-3 py-2 text-sm text-foreground hover:bg-secondary/30 transition"
-                  aria-label="Instagram profile"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
+                  aria-label="Instagram"
+                  title="Instagram"
                 >
-                  <Instagram className="h-4 w-4" /> Instagram
-                </a>
-              </div>
-              <div className="mt-5 flex flex-wrap gap-3">
-                <a href="mailto:0.krishna1120@gmail.com" className="rounded-xl px-5 py-2.5 bg-primary text-primary-foreground shadow-sm hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring/60">
-                  Say Hello
-                </a>
-                <a href="#projects" className="rounded-xl px-5 py-2.5 border border-input hover:bg-secondary/30 transition">
-                  See Projects
+                  <Instagram className="h-5 w-5 text-foreground" />
                 </a>
               </div>
             </div>
