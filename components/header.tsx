@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
 
 const links = [
   { href: "#projects", label: "Projects" },
@@ -10,6 +11,9 @@ const links = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
+  const onHome = pathname === "/";
+  const onHire = pathname?.startsWith("/hire");
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const targetId = href.replace('#', '');
@@ -30,20 +34,42 @@ export default function Header() {
           Krishna Singh
         </Link>
         <div className="flex items-center gap-5 sm:gap-6">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleSmoothScroll(e, link.href)}
-              className="group relative text-sm font-medium text-foreground/90 hover:text-foreground transition-colors duration-200"
-            >
-              {link.label}
-              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current/60 transition-all duration-300 group-hover:w-full"></span>
-            </a>
-          ))}
-          <Link href="/hire">
-            <Button className="h-9 px-4 rounded-xl">Hire Me</Button>
-          </Link>
+          {links.map((link) => {
+            // On the home page, use smooth scrolling to in-page anchors.
+            if (onHome) {
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleSmoothScroll(e, link.href)}
+                  className="group relative text-sm font-medium text-foreground/90 hover:text-foreground transition-colors duration-200"
+                >
+                  {link.label}
+                  <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current/60 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+              );
+            }
+            // On other pages (e.g., /hire, /projects), link back to home with hash.
+            return (
+              <Link
+                key={link.href}
+                href={`/${link.href}`}
+                className="group relative text-sm font-medium text-foreground/90 hover:text-foreground transition-colors duration-200"
+              >
+                {link.label}
+                <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current/60 transition-all duration-300 group-hover:w-full"></span>
+              </Link>
+            );
+          })}
+          {onHire ? (
+            <Link href="/">
+              <Button className="h-9 px-4 rounded-xl">Home</Button>
+            </Link>
+          ) : (
+            <Link href="/hire">
+              <Button className="h-9 px-4 rounded-xl">Hire Me</Button>
+            </Link>
+          )}
         </div>
       </nav>
     </header>
