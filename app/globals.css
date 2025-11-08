@@ -48,82 +48,83 @@
   /* Font fallbacks */
   --font-geist-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  /* New palette (calm deep teal + mist):
-     eff6e0 (mist) aec3b0 (sage) 598392 (cool steel) 124559 (deep teal) 01161e (near-black teal)
-     Mapping strategy:
-       Background: darkest (01161e)
-       Card/Surface: deep teal (124559)
-       Border/Input: cool steel (598392)
-       Primary (CTAs): mist (eff6e0) inverted on deep/teal foreground
-       Secondary (subtle hovers): sage (aec3b0)
-       Accent/highlight: cool steel (598392) or mist depending on contrast.
+  /* Warm dark palette:
+     fffcf2 (parchment), ccc5b9 (warm stone), 403d39 (charcoal brown), 252422 (near-black espresso), eb5e28 (rust orange)
+     Strategy:
+       Background: near-black espresso (#252422)
+       Foreground: parchment (#fffcf2)
+       Card/Surface: charcoal brown (#403d39)
+       Border/Input: warm stone (#ccc5b9)
+       Primary: rust accent (#eb5e28) with light foreground
+       Secondary: warm stone (#ccc5b9) with dark foreground
+       Accent: rust (#eb5e28) for highlights; muted uses charcoal.
   */
-  --background: #01161e;
-  --foreground: #eff6e0; /* readable mist on dark */
-  --card: #124559;
-  --card-foreground: #eff6e0;
-  --popover: #124559;
-  --popover-foreground: #eff6e0;
-  --primary: #eff6e0; /* light button */
-  --primary-foreground: #124559; /* deep teal text inside light buttons */
-  --secondary: #aec3b0; /* soft sage */
-  --secondary-foreground: #01161e;
-  --muted: #124559;
-  --muted-foreground: #aec3b0;
-  --accent: #598392; /* steel highlight */
-  --accent-foreground: #eff6e0;
-  --destructive: #598392; /* placeholder; no red in palette */
-  --border: #598392;
-  --input: #598392;
-  --ring: #aec3b0; /* gentle focus ring */
-  --chart-1: #eff6e0;
-  --chart-2: #aec3b0;
-  --chart-3: #598392;
-  --chart-4: #124559;
-  --chart-5: #01161e;
-  --sidebar: #124559;
-  --sidebar-foreground: #eff6e0;
-  --sidebar-primary: #eff6e0;
-  --sidebar-primary-foreground: #124559;
-  --sidebar-accent: #598392;
-  --sidebar-accent-foreground: #eff6e0;
-  --sidebar-border: #598392;
-  --sidebar-ring: #aec3b0;
+  --background: #252422;
+  --foreground: #fffcf2;
+  --card: #403d39;
+  --card-foreground: #fffcf2;
+  --popover: #403d39;
+  --popover-foreground: #fffcf2;
+  --primary: #eb5e28;
+  --primary-foreground: #fffcf2;
+  --secondary: #ccc5b9;
+  --secondary-foreground: #252422;
+  --muted: #403d39;
+  --muted-foreground: #ccc5b9;
+  --accent: #eb5e28;
+  --accent-foreground: #fffcf2;
+  --destructive: #eb5e28; /* same accent acts as destructive */
+  --border: #ccc5b9;
+  --input: #ccc5b9;
+  --ring: #eb5e28;
+  --chart-1: #eb5e28;
+  --chart-2: #ccc5b9;
+  --chart-3: #403d39;
+  --chart-4: #252422;
+  --chart-5: #fffcf2;
+  --sidebar: #403d39;
+  --sidebar-foreground: #fffcf2;
+  --sidebar-primary: #eb5e28;
+  --sidebar-primary-foreground: #fffcf2;
+  --sidebar-accent: #ccc5b9;
+  --sidebar-accent-foreground: #252422;
+  --sidebar-border: #ccc5b9;
+  --sidebar-ring: #eb5e28;
 }
 
 /* Always-on dark theme mapping using the same 4-color palette */
 .dark {
-  --background: #01161e;
-  --foreground: #eff6e0;
-  --card: #124559;
-  --card-foreground: #eff6e0;
-  --popover: #124559;
-  --popover-foreground: #eff6e0;
-  --primary: #eff6e0;
-  --primary-foreground: #124559;
-  --secondary: #aec3b0;
-  --secondary-foreground: #01161e;
-  --muted: #124559;
-  --muted-foreground: #aec3b0;
-  --accent: #598392;
-  --accent-foreground: #eff6e0;
-  --destructive: #598392;
-  --border: #598392;
-  --input: #598392;
-  --ring: #aec3b0;
-  --chart-1: #eff6e0;
-  --chart-2: #aec3b0;
-  --chart-3: #598392;
-  --chart-4: #124559;
-  --chart-5: #01161e;
-  --sidebar: #124559;
-  --sidebar-foreground: #eff6e0;
-  --sidebar-primary: #eff6e0;
-  --sidebar-primary-foreground: #124559;
-  --sidebar-accent: #598392;
-  --sidebar-accent-foreground: #eff6e0;
-  --sidebar-border: #598392;
-  --sidebar-ring: #aec3b0;
+  --background: #252422;
+  --foreground: #fffcf2;
+  --card: #403d39;
+  --card-foreground: #fffcf2;
+  --popover: #403d39;
+  --popover-foreground: #fffcf2;
+  --primary: #eb5e28;
+  --primary-foreground: #fffcf2;
+  --secondary: #ccc5b9;
+  --secondary-foreground: #252422;
+  --muted: #403d39;
+  --muted-foreground: #ccc5b9;
+  --accent: #eb5e28;
+  --accent-foreground: #fffcf2;
+  --destructive: #eb5e28;
+  --border: #ccc5b9;
+  --input: #ccc5b9;
+  --ring: #eb5e28;
+  --chart-1: #eb5e28;
+  --chart-2: #ccc5b9;
+  --chart-3: #403d39;
+  --chart-4: #252422;
+  --chart-5: #fffcf2;
+  --sidebar: #403d39;
+  --sidebar-foreground: #fffcf2;
+  --sidebar-primary: #eb5e28;
+  --sidebar-primary-foreground: #fffcf2;
+  --sidebar-accent: #ccc5b9;
+  --sidebar-accent-foreground: #252422;
+  --sidebar-border: #ccc5b9;
+  --sidebar-ring: #eb5e28;
 }
 
 @layer base {
