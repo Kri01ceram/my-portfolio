@@ -1,0 +1,58 @@
+export const cards = [
+  {
+    title: "Web Development",
+    gradient: "bg-gradient-to-r from-sky-600 via-violet-600 to-rose-600",
+    techs: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Node.js",
+      "Firebase",
+      "PostgreSQL",
+      "Framer Motion",
+    ],
+  },
+  {
+    title: "ML Engineer",
+    gradient: "bg-gradient-to-r from-sky-600 via-violet-600 to-rose-600",
+    techs: [
+      "Python",
+      "NumPy",
+      "Pandas",
+      "Scikit-learn",
+      "TensorFlow",
+      "PyTorch",
+      "Matplotlib",
+    ],
+  },
+  {
+    title: "DevOps Engineer",
+    gradient: "bg-gradient-to-r from-sky-600 via-violet-600 to-rose-600",
+    techs: ["Docker", "Kubernetes", "AWS", "Terraform", "CI/CD", "Linux"],
+  },
+];
+
+export const techInfo: Record<string, string> = {
+  "Next.js": "React framework for SSR/SSG and app routing.",
+  React: "UI library for building component-based interfaces.",
+  TypeScript: "Typed superset of JavaScript for safer code.",
+  "Tailwind CSS": "Utility-first CSS framework for rapid UI building.",
+  "Node.js": "JavaScript runtime for building backends and tools.",
+  Firebase: "Backend services: auth, firestore, hosting, storage.",
+  PostgreSQL: "Open-source relational database with strong SQL support.",
+  "Framer Motion": "Production-ready animation library for React.",
+  Python: "General-purpose language for ML, data, and scripting.",
+  NumPy: "N-dimensional arrays and numeric computing.",
+  Pandas: "DataFrames and data analysis toolkit.",
+  "Scikit-learn": "Classical ML algorithms and utilities.",
+  TensorFlow: "Deep learning framework by Google.",
+  PyTorch: "Dynamic deep learning framework by Meta.",
+  Matplotlib: "Plotting library for Python.",
+  Docker: "Containerization for reproducible deployments.",
+  Kubernetes: "Orchestrates containers at scale.",
+  AWS: "Cloud services platform for compute, storage, and more.",
+  Terraform: "Infrastructure as code across multiple providers.",
+  "CI/CD": "Automated build, test, and deploy pipelines.",
+  Linux: "Operating system powering servers and dev environments.",
+};
