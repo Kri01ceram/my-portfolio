@@ -84,35 +84,40 @@
   --sidebar-ring: #A6B1E1;
 }
 
-/* Dark mode not used; keep same mapping for safety if class appears */
+/* Always-on dark theme mapping using the same 4-color palette */
 .dark {
-  --background: #F4EEFF;
-  --foreground: #424874;
-  --card: #DCD6F7;
-  --card-foreground: #424874;
-  --popover: #DCD6F7;
-  --popover-foreground: #424874;
-  --primary: #424874;
-  --primary-foreground: #F4EEFF;
-  --secondary: #A6B1E1;
+  /* Base surfaces */
+  --background: #424874;           /* ink as background */
+  --foreground: #F4EEFF;           /* light text */
+  --card: #424874;                 /* match background for flat, modern look */
+  --card-foreground: #F4EEFF;
+  --popover: #424874;
+  --popover-foreground: #F4EEFF;
+  /* Accents and controls */
+  --primary: #A6B1E1;              /* lavender buttons/links */
+  --primary-foreground: #424874;    /* readable on lavender */
+  --secondary: #A6B1E1;            /* used for subtle hovers (with /30) */
   --secondary-foreground: #424874;
-  --muted: #DCD6F7;
-  --muted-foreground: #424874;
+  --muted: #424874;
+  --muted-foreground: #F4EEFF;
   --accent: #A6B1E1;
   --accent-foreground: #424874;
-  --destructive: #424874;
-  --border: #A6B1E1;
+  --destructive: #A6B1E1;
+  /* Borders, inputs, focus */
+  --border: #A6B1E1;               /* lavender outlines on dark */
   --input: #A6B1E1;
   --ring: #A6B1E1;
-  --chart-1: #424874;
+  /* Charts remain within brand */
+  --chart-1: #F4EEFF;
   --chart-2: #A6B1E1;
   --chart-3: #DCD6F7;
-  --chart-4: #F4EEFF;
+  --chart-4: #424874;
   --chart-5: #A6B1E1;
-  --sidebar: #DCD6F7;
-  --sidebar-foreground: #424874;
-  --sidebar-primary: #424874;
-  --sidebar-primary-foreground: #F4EEFF;
+  /* Sidebar tokens mapped consistently */
+  --sidebar: #424874;
+  --sidebar-foreground: #F4EEFF;
+  --sidebar-primary: #A6B1E1;
+  --sidebar-primary-foreground: #424874;
   --sidebar-accent: #A6B1E1;
   --sidebar-accent-foreground: #424874;
   --sidebar-border: #A6B1E1;

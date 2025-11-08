@@ -23,11 +23,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-  <body className="relative">
-          <Header />
-            <main className="min-h-screen">{children}</main>
-          <Footer />
+    <html lang="en" suppressHydrationWarning className="dark">
+      <body className="relative bg-background text-foreground">
+        <Header />
+        <main className="min-h-screen">{children}</main>
+        <Footer />
       </body>
     </html>
   );
