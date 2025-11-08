@@ -47,13 +47,18 @@ export default function Header() {
     const onKey = (ev: KeyboardEvent) => {
       if (ev.key === "Escape") setOpen(false);
     };
+    const onScrollOrResize = () => setOpen(false);
     document.addEventListener("mousedown", onClickAway);
     document.addEventListener("touchstart", onClickAway);
     document.addEventListener("keydown", onKey);
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize);
     return () => {
       document.removeEventListener("mousedown", onClickAway);
       document.removeEventListener("touchstart", onClickAway);
       document.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
     };
   }, [open]);
 
@@ -114,6 +119,15 @@ export default function Header() {
         </button>
       </nav>
 
+      {/* Mobile menu backdrop (click to close) */}
+      {open && (
+        <div
+          className="md:hidden fixed inset-0 z-30 bg-black/30"
+          onClick={() => setOpen(false)}
+          aria-hidden
+        />
+      )}
+
       {/* Mobile menu panel */}
       <AnimatePresence>
         {open && (
@@ -122,7 +136,7 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden border-b border-border bg-background/95 backdrop-blur-xl"
+            className="md:hidden border-b border-border bg-background/95 backdrop-blur-xl relative z-40"
             id="mobile-menu"
             ref={panelRef}
           >
