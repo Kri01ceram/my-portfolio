@@ -35,8 +35,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 backdrop-blur-xl bg-background/70 border-b border-border [mask-image:linear-gradient(to_bottom,black,black,transparent)]">
       <nav className="mx-auto max-w-[1100px] px-3 sm:px-5 lg:px-6 py-3.5 flex items-center justify-between">
-        <Link href="/" className="font-bold text-xl tracking-tight text-foreground hover:opacity-80 transition">
-          Krishna Singh
+        <Link href="/" className="font-bold text-xl tracking-tight text-foreground hover:opacity-80 transition" aria-label="Krishna — ML and Web Portfolio">
+          KRI · ML/WEB
         </Link>
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-5 sm:gap-6">
