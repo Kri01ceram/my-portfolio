@@ -20,6 +20,7 @@ export default function TechStackSection() {
               key={c.title}
               onMouseEnter={() => setHovered(idx)}
               onMouseLeave={() => setHovered(null)}
+              onClick={() => setHovered(isActive ? null : idx)}
               animate={{
                 y: isActive ? -2 : 0,
                 scale: isActive ? 1.02 : isDimmed ? 0.985 : 1,

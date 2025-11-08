@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function ProjectsOverview() {
   return (
     <Section id="projects" title="Projects" subtitle="Explore by domain">
-      <div className="mt-4 md:mt-6 grid gap-5 sm:gap-6 sm:grid-cols-2 items-stretch">
+  <div className="mt-4 md:mt-6 grid gap-4 sm:gap-6 sm:grid-cols-2 items-stretch">
         <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 220, damping: 20 }}>
           <Card className="rounded-2xl group">
             <CardHeader className="border-b">

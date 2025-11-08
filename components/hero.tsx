@@ -14,15 +14,15 @@ export default function Hero() {
       >
         <div>
           <div className="relative inline-block pb-2">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-foreground">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-foreground text-center sm:text-left">
               Hi, I&apos;m Krishna Singh
             </h1>
             <span className="pointer-events-none absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full bg-foreground/20" />
           </div>
-          <p className="mt-4 text-base sm:text-lg text-foreground/80 max-w-prose">
+          <p className="mt-4 text-base sm:text-lg text-foreground/80 max-w-prose mx-auto sm:mx-0 text-center sm:text-left">
             Full-stack developer & ML data analyst. I build fast, delightful web experiences with Next.js, React, and modern tooling.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3 sm:gap-3.5">
+          <div className="mt-6 flex flex-wrap gap-3 sm:gap-3.5 justify-center sm:justify-start">
             <a href="#projects" className="rounded-xl px-5 py-2.5 bg-primary text-primary-foreground shadow-sm hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring/60">
               View Projects
             </a>

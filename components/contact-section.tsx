@@ -18,10 +18,10 @@ export default function ContactSection() {
             <div className="grid gap-6 sm:grid-cols-2 items-start">
               {/* Left: CTAs */}
               <div className="space-y-4">
-                <p className="text-base sm:text-lg text-foreground/80">
+                <p className="text-base sm:text-lg text-foreground/80 text-center sm:text-left">
                   Prefer email for fastest response. I’m also available on LinkedIn and GitHub.
                 </p>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3 justify-center sm:justify-start">
                   <a href="mailto:0.krishna1120@gmail.com" className="rounded-xl px-5 py-2.5 bg-primary text-primary-foreground shadow-sm hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring/60">
                     Say Hello
                   </a>
@@ -39,7 +39,7 @@ export default function ContactSection() {
           </div>
         </motion.div>
         {/* Icons row below the contact box */}
-        <div className="mt-4 flex items-center justify-center gap-4 sm:gap-6">
+  <div className="mt-4 flex items-center justify-center gap-4 sm:gap-6">
           <a
             href="mailto:0.krishna1120@gmail.com"
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"

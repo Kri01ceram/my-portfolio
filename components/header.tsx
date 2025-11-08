@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
   { href: "#projects", label: "Projects" },
@@ -14,6 +17,7 @@ export default function Header() {
   const pathname = usePathname();
   const onHome = pathname === "/";
   const onHire = pathname?.startsWith("/hire");
+  const [open, setOpen] = useState(false);
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const targetId = href.replace('#', '');
@@ -25,6 +29,7 @@ export default function Header() {
         block: 'start',
       });
     }
+    setOpen(false);
   };
 
   return (
@@ -33,7 +38,8 @@ export default function Header() {
         <Link href="/" className="font-bold text-xl tracking-tight text-foreground hover:opacity-80 transition">
           Krishna Singh
         </Link>
-        <div className="flex items-center gap-5 sm:gap-6">
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-5 sm:gap-6">
           {links.map((link) => {
             // On the home page, use smooth scrolling to in-page anchors.
             if (onHome) {
@@ -71,7 +77,66 @@ export default function Header() {
             </Link>
           )}
         </div>
+
+        {/* Mobile hamburger */}
+        <button
+          aria-label="Toggle Menu"
+          className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-input bg-card hover:bg-secondary/30 transition"
+          onClick={() => setOpen((v) => !v)}
+        >
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </nav>
+
+      {/* Mobile menu panel */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden border-b border-border bg-background/95 backdrop-blur-xl"
+          >
+            <div className="mx-auto max-w-[1100px] px-3 sm:px-5 lg:px-6 py-3.5">
+              <div className="flex flex-col gap-2">
+                {links.map((link) =>
+                  onHome ? (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={(e) => handleSmoothScroll(e, link.href)}
+                      className="rounded-xl px-4 py-2 text-sm font-medium text-foreground hover:bg-secondary/30"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={link.href}
+                      href={`/${link.href}`}
+                      onClick={() => setOpen(false)}
+                      className="rounded-xl px-4 py-2 text-sm font-medium text-foreground hover:bg-secondary/30"
+                    >
+                      {link.label}
+                    </Link>
+                  )
+                )}
+                <div className="pt-1">
+                  {onHire ? (
+                    <Link href="/" onClick={() => setOpen(false)}>
+                      <Button className="w-full h-10 rounded-xl">Home</Button>
+                    </Link>
+                  ) : (
+                    <Link href="/hire" onClick={() => setOpen(false)}>
+                      <Button className="w-full h-10 rounded-xl">Hire Me</Button>
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
