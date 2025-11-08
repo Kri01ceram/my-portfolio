@@ -159,3 +159,34 @@ section[id] {
 .marquee-track:hover {
   animation-play-state: paused;
 }
+
+/* Subtle layered background matching warm dark palette */
+.app-bg {
+  background-color: #252422;
+  background-image:
+    radial-gradient(circle at 28% 22%, #403d39 0%, rgba(64,61,57,0.85) 35%, rgba(37,36,34,0.6) 60%, rgba(37,36,34,0) 70%),
+    radial-gradient(circle at 72% 78%, #403d39 0%, rgba(64,61,57,0.85) 30%, rgba(37,36,34,0.6) 55%, rgba(37,36,34,0) 70%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Fine grid texture overlay for depth (performance-friendly) */
+.app-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(0deg, rgba(204,197,185,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(204,197,185,0.035) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px;
+  mix-blend-mode: overlay;
+}
+
+@media (max-width: 640px) {
+  .app-bg {
+    background-image:
+      radial-gradient(circle at 50% 28%, #403d39 0%, rgba(64,61,57,0.85) 38%, rgba(37,36,34,0.6) 65%, rgba(37,36,34,0) 75%);
+  }
+  .app-bg::before { background-size: 32px 32px, 32px 32px; }
+}
