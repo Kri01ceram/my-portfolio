@@ -45,83 +45,79 @@
 
 :root {
   --radius: 0.625rem;
-  /* Fallback font-family variables to avoid external font fetch during build */
+  /* Font fallbacks */
   --font-geist-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  /* Brand palette: 424874 (ink), A6B1E1 (accent), DCD6F7 (surface), F4EEFF (background) */
-  --background: #F4EEFF;
-  --foreground: #424874;
-  --card: #DCD6F7;
-  --card-foreground: #424874;
-  --popover: #DCD6F7;
-  --popover-foreground: #424874;
-  --primary: #424874;
-  --primary-foreground: #F4EEFF;
-  --secondary: #A6B1E1;
-  --secondary-foreground: #424874;
-  --muted: #DCD6F7;
-  --muted-foreground: #424874;
-  --accent: #A6B1E1;
-  --accent-foreground: #424874;
-  --destructive: #424874;
-  --border: #A6B1E1;
-  --input: #A6B1E1;
-  --ring: #A6B1E1;
-  /* Charts mapped within brand palette */
-  --chart-1: #424874;
-  --chart-2: #A6B1E1;
-  --chart-3: #DCD6F7;
-  --chart-4: #F4EEFF;
-  --chart-5: #A6B1E1;
+  /* New palette: #000814 (black navy), #001d3d (deep), #003566 (mid), #ffc300 (gold), #ffd60a (bright gold) */
+  --background: #000814;
+  --foreground: #ffd60a;
+  --card: #001d3d;
+  --card-foreground: #ffd60a;
+  --popover: #001d3d;
+  --popover-foreground: #ffd60a;
+  --primary: #ffc300;
+  --primary-foreground: #000814;
+  --secondary: #003566;
+  --secondary-foreground: #ffd60a;
+  --muted: #001d3d;
+  --muted-foreground: #ffc300;
+  --accent: #ffd60a;
+  --accent-foreground: #000814;
+  --destructive: #ffc300; /* Using gold for destructive; can be swapped if a red variant added later */
+  --border: #003566;
+  --input: #003566;
+  --ring: #ffc300;
+  /* Charts */
+  --chart-1: #ffd60a;
+  --chart-2: #ffc300;
+  --chart-3: #003566;
+  --chart-4: #001d3d;
+  --chart-5: #000814;
   /* Sidebar */
-  --sidebar: #DCD6F7;
-  --sidebar-foreground: #424874;
-  --sidebar-primary: #424874;
-  --sidebar-primary-foreground: #F4EEFF;
-  --sidebar-accent: #A6B1E1;
-  --sidebar-accent-foreground: #424874;
-  --sidebar-border: #A6B1E1;
-  --sidebar-ring: #A6B1E1;
+  --sidebar: #001d3d;
+  --sidebar-foreground: #ffd60a;
+  --sidebar-primary: #ffc300;
+  --sidebar-primary-foreground: #000814;
+  --sidebar-accent: #ffd60a;
+  --sidebar-accent-foreground: #000814;
+  --sidebar-border: #003566;
+  --sidebar-ring: #ffc300;
 }
 
 /* Always-on dark theme mapping using the same 4-color palette */
 .dark {
-  /* Base surfaces */
-  --background: #424874;           /* ink as background */
-  --foreground: #F4EEFF;           /* light text */
-  --card: #424874;                 /* match background for flat, modern look */
-  --card-foreground: #F4EEFF;
-  --popover: #424874;
-  --popover-foreground: #F4EEFF;
-  /* Accents and controls */
-  --primary: #A6B1E1;              /* lavender buttons/links */
-  --primary-foreground: #424874;    /* readable on lavender */
-  --secondary: #A6B1E1;            /* used for subtle hovers (with /30) */
-  --secondary-foreground: #424874;
-  --muted: #424874;
-  --muted-foreground: #F4EEFF;
-  --accent: #A6B1E1;
-  --accent-foreground: #424874;
-  --destructive: #A6B1E1;
-  /* Borders, inputs, focus */
-  --border: #A6B1E1;               /* lavender outlines on dark */
-  --input: #A6B1E1;
-  --ring: #A6B1E1;
-  /* Charts remain within brand */
-  --chart-1: #F4EEFF;
-  --chart-2: #A6B1E1;
-  --chart-3: #DCD6F7;
-  --chart-4: #424874;
-  --chart-5: #A6B1E1;
-  /* Sidebar tokens mapped consistently */
-  --sidebar: #424874;
-  --sidebar-foreground: #F4EEFF;
-  --sidebar-primary: #A6B1E1;
-  --sidebar-primary-foreground: #424874;
-  --sidebar-accent: #A6B1E1;
-  --sidebar-accent-foreground: #424874;
-  --sidebar-border: #A6B1E1;
-  --sidebar-ring: #A6B1E1;
+  /* Mirror root for consistency (always dark mode) */
+  --background: #000814;
+  --foreground: #ffd60a;
+  --card: #001d3d;
+  --card-foreground: #ffd60a;
+  --popover: #001d3d;
+  --popover-foreground: #ffd60a;
+  --primary: #ffc300;
+  --primary-foreground: #000814;
+  --secondary: #003566;
+  --secondary-foreground: #ffd60a;
+  --muted: #001d3d;
+  --muted-foreground: #ffc300;
+  --accent: #ffd60a;
+  --accent-foreground: #000814;
+  --destructive: #ffc300;
+  --border: #003566;
+  --input: #003566;
+  --ring: #ffc300;
+  --chart-1: #ffd60a;
+  --chart-2: #ffc300;
+  --chart-3: #003566;
+  --chart-4: #001d3d;
+  --chart-5: #000814;
+  --sidebar: #001d3d;
+  --sidebar-foreground: #ffd60a;
+  --sidebar-primary: #ffc300;
+  --sidebar-primary-foreground: #000814;
+  --sidebar-accent: #ffd60a;
+  --sidebar-accent-foreground: #000814;
+  --sidebar-border: #003566;
+  --sidebar-ring: #ffc300;
 }
 
 @layer base {
