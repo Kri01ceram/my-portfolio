@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Section from "@/components/section";
 import CareerTrain from "@/components/career-train";
 // import ProjectCard from "@/components/project-card";
@@ -11,7 +11,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import AchievementsBelt from "@/components/achievements-belt";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Github, Linkedin, Instagram, Mail } from "lucide-react";
 
 const cards = [
@@ -80,9 +80,43 @@ const techInfo: Record<string, string> = {
 export default function HomePage() {
   // Monochrome theme: no 3D/gradient effects here.
   const [hovered, setHovered] = useState<number | null>(null);
+  // Initial splash loader (client-side) to show an animation while heavy bundles hydrate.
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    // Fade out shortly after hydration; adjust timeout if you want longer display.
+    const t = setTimeout(() => setLoading(false), 900); // ~0.9s
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <>
+    {/* INITIAL LOADER OVERLAY */}
+    <AnimatePresence>
+      {loading && (
+        <motion.div
+          key="initial-loader"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background/95 backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
+          aria-label="Loading"
+        >
+          <motion.div
+            className="h-14 w-14 rounded-full border-4 border-foreground/20 border-t-foreground animate-spin"
+            aria-hidden="true"
+          />
+          <motion.p
+            className="mt-6 text-sm font-medium tracking-wide text-foreground/70"
+            initial={{ y: 8, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.15 }}
+          >
+            Preparing experience…
+          </motion.p>
+        </motion.div>
+      )}
+    </AnimatePresence>
     {/* HERO */}
   <section className="mx-auto max-w-[1100px] px-3 sm:px-5 lg:px-6 py-14 sm:py-16 lg:py-18">
         <motion.div
