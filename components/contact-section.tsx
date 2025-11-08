@@ -7,7 +7,7 @@ import { Github, Linkedin, Instagram, Mail } from "lucide-react";
 
 export default function ContactSection() {
   return (
-    <Section id="contact" title="Contact" subtitle="Let's build something together">
+    <Section id="contact" title="Get in Touch" subtitle="Let's build something together">
       <div className="relative">
         <motion.div
           className="relative rounded-3xl border border-input bg-card shadow-lg overflow-hidden"

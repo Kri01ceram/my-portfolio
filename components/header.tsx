@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
   { href: "#projects", label: "Projects" },
   { href: "#tech", label: "Tech Stack" },
-  { href: "#contact", label: "Contact" },
+  { href: "#contact", label: "Get in Touch" },
 ];
 
 export default function Header() {
@@ -18,6 +18,8 @@ export default function Header() {
   const onHome = pathname === "/";
   const onHire = pathname?.startsWith("/hire");
   const [open, setOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const targetId = href.replace('#', '');
@@ -32,6 +34,29 @@ export default function Header() {
     setOpen(false);
   };
 
+  // Close on outside click or Escape
+  useEffect(() => {
+    if (!open) return;
+    const onClickAway = (ev: MouseEvent | TouchEvent) => {
+      const target = ev.target as Node | null;
+      if (!target) return;
+      if (panelRef.current?.contains(target)) return;
+      if (buttonRef.current?.contains(target)) return;
+      setOpen(false);
+    };
+    const onKey = (ev: KeyboardEvent) => {
+      if (ev.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onClickAway);
+    document.addEventListener("touchstart", onClickAway);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClickAway);
+      document.removeEventListener("touchstart", onClickAway);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-40 backdrop-blur-xl bg-background/70 border-b border-border [mask-image:linear-gradient(to_bottom,black,black,transparent)]">
       <nav className="mx-auto max-w-[1100px] px-3 sm:px-5 lg:px-6 py-3.5 flex items-center justify-between">
@@ -39,7 +64,7 @@ export default function Header() {
           KRI · ML/WEB
         </Link>
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-5 sm:gap-6">
+        <div className="hidden md:flex items-center gap-2 sm:gap-3">
           {links.map((link) => {
             // On the home page, use smooth scrolling to in-page anchors.
             if (onHome) {
@@ -48,10 +73,9 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleSmoothScroll(e, link.href)}
-                  className="group relative text-sm font-medium text-foreground/90 hover:text-foreground transition-colors duration-200"
+                  className="inline-flex items-center rounded-lg px-3 py-1.5 text-sm font-medium text-foreground/90 hover:text-foreground border border-transparent hover:border-input hover:bg-secondary/30 transition-colors"
                 >
                   {link.label}
-                  <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current/60 transition-all duration-300 group-hover:w-full"></span>
                 </a>
               );
             }
@@ -60,10 +84,9 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={`/${link.href}`}
-                className="group relative text-sm font-medium text-foreground/90 hover:text-foreground transition-colors duration-200"
+                className="inline-flex items-center rounded-lg px-3 py-1.5 text-sm font-medium text-foreground/90 hover:text-foreground border border-transparent hover:border-input hover:bg-secondary/30 transition-colors"
               >
                 {link.label}
-                <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-current/60 transition-all duration-300 group-hover:w-full"></span>
               </Link>
             );
           })}
@@ -83,6 +106,9 @@ export default function Header() {
           aria-label="Toggle Menu"
           className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-input bg-card hover:bg-secondary/30 transition"
           onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          ref={buttonRef}
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -97,6 +123,8 @@ export default function Header() {
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.2 }}
             className="md:hidden border-b border-border bg-background/95 backdrop-blur-xl"
+            id="mobile-menu"
+            ref={panelRef}
           >
             <div className="mx-auto max-w-[1100px] px-3 sm:px-5 lg:px-6 py-3.5">
               <div className="flex flex-col gap-2">
