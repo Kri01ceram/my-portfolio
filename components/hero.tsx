@@ -1,19 +1,55 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 
 const ROLES = ["Developer", "Freelancer", "Engineer", "Problem Solver", "Creator"];
 
 export default function Hero() {
+  // Typewriter state
+  const [displayText, setDisplayText] = useState(ROLES[0]);
   const [roleIndex, setRoleIndex] = useState(0);
+  const [phase, setPhase] = useState<"erase"|"type"|"pause">("pause");
+  const eraseSpeed = 50;
+  const typeSpeed = 60;
+  const pauseDuration = 1500;
+  const timeoutRef = useRef<number | null>(null);
+
   useEffect(() => {
-    const id = setInterval(() => {
-      setRoleIndex((i) => (i + 1) % ROLES.length);
-    }, 2600);
-    return () => clearInterval(id);
-  }, []);
+    const run = () => {
+      if (phase === "pause") {
+        timeoutRef.current = window.setTimeout(() => setPhase("erase"), pauseDuration);
+        return;
+      }
+      if (phase === "erase") {
+        if (displayText.length === 0) {
+          setPhase("type");
+          setRoleIndex((i) => (i + 1) % ROLES.length);
+          return;
+        }
+        timeoutRef.current = window.setTimeout(() => {
+          setDisplayText((t) => t.slice(0, -1));
+        }, eraseSpeed);
+        return;
+      }
+      if (phase === "type") {
+        const next = ROLES[roleIndex];
+        if (displayText === next) {
+          setPhase("pause");
+          return;
+        }
+        timeoutRef.current = window.setTimeout(() => {
+          setDisplayText(next.slice(0, displayText.length + 1));
+        }, typeSpeed);
+      }
+    };
+    run();
+    return () => { if (timeoutRef.current) window.clearTimeout(timeoutRef.current); };
+  }, [phase, displayText, roleIndex]);
+
+  // Initialize pause phase after mount
+  useEffect(() => { setPhase("erase"); }, []);
   return (
   <section className="mx-auto max-w-[1100px] px-3 sm:px-5 lg:px-6 py-14 sm:py-16 lg:py-18">
       <motion.div
@@ -26,23 +62,20 @@ export default function Hero() {
         }}
       >
         <div>
-          <div className="relative inline-block pb-2">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-foreground flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
-              <span className="whitespace-nowrap">Hi, I&apos;m Krishna Singh</span>
-              <motion.span
-                key={roleIndex}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, ease: 'easeOut' }}
-                className="relative inline-flex items-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-cyan-300 to-fuchsia-500 text-2xl sm:text-3xl md:text-4xl font-bold"
-              >
-                {ROLES[roleIndex]}
-                <span className="ml-2 h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-              </motion.span>
+          <div className="relative inline-block pb-3">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-foreground text-left space-y-1">
+              <span className="block">Hi,</span>
+              <span className="block">I&apos;m Krishna Singh</span>
             </h1>
-            <span className="pointer-events-none absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full bg-foreground/15" />
+            <div className="mt-3 h-8 flex items-center">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-cyan-300 to-fuchsia-500 font-semibold text-xl sm:text-2xl md:text-3xl tracking-tight">
+                {displayText}
+                <span className="ml-1 inline-block w-4 h-6 align-middle bg-gradient-to-b from-cyan-400 to-fuchsia-500 animate-pulse rounded-sm" />
+              </span>
+            </div>
+            <span className="pointer-events-none absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full bg-foreground/10" />
           </div>
-          <p className="mt-4 text-base sm:text-lg text-foreground/80 max-w-prose mx-auto sm:mx-0 text-center sm:text-left">
+          <p className="mt-4 text-base sm:text-lg text-foreground/80 max-w-prose mx-0 text-left">
             Full-stack developer & ML data analyst. I build fast, delightful web experiences with Next.js, React, and modern tooling.
           </p>
           <div className="mt-6 flex flex-wrap gap-3 sm:gap-3.5 justify-center sm:justify-start">
