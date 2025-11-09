@@ -48,83 +48,80 @@
   /* Font fallbacks */
   --font-geist-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  /* Warm dark palette:
-     fffcf2 (parchment), ccc5b9 (warm stone), 403d39 (charcoal brown), 252422 (near-black espresso), eb5e28 (rust orange)
-     Strategy:
-       Background: near-black espresso (#252422)
-       Foreground: parchment (#fffcf2)
-       Card/Surface: charcoal brown (#403d39)
-       Border/Input: warm stone (#ccc5b9)
-       Primary: rust accent (#eb5e28) with light foreground
-       Secondary: warm stone (#ccc5b9) with dark foreground
-       Accent: rust (#eb5e28) for highlights; muted uses charcoal.
+  /* Neon cyan/magenta dark palette (GitHub-like base):
+     Background: #0D1117, Surface/Card: #161B22, Primary (Cyan): #00FFFF,
+     Secondary Accent (Magenta): #FF00FF, Text: #E6EDF3, Muted: #8B949E
+     Assumptions for unspecified tokens:
+       - Border/Input use #21262D for subtle separation
+       - Ring uses cyan for focus visibility
+       - Accent mapped to magenta for hover/interactive highlights
   */
-  --background: #252422;
-  --foreground: #fffcf2;
-  --card: #403d39;
-  --card-foreground: #fffcf2;
-  --popover: #403d39;
-  --popover-foreground: #fffcf2;
-  --primary: #eb5e28;
-  --primary-foreground: #fffcf2;
-  --secondary: #ccc5b9;
-  --secondary-foreground: #252422;
-  --muted: #403d39;
-  --muted-foreground: #ccc5b9;
-  --accent: #eb5e28;
-  --accent-foreground: #fffcf2;
-  --destructive: #eb5e28; /* same accent acts as destructive */
-  --border: #ccc5b9;
-  --input: #ccc5b9;
-  --ring: #eb5e28;
-  --chart-1: #eb5e28;
-  --chart-2: #ccc5b9;
-  --chart-3: #403d39;
-  --chart-4: #252422;
-  --chart-5: #fffcf2;
-  --sidebar: #403d39;
-  --sidebar-foreground: #fffcf2;
-  --sidebar-primary: #eb5e28;
-  --sidebar-primary-foreground: #fffcf2;
-  --sidebar-accent: #ccc5b9;
-  --sidebar-accent-foreground: #252422;
-  --sidebar-border: #ccc5b9;
-  --sidebar-ring: #eb5e28;
+  --background: #0D1117;
+  --foreground: #E6EDF3;
+  --card: #161B22;
+  --card-foreground: #E6EDF3;
+  --popover: #161B22;
+  --popover-foreground: #E6EDF3;
+  --primary: #00FFFF; /* cyan */
+  --primary-foreground: #0D1117;
+  --secondary: #161B22;
+  --secondary-foreground: #E6EDF3;
+  --muted: #0D1117;
+  --muted-foreground: #8B949E;
+  --accent: #FF00FF; /* magenta */
+  --accent-foreground: #0D1117;
+  --destructive: #FF00FF; /* reuse magenta for destructive */
+  --border: #21262D;
+  --input: #21262D;
+  --ring: #00FFFF;
+  --chart-1: #00FFFF;
+  --chart-2: #FF00FF;
+  --chart-3: #E6EDF3;
+  --chart-4: #8B949E;
+  --chart-5: #161B22;
+  --sidebar: #161B22;
+  --sidebar-foreground: #E6EDF3;
+  --sidebar-primary: #00FFFF;
+  --sidebar-primary-foreground: #0D1117;
+  --sidebar-accent: #FF00FF;
+  --sidebar-accent-foreground: #0D1117;
+  --sidebar-border: #21262D;
+  --sidebar-ring: #00FFFF;
 }
 
 /* Always-on dark theme mapping using the same 4-color palette */
 .dark {
-  --background: #252422;
-  --foreground: #fffcf2;
-  --card: #403d39;
-  --card-foreground: #fffcf2;
-  --popover: #403d39;
-  --popover-foreground: #fffcf2;
-  --primary: #eb5e28;
-  --primary-foreground: #fffcf2;
-  --secondary: #ccc5b9;
-  --secondary-foreground: #252422;
-  --muted: #403d39;
-  --muted-foreground: #ccc5b9;
-  --accent: #eb5e28;
-  --accent-foreground: #fffcf2;
-  --destructive: #eb5e28;
-  --border: #ccc5b9;
-  --input: #ccc5b9;
-  --ring: #eb5e28;
-  --chart-1: #eb5e28;
-  --chart-2: #ccc5b9;
-  --chart-3: #403d39;
-  --chart-4: #252422;
-  --chart-5: #fffcf2;
-  --sidebar: #403d39;
-  --sidebar-foreground: #fffcf2;
-  --sidebar-primary: #eb5e28;
-  --sidebar-primary-foreground: #fffcf2;
-  --sidebar-accent: #ccc5b9;
-  --sidebar-accent-foreground: #252422;
-  --sidebar-border: #ccc5b9;
-  --sidebar-ring: #eb5e28;
+  --background: #0D1117;
+  --foreground: #E6EDF3;
+  --card: #161B22;
+  --card-foreground: #E6EDF3;
+  --popover: #161B22;
+  --popover-foreground: #E6EDF3;
+  --primary: #00FFFF;
+  --primary-foreground: #0D1117;
+  --secondary: #161B22;
+  --secondary-foreground: #E6EDF3;
+  --muted: #0D1117;
+  --muted-foreground: #8B949E;
+  --accent: #FF00FF;
+  --accent-foreground: #0D1117;
+  --destructive: #FF00FF;
+  --border: #21262D;
+  --input: #21262D;
+  --ring: #00FFFF;
+  --chart-1: #00FFFF;
+  --chart-2: #FF00FF;
+  --chart-3: #E6EDF3;
+  --chart-4: #8B949E;
+  --chart-5: #161B22;
+  --sidebar: #161B22;
+  --sidebar-foreground: #E6EDF3;
+  --sidebar-primary: #00FFFF;
+  --sidebar-primary-foreground: #0D1117;
+  --sidebar-accent: #FF00FF;
+  --sidebar-accent-foreground: #0D1117;
+  --sidebar-border: #21262D;
+  --sidebar-ring: #00FFFF;
 }
 
 @layer base {
@@ -160,12 +157,12 @@ section[id] {
   animation-play-state: paused;
 }
 
-/* Subtle layered background matching warm dark palette */
+/* Subtle layered background matching neon dark palette */
 .app-bg {
-  background-color: #252422;
+  background-color: #0D1117;
   background-image:
-    radial-gradient(circle at 28% 22%, #403d39 0%, rgba(64,61,57,0.85) 35%, rgba(37,36,34,0.6) 60%, rgba(37,36,34,0) 70%),
-    radial-gradient(circle at 72% 78%, #403d39 0%, rgba(64,61,57,0.85) 30%, rgba(37,36,34,0.6) 55%, rgba(37,36,34,0) 70%);
+    radial-gradient(circle at 28% 22%, #161B22 0%, rgba(22,27,34,0.8) 35%, rgba(13,17,23,0.55) 60%, rgba(13,17,23,0) 70%),
+    radial-gradient(circle at 72% 78%, #161B22 0%, rgba(22,27,34,0.8) 30%, rgba(13,17,23,0.55) 55%, rgba(13,17,23,0) 70%);
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
@@ -177,8 +174,8 @@ section[id] {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(0deg, rgba(204,197,185,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(204,197,185,0.035) 1px, transparent 1px);
+    linear-gradient(0deg, rgba(0,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,0.035) 1px, transparent 1px);
   background-size: 40px 40px, 40px 40px;
   mix-blend-mode: overlay;
 }
@@ -186,7 +183,7 @@ section[id] {
 @media (max-width: 640px) {
   .app-bg {
     background-image:
-      radial-gradient(circle at 50% 28%, #403d39 0%, rgba(64,61,57,0.85) 38%, rgba(37,36,34,0.6) 65%, rgba(37,36,34,0) 75%);
+      radial-gradient(circle at 50% 28%, #161B22 0%, rgba(22,27,34,0.8) 38%, rgba(13,17,23,0.55) 65%, rgba(13,17,23,0) 75%);
   }
   .app-bg::before { background-size: 32px 32px, 32px 32px; }
 }
