@@ -3,11 +3,30 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 function Card({ className, ...props }: React.ComponentProps<"div">) {
+  const ref = React.useRef<HTMLDivElement>(null)
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = ref.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    const x = ((e.clientX - r.left) / r.width) * 100
+    const y = ((e.clientY - r.top) / r.height) * 100
+    el.style.setProperty("--mx", `${x}%`)
+    el.style.setProperty("--my", `${y}%`)
+  }
+  const handleLeave = () => {
+    const el = ref.current
+    if (!el) return
+    el.style.setProperty("--mx", `50%`)
+    el.style.setProperty("--my", `50%`)
+  }
   return (
     <div
+      ref={ref}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm relative overflow-hidden group card-glow",
+        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm relative overflow-hidden group card-glow focus:outline-none focus:ring-2 focus:ring-ring/60",
         className
       )}
       {...props}

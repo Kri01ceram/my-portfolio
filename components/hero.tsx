@@ -21,6 +21,9 @@ export default function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="grid items-center gap-8 lg:gap-12 sm:grid-cols-2"
+        style={{
+          gridTemplateColumns: 'minmax(0,1fr) minmax(320px,480px)'
+        }}
       >
         <div>
           <div className="relative inline-block pb-2">
@@ -51,7 +54,7 @@ export default function Hero() {
             </a>
           </div>
         </div>
-        <div className="mx-auto w-full max-w-[380px] sm:max-w-[420px] md:max-w-[450px] lg:max-w-[480px]">
+  <div className="mx-auto w-full max-w-[380px] sm:max-w-[420px] md:max-w-[450px] lg:max-w-[480px] order-first sm:order-none">
           <motion.div
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
