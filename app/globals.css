@@ -150,6 +150,7 @@
   inset: 0;
   pointer-events: none;
   opacity: 0;
+  z-index: 0; /* keep highlight behind content */
   transition: opacity 0.35s ease;
 }
 .card-glow:before {
@@ -171,8 +172,13 @@
 .card-glow:hover:before,
 .card-glow:hover:after { opacity: 1; }
 
-/* JS-less pointer position tracking via event-driven inline style (to be updated in components if needed) */
-[data-slot="card"][data-mouse] { /* placeholder removed to satisfy linter */ }
+/* Ensure card content stays above glow layers */
+.card-glow > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* JS-less pointer position tracking placeholder removed */
 
 
 /* Brand gradient text (matches Project titles) */
