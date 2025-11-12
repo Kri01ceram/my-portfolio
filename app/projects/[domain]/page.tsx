@@ -9,8 +9,12 @@ const CATEGORIES: Array<{ key: "valuable" | "practice" | "scaled"; label: string
   { key: "scaled", label: "Scaled Projects", desc: "Larger scope, scalability, or production concerns." },
 ];
 
-export default function DomainProjectsPage({ params }: { params: { domain: string } }) {
-  const domainParam = params.domain;
+export default async function DomainProjectsPage({
+  params,
+}: {
+  params: Promise<{ domain: string }>
+}) {
+  const { domain: domainParam } = await params;
   const domain = domainParam === "ml" || domainParam === "web" ? (domainParam as "ml" | "web") : null;
   if (!domain) return notFound();
 
