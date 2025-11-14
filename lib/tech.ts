@@ -34,6 +34,18 @@ export const cards = [
     gradient: "from-amber-400/60 via-orange-500/45 to-rose-500/40",
     techs: ["Docker", "Kubernetes", "AWS", "Terraform", "CI/CD", "Linux"],
   },
+  {
+    title: "Deep Learning",
+    description: "Research-grade experimentation and production-ready neural networks tailored to product objectives.",
+    gradient: "from-fuchsia-400/55 via-violet-500/40 to-indigo-500/35",
+    techs: ["TensorFlow", "PyTorch", "Keras", "ONNX", "Weights & Biases"],
+  },
+  {
+    title: "MLOps",
+    description: "Automated model delivery, governance, and monitoring across cloud and on-prem pipelines.",
+    gradient: "from-slate-200/50 via-blue-400/40 to-emerald-400/35",
+    techs: ["MLflow", "Kubeflow", "Apache Airflow", "Prefect", "SageMaker", "Great Expectations"],
+  },
 ];
 
 export const techInfo: Record<string, string> = {
@@ -58,6 +70,15 @@ export const techInfo: Record<string, string> = {
   Terraform: "Infrastructure as code across multiple providers.",
   "CI/CD": "Automated build, test, and deploy pipelines.",
   Linux: "Operating system powering servers and dev environments.",
+  Keras: "High-level neural network API running on top of deep learning frameworks.",
+  ONNX: "Open format for exchanging machine learning models across frameworks.",
+  "Weights & Biases": "Experiment tracking, model management, and collaboration tooling.",
+  MLflow: "Open-source platform for managing the ML lifecycle and experiment metadata.",
+  Kubeflow: "Kubernetes-native platform for deploying and managing ML workloads.",
+  "Apache Airflow": "Workflow orchestrator for complex data and ML pipelines.",
+  Prefect: "Python-first workflow orchestration with a developer-friendly API.",
+  SageMaker: "AWS platform for building, training, and deploying ML models at scale.",
+  "Great Expectations": "Data quality and validation framework for analytics and ML pipelines.",
 };
 
 export const techLogos: Record<string, string | undefined> = {
@@ -82,4 +103,13 @@ export const techLogos: Record<string, string | undefined> = {
   Terraform: undefined,
   "CI/CD": undefined,
   Linux: undefined,
+  Keras: undefined,
+  ONNX: undefined,
+  "Weights & Biases": undefined,
+  MLflow: undefined,
+  Kubeflow: undefined,
+  "Apache Airflow": undefined,
+  Prefect: undefined,
+  SageMaker: undefined,
+  "Great Expectations": undefined,
 };

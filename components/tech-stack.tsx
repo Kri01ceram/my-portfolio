@@ -1,42 +1,145 @@
 "use client";
 
+import {
+  useCallback,
+  useState,
+  type KeyboardEvent,
+  type WheelEvent as ReactWheelEvent,
+} from "react";
 import { motion } from "framer-motion";
 import Section from "@/components/section";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
 import { cards, techInfo } from "@/lib/tech";
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: (index: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.12 + index * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] as const },
-  }),
-} as const;
-
 export default function TechStackSection() {
+  const totalCards = cards.length;
+  const initialIndex = Math.floor(totalCards / 2);
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
+  const [hovering, setHovering] = useState(false);
+
+  const wrapIndex = useCallback(
+    (value: number) => {
+      if (totalCards === 0) return 0;
+      const mod = ((value % totalCards) + totalCards) % totalCards;
+      return mod;
+    },
+    [totalCards]
+  );
+
+  const handleAdvance = useCallback(
+    (direction: 1 | -1) => {
+      setActiveIndex((prev) => wrapIndex(prev + direction));
+    },
+    [wrapIndex]
+  );
+
+  const handleWheel = useCallback(
+    (event: ReactWheelEvent<HTMLDivElement>) => {
+      if (!hovering && event.currentTarget !== document.activeElement) return;
+      event.preventDefault();
+      const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+      if (Math.abs(delta) < 6) return;
+      handleAdvance(delta > 0 ? 1 : -1);
+    },
+    [handleAdvance, hovering]
+  );
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        handleAdvance(1);
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        handleAdvance(-1);
+      }
+    },
+    [handleAdvance]
+  );
+
+  const instructionsId = "tech-stack-carousel-instructions";
+
   return (
     <Section id="tech" title="Tech Stack" subtitle="Tools I use to ship">
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-        {cards.map((card, index) => (
-          <motion.article
-            key={card.title}
-            className="group relative overflow-hidden rounded-3xl border border-white/8 bg-card/80 p-6 shadow-[0_22px_60px_rgba(7,12,20,0.28)] backdrop-blur transition-all duration-300 hover:border-primary/40 hover:shadow-[0_32px_80px_rgba(7,12,20,0.35)]"
-            variants={cardVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.35 }}
-            custom={index}
-            whileHover={{ translateY: -8 }}
-          >
-            <span
-              aria-hidden
-              className={`pointer-events-none absolute inset-x-7 top-0 h-px bg-gradient-to-r ${card.gradient}`}
-            />
-            <CardContent card={card} index={index} />
-          </motion.article>
-        ))}
+      <p id={instructionsId} className="sr-only">
+        Scroll while hovering or use the left and right arrow keys to explore each capability.
+      </p>
+      <div
+        role="group"
+        aria-roledescription="carousel"
+        aria-label="Technical focus areas"
+        aria-describedby={instructionsId}
+        tabIndex={0}
+        onWheel={handleWheel}
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
+        onKeyDown={handleKeyDown}
+        className="relative mt-10 flex h-[470px] items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+      >
+        <div className="pointer-events-none absolute inset-y-16 left-0 w-32 bg-gradient-to-r from-background via-background/80 to-transparent" aria-hidden />
+        <div className="pointer-events-none absolute inset-y-16 right-0 w-32 bg-gradient-to-l from-background via-background/80 to-transparent" aria-hidden />
+        <div className="pointer-events-none absolute inset-x-0 top-10 h-20 bg-gradient-to-b from-background/70 via-background/40 to-transparent" aria-hidden />
+        <div className="pointer-events-none absolute inset-x-0 bottom-10 h-20 bg-gradient-to-t from-background/70 via-background/40 to-transparent" aria-hidden />
+        <div className="relative h-full w-full max-w-5xl">
+          {cards.map((card, index) => {
+            let distance = index - activeIndex;
+            if (distance > totalCards / 2) distance -= totalCards;
+            if (distance < -totalCards / 2) distance += totalCards;
+
+            const absDistance = Math.abs(distance);
+            const translateX = distance * 220;
+            const scale = 1 - Math.min(absDistance * 0.14, 0.42);
+            const opacity = absDistance === 0 ? 1 : absDistance === 1 ? 0.6 : 0.22;
+            const blur = Math.max(absDistance - 1, 0) * 2.5;
+            const rotateY = distance * -5;
+            const isActive = absDistance === 0;
+
+            return (
+              <motion.article
+                key={card.title}
+                className="absolute left-1/2 top-1/2 w-[min(90%,400px)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-3xl border border-white/8 bg-card/85 p-6 shadow-[0_28px_80px_rgba(8,11,18,0.35)] backdrop-blur-md"
+                style={{
+                  pointerEvents: isActive ? "auto" : "none",
+                  zIndex: totalCards - absDistance,
+                  filter: `blur(${blur}px)` as string,
+                }}
+                animate={{
+                  x: translateX,
+                  scale,
+                  opacity,
+                  rotateY,
+                }}
+                transition={{ type: "spring", stiffness: 180, damping: 24 }}
+              >
+                <span
+                  aria-hidden
+                  className={`pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r ${card.gradient}`}
+                />
+                <CardContent card={card} index={index} isActive={isActive} />
+              </motion.article>
+            );
+          })}
+        </div>
+      </div>
+      <div className="mt-6 flex items-center justify-center gap-3">
+        <button
+          type="button"
+          onClick={() => handleAdvance(-1)}
+          className="rounded-full border border-white/10 bg-secondary/60 px-3 py-2 text-xs font-medium uppercase tracking-[0.2em] text-foreground/70 transition hover:border-primary/40 hover:bg-secondary/80 hover:text-foreground"
+        >
+          Prev
+        </button>
+        <span className="text-xs font-medium uppercase tracking-[0.3em] text-foreground/45">
+          Scroll or use arrows
+        </span>
+        <button
+          type="button"
+          onClick={() => handleAdvance(1)}
+          className="rounded-full border border-white/10 bg-secondary/60 px-3 py-2 text-xs font-medium uppercase tracking-[0.2em] text-foreground/70 transition hover:border-primary/40 hover:bg-secondary/80 hover:text-foreground"
+        >
+          Next
+        </button>
       </div>
     </Section>
   );
@@ -45,31 +148,40 @@ export default function TechStackSection() {
 type TechCardProps = {
   card: (typeof cards)[number];
   index: number;
+  isActive: boolean;
 };
 
-function CardContent({ card, index }: TechCardProps) {
+function CardContent({ card, index, isActive }: TechCardProps) {
   return (
     <>
       <header className="relative z-10 flex items-start justify-between">
         <div>
-          <p className="text-[11px] uppercase tracking-[0.32em] text-foreground/45">Capability {String(index + 1).padStart(2, "0")}</p>
-          <h3 className="mt-3 text-xl font-semibold text-foreground sm:text-2xl">{card.title}</h3>
+          <p className="text-[11px] uppercase tracking-[0.32em] text-foreground/45">
+            Capability {String(index + 1).padStart(2, "0")}
+          </p>
+          <h3 className="mt-3 text-2xl font-semibold text-foreground">{card.title}</h3>
         </div>
         <span className="rounded-full border border-white/10 bg-secondary/70 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.26em] text-foreground/60">
           Core
         </span>
       </header>
 
-      <p className="mt-4 text-sm leading-relaxed text-foreground/70">{card.description}</p>
+      <p className={`mt-4 text-sm leading-relaxed ${isActive ? "text-foreground/75" : "text-foreground/55"}`}>
+        {card.description}
+      </p>
 
-      <div className="relative z-10 mt-6 flex flex-wrap gap-2">
+      <div className="relative z-10 mt-6 flex flex-wrap gap-2" aria-hidden={!isActive}>
         {card.techs.map((tech) => (
-          <Tooltip key={tech}>
+          <Tooltip key={tech} delayDuration={0}>
             <TooltipTrigger asChild>
-              <span className="inline-flex">
+              <span className={`inline-flex ${isActive ? "" : "pointer-events-none"}`}>
                 <Badge
                   variant="outline"
-                  className="border-white/15 bg-secondary/50 px-3 py-1 text-xs font-medium text-foreground/80 transition-colors duration-200 hover:border-primary/40 hover:bg-secondary/70 hover:text-foreground"
+                  className={`border-white/15 px-3 py-1 text-xs font-medium transition-colors duration-200 ${
+                    isActive
+                      ? "bg-secondary/55 text-foreground/80 hover:border-primary/40 hover:bg-secondary/70 hover:text-foreground"
+                      : "bg-secondary/40 text-foreground/45"
+                  }`}
                 >
                   {tech}
                 </Badge>
