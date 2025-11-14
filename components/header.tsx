@@ -47,18 +47,35 @@ export default function Header() {
     const onKey = (ev: KeyboardEvent) => {
       if (ev.key === "Escape") setOpen(false);
     };
-    const onScrollOrResize = () => setOpen(false);
+    const onResize = () => setOpen(false);
     document.addEventListener("mousedown", onClickAway);
     document.addEventListener("touchstart", onClickAway);
     document.addEventListener("keydown", onKey);
-    window.addEventListener("scroll", onScrollOrResize, { passive: true });
-    window.addEventListener("resize", onScrollOrResize);
+    window.addEventListener("resize", onResize);
     return () => {
       document.removeEventListener("mousedown", onClickAway);
       document.removeEventListener("touchstart", onClickAway);
       document.removeEventListener("keydown", onKey);
-      window.removeEventListener("scroll", onScrollOrResize);
-      window.removeEventListener("resize", onScrollOrResize);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [open]);
+
+  // Prevent background scroll when the mobile menu is open
+  useEffect(() => {
+    if (!open) return;
+    const body = document.body;
+    const previousOverflow = body.style.overflow;
+    const previousPaddingRight = body.style.paddingRight;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      body.style.overflow = previousOverflow;
+      body.style.paddingRight = previousPaddingRight;
     };
   }, [open]);
 
@@ -122,7 +139,7 @@ export default function Header() {
       {/* Mobile menu backdrop (click to close) */}
       {open && (
         <div
-          className="md:hidden fixed inset-0 z-30 bg-black/30"
+          className="md:hidden fixed inset-0 z-[60] bg-background/85 backdrop-blur-sm"
           onClick={() => setOpen(false)}
           aria-hidden
         />
@@ -136,7 +153,7 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden border-b border-border bg-background/95 backdrop-blur-xl relative z-40"
+            className="md:hidden border-b border-border bg-background/95 backdrop-blur-xl relative z-[70]"
             id="mobile-menu"
             ref={panelRef}
           >

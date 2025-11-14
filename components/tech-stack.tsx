@@ -2,8 +2,10 @@
 
 import {
   useCallback,
+  useRef,
   useState,
-  type KeyboardEvent,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type TouchEvent as ReactTouchEvent,
   type WheelEvent as ReactWheelEvent,
 } from "react";
 import { motion } from "framer-motion";
@@ -16,7 +18,8 @@ export default function TechStackSection() {
   const totalCards = cards.length;
   const initialIndex = Math.floor(totalCards / 2);
   const [activeIndex, setActiveIndex] = useState(initialIndex);
-  const [hovering, setHovering] = useState(false);
+  const touchOriginRef = useRef<{ x: number; y: number } | null>(null);
+  const touchActiveRef = useRef(false);
 
   const wrapIndex = useCallback(
     (value: number) => {
@@ -36,17 +39,16 @@ export default function TechStackSection() {
 
   const handleWheel = useCallback(
     (event: ReactWheelEvent<HTMLDivElement>) => {
-      if (!hovering && event.currentTarget !== document.activeElement) return;
       event.preventDefault();
       const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
       if (Math.abs(delta) < 6) return;
       handleAdvance(delta > 0 ? 1 : -1);
     },
-    [handleAdvance, hovering]
+    [handleAdvance]
   );
 
   const handleKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLDivElement>) => {
+    (event: ReactKeyboardEvent<HTMLDivElement>) => {
       if (event.key === "ArrowRight") {
         event.preventDefault();
         handleAdvance(1);
@@ -58,12 +60,51 @@ export default function TechStackSection() {
     [handleAdvance]
   );
 
+  const handleTouchStart = useCallback((event: ReactTouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    if (!touch) return;
+    touchOriginRef.current = { x: touch.clientX, y: touch.clientY };
+    touchActiveRef.current = false;
+  }, []);
+
+  const handleTouchMove = useCallback(
+    (event: ReactTouchEvent<HTMLDivElement>) => {
+      const start = touchOriginRef.current;
+      if (!start) return;
+      const touch = event.touches[0];
+      if (!touch) return;
+      const dx = touch.clientX - start.x;
+      const dy = touch.clientY - start.y;
+
+      if (!touchActiveRef.current) {
+        if (Math.abs(dx) <= 12 && Math.abs(dy) <= 12) return;
+        if (Math.abs(dy) > Math.abs(dx)) {
+          touchOriginRef.current = null;
+          return;
+        }
+        touchActiveRef.current = true;
+      }
+
+      event.preventDefault();
+      if (Math.abs(dx) >= 36) {
+        handleAdvance(dx < 0 ? 1 : -1);
+        touchOriginRef.current = { x: touch.clientX, y: touch.clientY };
+      }
+    },
+    [handleAdvance]
+  );
+
+  const handleTouchEnd = useCallback(() => {
+    touchOriginRef.current = null;
+    touchActiveRef.current = false;
+  }, []);
+
   const instructionsId = "tech-stack-carousel-instructions";
 
   return (
     <Section id="tech" title="Tech Stack" subtitle="Tools I use to ship">
       <p id={instructionsId} className="sr-only">
-        Scroll while hovering or use the left and right arrow keys to explore each capability.
+        Swipe, scroll, or use the left and right arrow keys to explore each capability.
       </p>
       <div
         role="group"
@@ -72,10 +113,12 @@ export default function TechStackSection() {
         aria-describedby={instructionsId}
         tabIndex={0}
         onWheel={handleWheel}
-        onMouseEnter={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)}
         onKeyDown={handleKeyDown}
-        className="relative mt-10 flex h-[470px] items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
+        className="relative mt-10 flex h-[420px] w-full items-center justify-center overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 sm:h-[460px]"
       >
         <div className="pointer-events-none absolute inset-y-16 left-0 w-32 bg-gradient-to-r from-background via-background/80 to-transparent" aria-hidden />
         <div className="pointer-events-none absolute inset-y-16 right-0 w-32 bg-gradient-to-l from-background via-background/80 to-transparent" aria-hidden />
@@ -98,7 +141,7 @@ export default function TechStackSection() {
             return (
               <motion.article
                 key={card.title}
-                className="absolute left-1/2 top-1/2 w-[min(90%,400px)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-3xl border border-white/8 bg-card/85 p-6 shadow-[0_28px_80px_rgba(8,11,18,0.35)] backdrop-blur-md"
+                className="absolute left-1/2 top-1/2 w-[min(88%,360px)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-3xl border border-white/8 bg-card/85 p-6 shadow-[0_28px_80px_rgba(8,11,18,0.35)] backdrop-blur-md sm:w-[min(80%,400px)]"
                 style={{
                   pointerEvents: isActive ? "auto" : "none",
                   zIndex: totalCards - absDistance,
@@ -130,8 +173,8 @@ export default function TechStackSection() {
         >
           Prev
         </button>
-        <span className="text-xs font-medium uppercase tracking-[0.3em] text-foreground/45">
-          Scroll or use arrows
+        <span className="text-xs font-medium uppercase tracking-[0.28em] text-foreground/45">
+          Swipe · Scroll · Arrows
         </span>
         <button
           type="button"
