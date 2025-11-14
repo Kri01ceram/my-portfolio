@@ -49,7 +49,6 @@ export default function TechStackSection() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-white sm:text-xl">{card.title}</h3>
-                    <p className="text-xs uppercase tracking-[0.22em] text-white/60">Core tools</p>
                   </div>
                 </header>
 
@@ -73,7 +72,6 @@ export default function TechStackSection() {
                             </div>
                             <div className="min-w-0">
                               <p className="text-sm font-medium text-white/90">{tech}</p>
-                              <p className="text-[11px] text-white/55">{techInfo[tech] ?? "Go-to tool"}</p>
                             </div>
                           </motion.div>
                         </TooltipTrigger>
@@ -81,14 +79,6 @@ export default function TechStackSection() {
                       </Tooltip>
                     );
                   })}
-                </div>
-
-                <div className="relative z-0 mt-5 flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-gradient-to-r from-white/5 via-transparent to-white/5 px-3 py-2 text-[11px] uppercase tracking-[0.3em] text-white/50">
-                  <span className="flex items-center gap-2">
-                    <span className="inline-block h-2 w-2 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(0,255,255,0.9)]" />
-                    Trusted tools
-                  </span>
-                  <span className="text-white/40">Always improving →</span>
                 </div>
               </motion.article>
             ))}
