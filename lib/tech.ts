@@ -56,3 +56,27 @@ export const techInfo: Record<string, string> = {
   "CI/CD": "Automated build, test, and deploy pipelines.",
   Linux: "Operating system powering servers and dev environments.",
 };
+
+export const techLogos: Record<string, string | undefined> = {
+  "Next.js": undefined,
+  React: undefined,
+  TypeScript: undefined,
+  "Tailwind CSS": undefined,
+  "Node.js": undefined,
+  Firebase: undefined,
+  PostgreSQL: undefined,
+  "Framer Motion": undefined,
+  Python: undefined,
+  NumPy: undefined,
+  Pandas: undefined,
+  "Scikit-learn": undefined,
+  TensorFlow: undefined,
+  PyTorch: undefined,
+  Matplotlib: undefined,
+  Docker: undefined,
+  Kubernetes: undefined,
+  AWS: undefined,
+  Terraform: undefined,
+  "CI/CD": undefined,
+  Linux: undefined,
+};

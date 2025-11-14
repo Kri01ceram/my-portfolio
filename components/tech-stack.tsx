@@ -1,83 +1,99 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import Section from "@/components/section";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
-import { cards, techInfo } from "@/lib/tech";
+import { cards, techInfo, techLogos } from "@/lib/tech";
+
+const BG_GRADIENTS = [
+  "from-cyan-500/40 via-transparent to-fuchsia-500/40",
+  "from-fuchsia-600/35 via-transparent to-cyan-400/40",
+  "from-cyan-400/35 via-transparent to-violet-500/35",
+];
 
 export default function TechStackSection() {
-  const [hovered, setHovered] = useState<number | null>(null);
+  const layers = useMemo(
+    () =>
+      Array.from({ length: 3 }).map((_, i) => ({
+        id: i,
+        className: `absolute inset-0 rounded-[42px] bg-gradient-to-br ${BG_GRADIENTS[i]} blur-3xl opacity-60 mix-blend-screen`,
+      })),
+    []
+  );
+
   return (
     <Section id="tech" title="Tech Stack" subtitle="Tools I use to ship">
-      <div className="mt-4 md:mt-6 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {cards.map((c, idx) => {
-          const isActive = hovered === idx;
-          const isDimmed = hovered !== null && hovered !== idx;
-          return (
-            <motion.div
-              key={c.title}
-              onMouseEnter={() => setHovered(idx)}
-              onMouseLeave={() => setHovered(null)}
-              onClick={() => setHovered(isActive ? null : idx)}
-              animate={{
-                y: isActive ? -2 : 0,
-                scale: isActive ? 1.02 : isDimmed ? 0.985 : 1,
-              }}
-              transition={{ type: "spring", stiffness: 120, damping: 26, mass: 0.7 }}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              className={isActive ? "[transform-origin:center]" : ""}
-            >
-              <Card className={`rounded-2xl group ${isActive ? "ring-1 ring-secondary" : ""}`}>
-                <CardHeader className="border-b">
-                  <CardTitle className="text-lg text-foreground">{c.title}</CardTitle>
-                  <CardDescription className="text-xs text-foreground/60">Hover to view technologies</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div
-                    className={`overflow-hidden transition-[max-height] duration-400 ease-out ${
-                      isActive ? "max-h-[420px]" : "max-h-0 group-hover:max-h-64"
-                    }`}
-                    aria-expanded={isActive}
-                  >
-                    <div
-                      className={`${
-                        isActive
-                          ? "mt-3 grid grid-cols-2 gap-3 sm:gap-3.5"
-                          : "mt-3 flex flex-wrap gap-2.5"
-                      } opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 ${
-                        isActive ? "opacity-100 translate-y-0" : ""
-                      } transition duration-400 ease-out`}
-                    >
-                      {c.techs.map((t) => (
-                        <Tooltip key={t}>
-                          <TooltipTrigger asChild>
-                            <motion.span
-                              whileHover={{ y: -1, scale: 1.02 }}
-                              transition={{ type: "spring", stiffness: 140, damping: 24 }}
-                              className={`${
-                                isActive
-                                  ? "inline-flex items-center gap-1.5 rounded-full border border-input px-3.5 py-2 text-[0.95rem] bg-card cursor-help transition-colors duration-200 hover:bg-secondary/30"
-                                  : "inline-flex items-center gap-1 rounded-full border border-input px-3 py-1.5 text-sm bg-card cursor-help transition-colors duration-200 hover:bg-secondary/30"
-                              }`}
-                            >
-                              <span className="h-1.5 w-1.5 rounded-full bg-foreground transition-colors" />
-                              <span className="text-foreground">{t}</span>
-                            </motion.span>
-                          </TooltipTrigger>
-                          <TooltipContent sideOffset={6}>{techInfo[t] ?? `About ${t}`}</TooltipContent>
-                        </Tooltip>
-                      ))}
-                    </div>
+      <div className="relative mt-4 md:mt-8">
+        <div className="absolute inset-0 -z-10 overflow-hidden rounded-[46px] border border-white/5 bg-gradient-to-br from-white/10 via-white/5 to-transparent [box-shadow:0_10px_60px_rgba(0,255,255,0.08)]" aria-hidden />
+        <div className="absolute inset-0 -z-20 rounded-[46px] bg-gradient-to-br from-cyan-500/10 via-transparent to-fuchsia-500/10 blur-2xl" aria-hidden />
+        {layers.map((l) => (
+          <div key={l.id} className={l.className} aria-hidden />
+        ))}
+
+        <div className="relative rounded-[40px] border border-white/10 bg-white/[0.02] p-5 sm:p-8 backdrop-blur-xl">
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {cards.map((card, index) => (
+              <motion.article
+                key={card.title}
+                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.05] p-4 sm:p-6 backdrop-blur-2xl transition-all duration-300 hover:border-cyan-400/50 hover:shadow-[0_40px_60px_-45px_rgba(0,255,255,0.65)]"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+              >
+                <div className="absolute inset-x-8 top-0 h-24 rounded-full bg-gradient-to-br from-white/12 via-transparent to-transparent blur-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
+                <header className="relative z-10 flex items-center gap-3 pb-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/15 bg-white/10 shadow-inner shadow-white/30">
+                    <span className="text-lg font-semibold text-cyan-200">{index + 1}</span>
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          );
-        })}
+                  <div>
+                    <h3 className="text-lg font-semibold text-white sm:text-xl">{card.title}</h3>
+                    <p className="text-xs uppercase tracking-[0.22em] text-white/60">Core tools</p>
+                  </div>
+                </header>
+
+                <div className="relative z-10 grid grid-cols-2 gap-3 pt-2 sm:grid-cols-2">
+                  {card.techs.map((tech) => {
+                    const logo = techLogos[tech];
+                    return (
+                      <Tooltip key={tech}>
+                        <TooltipTrigger asChild>
+                          <motion.div
+                            whileHover={{ y: -4, scale: 1.02 }}
+                            transition={{ type: "spring", stiffness: 150, damping: 22 }}
+                            className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] transition duration-300 hover:border-cyan-400/60 hover:bg-white/[0.08] hover:shadow-[0_20px_35px_-25px_rgba(0,255,255,0.7)]"
+                          >
+                            <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400/20 to-fuchsia-500/20 shadow-inner shadow-cyan-400/40">
+                              {logo ? (
+                                <Image src={logo} alt={tech} width={24} height={24} className="h-6 w-6 object-contain" />
+                              ) : (
+                                <span className="text-sm font-semibold text-cyan-200">{tech.charAt(0)}</span>
+                              )}
+                            </div>
+                            <div className="min-w-0">
+                              <p className="text-sm font-medium text-white/90">{tech}</p>
+                              <p className="text-[11px] text-white/55">{techInfo[tech] ?? "Go-to tool"}</p>
+                            </div>
+                          </motion.div>
+                        </TooltipTrigger>
+                        <TooltipContent sideOffset={6}>{techInfo[tech] ?? `About ${tech}`}</TooltipContent>
+                      </Tooltip>
+                    );
+                  })}
+                </div>
+
+                <div className="relative z-0 mt-5 flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-gradient-to-r from-white/5 via-transparent to-white/5 px-3 py-2 text-[11px] uppercase tracking-[0.3em] text-white/50">
+                  <span className="flex items-center gap-2">
+                    <span className="inline-block h-2 w-2 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(0,255,255,0.9)]" />
+                    Trusted tools
+                  </span>
+                  <span className="text-white/40">Always improving →</span>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
       </div>
     </Section>
   );
