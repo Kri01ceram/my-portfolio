@@ -77,35 +77,29 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
   }
 
   const marquee = duplicated.map((achievement, index) => ({
-      achievement,
-      originIndex: index % effectiveList.length,
-      key: `${achievement.id}-${index}`,
-    }));
+    achievement,
+    originIndex: index % effectiveList.length,
+    key: `${achievement.id}-${index}`,
+  }));
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] px-4 py-9 sm:px-6 sm:py-11 lg:px-8 lg:py-14 backdrop-blur-2xl">
+    <div className="relative overflow-hidden rounded-3xl border border-white/8 bg-card/80 px-4 py-9 shadow-[0_34px_90px_rgba(6,10,16,0.55)] sm:px-6 sm:py-11 lg:px-8 lg:py-14">
       <div
-        className="pointer-events-none absolute inset-0 opacity-80"
-        style={{
-          backgroundImage: [
-            "radial-gradient(circle at 12% 18%, rgba(0,255,255,0.18), transparent 55%)",
-            "radial-gradient(circle at 82% 16%, rgba(255,0,255,0.16), transparent 55%)",
-            "radial-gradient(circle at 48% 88%, rgba(151,71,255,0.18), transparent 55%)",
-          ].join(","),
-        }}
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(255,255,255,0.05),transparent_55%),radial-gradient(circle_at_78%_24%,rgba(0,255,255,0.1),transparent_60%),radial-gradient(circle_at_50%_100%,rgba(3,7,12,0.75),transparent_65%)] opacity-80"
         aria-hidden
       />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/12 via-transparent to-transparent" aria-hidden />
 
       <div className="relative text-center">
-        <p className="text-xs uppercase tracking-[0.35em] text-white/45">Career Journey</p>
-        <h3 className="mt-2 text-2xl font-semibold text-white sm:text-3xl">Endless Momentum</h3>
-        <p className="mx-auto mt-3 max-w-2xl text-sm text-white/60 sm:text-base">
+        <p className="text-xs uppercase tracking-[0.35em] text-foreground/45">Career Journey</p>
+        <h3 className="mt-2 text-2xl font-semibold text-foreground sm:text-3xl">Endless Momentum</h3>
+        <p className="mx-auto mt-3 max-w-2xl text-sm text-foreground/65 sm:text-base">
           A continuous train of achievements gliding across the track—pause to inspect, swipe to explore, or just watch the journey unfold.
         </p>
       </div>
 
       <div className="relative mt-10">
-        <div className="pointer-events-none absolute left-1/2 top-0 bottom-12 w-[58vw] max-w-[380px] -translate-x-1/2 rounded-[160px] bg-gradient-to-b from-cyan-300/12 via-cyan-200/6 to-transparent blur-3xl" />
+        <div className="pointer-events-none absolute left-1/2 top-0 bottom-12 w-[58vw] max-w-[360px] -translate-x-1/2 rounded-[160px] bg-gradient-to-b from-white/12 via-transparent to-transparent blur-3xl" />
 
         <div
           ref={viewportRef}
@@ -136,23 +130,23 @@ export default function CareerTrain({ achievements = data }: { achievements?: Ac
             </div>
           </motion.div>
 
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#0D1117] via-[#0D1117]/80 to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#0D1117] via-[#0D1117]/80 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-background via-background/80 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-background via-background/80 to-transparent" />
 
-          <div className="pointer-events-none absolute top-0 bottom-12 left-1/2 w-[340px] -translate-x-1/2 rounded-[160px] border border-white/10 bg-white/[0.015] shadow-[0_45px_80px_-60px_rgba(0,255,255,0.45)]" />
+          <div className="pointer-events-none absolute top-0 bottom-12 left-1/2 w-[320px] -translate-x-1/2 rounded-[160px] border border-white/5 bg-card/60" />
         </div>
 
         <div className="relative mx-auto mt-10 h-16 max-w-6xl">
-          <div className="absolute left-0 right-0 top-1/2 h-[2px] -translate-y-1/2 rounded-full bg-white/12" />
+          <div className="absolute left-0 right-0 top-1/2 h-[2px] -translate-y-1/2 rounded-full bg-white/10" />
           <motion.div
-            className="absolute top-1/2 h-[2px] -translate-y-1/2 rounded-full bg-gradient-to-r from-cyan-300 via-cyan-200 to-fuchsia-400 shadow-[0_0_18px_rgba(0,255,255,0.45)]"
+            className="absolute top-1/2 h-[2px] -translate-y-1/2 rounded-full bg-gradient-to-r from-primary/80 via-primary/60 to-transparent shadow-[0_0_18px_rgba(0,255,255,0.3)]"
             style={{ width: trainX }}
           />
           <motion.div
-            className="absolute top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/80 bg-cyan-300/85 shadow-[0_0_22px_rgba(0,255,255,0.65)]"
+            className="absolute top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/40 bg-primary/75 shadow-[0_0_20px_rgba(0,255,255,0.4)]"
             style={{ x: trainX }}
           >
-            <span className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-cyan-300/30 blur-md" />
+            <span className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-primary/25 blur-md" />
           </motion.div>
         </div>
       </div>
@@ -169,23 +163,23 @@ function MilestoneCard({ achievement, isActive }: MilestoneCardProps) {
   return (
     <motion.div
       className={cn(
-        "group relative flex min-w-[72vw] max-w-[320px] flex-col gap-3 overflow-hidden rounded-2xl border border-white/12 bg-white/[0.05] px-5 py-5 backdrop-blur-2xl transition-all duration-300 sm:min-w-[300px]",
+        "group relative flex min-w-[72vw] max-w-[320px] flex-col gap-3 overflow-hidden rounded-2xl border border-white/10 bg-card/85 px-5 py-5 shadow-[0_22px_60px_rgba(7,12,20,0.45)] transition-all duration-300 sm:min-w-[300px]",
         isActive
-          ? "border-cyan-300/70 shadow-[0_32px_70px_-32px_rgba(0,255,255,0.55)]"
-          : "shadow-[0_24px_50px_-40px_rgba(0,0,0,0.75)]"
+          ? "border-primary/45 shadow-[0_32px_70px_-38px_rgba(0,255,255,0.35)]"
+          : "hover:border-primary/25"
       )}
       whileHover={{ scale: 1.01, y: -4 }}
       transition={{ type: "spring", stiffness: 160, damping: 22 }}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_-10%,rgba(0,255,255,0.2),transparent_60%),radial-gradient(circle_at_80%_120%,rgba(255,0,255,0.18),transparent_60%)] opacity-0 transition-opacity duration-300 group-hover:opacity-80" />
-      <div className="relative z-10 flex items-center justify-between text-[11px] uppercase tracking-[0.32em] text-white/50">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_24%_-10%,rgba(255,255,255,0.08),transparent_60%)] opacity-0 transition-opacity duration-300 group-hover:opacity-70" />
+      <div className="relative z-10 flex items-center justify-between text-[11px] uppercase tracking-[0.32em] text-foreground/55">
         <span>{achievement.date}</span>
-        <span className="rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[10px] text-white/45">Milestone</span>
+        <span className="rounded-full border border-white/10 bg-secondary/70 px-2 py-0.5 text-[10px] text-foreground/55">Milestone</span>
       </div>
       <div className="relative z-10">
-        <h4 className="text-lg font-semibold text-white sm:text-xl">{achievement.title}</h4>
+        <h4 className="text-lg font-semibold text-foreground sm:text-xl">{achievement.title}</h4>
         {achievement.description && (
-          <p className="mt-2 text-sm leading-relaxed text-white/70">{achievement.description}</p>
+          <p className="mt-2 text-sm leading-relaxed text-foreground/70">{achievement.description}</p>
         )}
       </div>
     </motion.div>
