@@ -1,7 +1,8 @@
 export const cards = [
   {
     title: "Web Development",
-    gradient: "bg-gradient-to-r from-sky-600 via-violet-600 to-rose-600",
+    description: "Frontend architecture, design systems, and performant APIs that keep products fast and maintainable.",
+    gradient: "from-sky-400/60 via-indigo-500/40 to-purple-500/40",
     techs: [
       "Next.js",
       "React",
@@ -15,7 +16,8 @@ export const cards = [
   },
   {
     title: "ML Engineer",
-    gradient: "bg-gradient-to-r from-sky-600 via-violet-600 to-rose-600",
+    description: "End-to-end machine learning workflows from exploration to deployment with robust monitoring.",
+    gradient: "from-emerald-400/60 via-cyan-400/40 to-blue-500/35",
     techs: [
       "Python",
       "NumPy",
@@ -28,7 +30,8 @@ export const cards = [
   },
   {
     title: "DevOps Engineer",
-    gradient: "bg-gradient-to-r from-sky-600 via-violet-600 to-rose-600",
+    description: "Reliable infrastructure, automated delivery pipelines, and observability for production systems.",
+    gradient: "from-amber-400/60 via-orange-500/45 to-rose-500/40",
     techs: ["Docker", "Kubernetes", "AWS", "Terraform", "CI/CD", "Linux"],
   },
 ];
