@@ -39,6 +39,7 @@ export default function TechStackSection() {
 
   const handleWheel = useCallback(
     (event: ReactWheelEvent<HTMLDivElement>) => {
+      if (!event.shiftKey) return;
       event.preventDefault();
       const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
       if (Math.abs(delta) < 6) return;
@@ -104,7 +105,7 @@ export default function TechStackSection() {
   return (
     <Section id="tech" title="Tech Stack" subtitle="Tools I use to ship">
       <p id={instructionsId} className="sr-only">
-        Swipe, scroll, or use the left and right arrow keys to explore each capability.
+        Swipe, hold shift while scrolling, or use the left and right arrow keys to explore each capability.
       </p>
       <div
         role="group"
@@ -174,7 +175,7 @@ export default function TechStackSection() {
           Prev
         </button>
         <span className="text-xs font-medium uppercase tracking-[0.28em] text-foreground/45">
-          Swipe · Scroll · Arrows
+          Swipe · Shift+Scroll · Arrows
         </span>
         <button
           type="button"
