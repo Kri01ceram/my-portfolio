@@ -178,6 +178,54 @@
   z-index: 1;
 }
 
+/* Unified section surface */
+.section-shell {
+  position: relative;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 13, 19, 0.92);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 30px 60px rgba(3, 4, 7, 0.65);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  overflow: hidden;
+  backdrop-filter: blur(14px);
+  --section-mx: 50%;
+  --section-my: 50%;
+}
+
+.section-shell::before,
+.section-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.section-shell::before {
+  background:
+    radial-gradient(circle at var(--section-mx, 50%) var(--section-my, 50%), rgba(0, 255, 255, 0.28), transparent 55%),
+    radial-gradient(circle at var(--section-mx, 50%) calc(var(--section-my, 50%) + 10%), rgba(255, 0, 255, 0.22), transparent 60%);
+  mix-blend-mode: screen;
+}
+
+.section-shell::after {
+  background: radial-gradient(circle at var(--section-mx, 50%) var(--section-my, 50%), rgba(255, 255, 255, 0.06), transparent 65%);
+}
+
+.section-shell:hover::before,
+.section-shell:hover::after {
+  opacity: 1;
+}
+
+.section-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
 /* JS-less pointer position tracking placeholder removed */
 
 

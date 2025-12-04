@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 
 const ROLES = ["Developer", "Freelancer", "Engineer", "Problem Solver", "Creator"];
@@ -50,9 +50,29 @@ export default function Hero() {
 
   // Initialize pause phase after mount
   useEffect(() => { setPhase("erase"); }, []);
+
+  const handlePointerMove = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+    const target = event.currentTarget;
+    const rect = target.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    target.style.setProperty("--section-mx", `${x}%`);
+    target.style.setProperty("--section-my", `${y}%`);
+  }, []);
+
+  const handlePointerLeave = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+    const target = event.currentTarget;
+    target.style.setProperty("--section-mx", "50%");
+    target.style.setProperty("--section-my", "50%");
+  }, []);
   return (
   <section className="mx-auto max-w-[1100px] px-3 sm:px-5 lg:px-6 py-14 sm:py-16 lg:py-18">
-      <motion.div
+      <div
+        className="section-shell"
+        onMouseMove={handlePointerMove}
+        onMouseLeave={handlePointerLeave}
+      >
+        <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -110,6 +130,7 @@ export default function Hero() {
           </motion.div>
         </div>
       </motion.div>
+      </div>
     </section>
   );
 }
