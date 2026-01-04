@@ -48,80 +48,77 @@
   /* Font fallbacks */
   --font-geist-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  /* Neon cyan/magenta dark palette (GitHub-like base):
-     Background: #0D1117, Surface/Card: #161B22, Primary (Cyan): #00FFFF,
-     Secondary Accent (Magenta): #FF00FF, Text: #E6EDF3, Muted: #8B949E
-     Assumptions for unspecified tokens:
-       - Border/Input use #21262D for subtle separation
-       - Ring uses cyan for focus visibility
-       - Accent mapped to magenta for hover/interactive highlights
+  /* Premium dark-only palette (editorial):
+     Background: near-black gradient (#0b0b0b → #0f0f0f)
+     Text: primary off-white (#eaeaea), secondary muted gray (#9a9a9a)
+     Accents: minimal (thin borders, subtle highlights)
   */
-  --background: #0D1117;
-  --foreground: #E6EDF3;
-  --card: #161B22;
-  --card-foreground: #E6EDF3;
-  --popover: #161B22;
-  --popover-foreground: #E6EDF3;
-  --primary: #00FFFF; /* cyan */
-  --primary-foreground: #0D1117;
-  --secondary: #161B22;
-  --secondary-foreground: #E6EDF3;
-  --muted: #0D1117;
-  --muted-foreground: #8B949E;
-  --accent: #FF00FF; /* magenta */
-  --accent-foreground: #0D1117;
-  --destructive: #FF00FF; /* reuse magenta for destructive */
-  --border: #21262D;
-  --input: #21262D;
-  --ring: #00FFFF;
-  --chart-1: #00FFFF;
-  --chart-2: #FF00FF;
-  --chart-3: #E6EDF3;
-  --chart-4: #8B949E;
-  --chart-5: #161B22;
-  --sidebar: #161B22;
-  --sidebar-foreground: #E6EDF3;
-  --sidebar-primary: #00FFFF;
-  --sidebar-primary-foreground: #0D1117;
-  --sidebar-accent: #FF00FF;
-  --sidebar-accent-foreground: #0D1117;
-  --sidebar-border: #21262D;
-  --sidebar-ring: #00FFFF;
+  --background: #0b0b0b;
+  --foreground: #eaeaea;
+  --card: #0f0f0f;
+  --card-foreground: #eaeaea;
+  --popover: #0f0f0f;
+  --popover-foreground: #eaeaea;
+  --primary: #eaeaea;
+  --primary-foreground: #0b0b0b;
+  --secondary: #121212;
+  --secondary-foreground: #eaeaea;
+  --muted: #0f0f0f;
+  --muted-foreground: #9a9a9a;
+  --accent: #141414;
+  --accent-foreground: #eaeaea;
+  --destructive: #b91c1c;
+  --border: #1f1f1f;
+  --input: #1f1f1f;
+  --ring: #2a2a2a;
+  --chart-1: #eaeaea;
+  --chart-2: #9a9a9a;
+  --chart-3: #6b6b6b;
+  --chart-4: #3a3a3a;
+  --chart-5: #1f1f1f;
+  --sidebar: #0f0f0f;
+  --sidebar-foreground: #eaeaea;
+  --sidebar-primary: #eaeaea;
+  --sidebar-primary-foreground: #0b0b0b;
+  --sidebar-accent: #141414;
+  --sidebar-accent-foreground: #eaeaea;
+  --sidebar-border: #1f1f1f;
+  --sidebar-ring: #2a2a2a;
 }
 
 /* Always-on dark theme mapping using the same 4-color palette */
 .dark {
-  --background: #0D1117;
-  --foreground: #E6EDF3;
-  --card: #161B22;
-  --card-foreground: #E6EDF3;
-  --popover: #161B22;
-  --popover-foreground: #E6EDF3;
-  --primary: #00FFFF;
-  --primary-foreground: #0D1117;
-  --secondary: #161B22;
-  --secondary-foreground: #E6EDF3;
-  --muted: #0D1117;
-  --muted-foreground: #8B949E;
-  --accent: #FF00FF;
-  --accent-foreground: #0D1117;
-  --destructive: #FF00FF;
-  --border: #21262D;
-  --input: #21262D;
-  --ring: #00FFFF;
-  --chart-1: #00FFFF;
-  --chart-2: #FF00FF;
-  --chart-3: #E6EDF3;
-  --chart-4: #8B949E;
-  --chart-5: #161B22;
-  --sidebar: #161B22;
-  --sidebar-foreground: #E6EDF3;
-  --sidebar-primary: #00FFFF;
-  --sidebar-primary-foreground: #0D1117;
-  --sidebar-accent: #FF00FF;
-  --sidebar-accent-foreground: #0D1117;
-  --sidebar-border: #21262D;
-  --sidebar-ring: #00FFFF;
+  --background: #0b0b0b;
+  --foreground: #eaeaea;
+  --card: #0f0f0f;
+  --card-foreground: #eaeaea;
+  --popover: #0f0f0f;
+  --popover-foreground: #eaeaea;
+  --primary: #eaeaea;
+  --primary-foreground: #0b0b0b;
+  --secondary: #121212;
+  --secondary-foreground: #eaeaea;
+  --muted: #0f0f0f;
+  --muted-foreground: #9a9a9a;
+  --accent: #141414;
+  --accent-foreground: #eaeaea;
+  --destructive: #b91c1c;
+  --border: #1f1f1f;
+  --input: #1f1f1f;
+  --ring: #2a2a2a;
+  --chart-1: #eaeaea;
+  --chart-2: #9a9a9a;
+  --chart-3: #6b6b6b;
+  --chart-4: #3a3a3a;
+  --chart-5: #1f1f1f;
+  --sidebar: #0f0f0f;
+  --sidebar-foreground: #eaeaea;
+  --sidebar-primary: #eaeaea;
+  --sidebar-primary-foreground: #0b0b0b;
+  --sidebar-accent: #141414;
+  --sidebar-accent-foreground: #eaeaea;
+  --sidebar-border: #1f1f1f;
+  --sidebar-ring: #2a2a2a;
 }
 
 @layer base {
@@ -133,103 +130,7 @@
   }
 }
 
-/* Card glow & pointer-follow highlight */
-.card-glow {
-  --mx: 50%;
-  --my: 50%;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.05),
-    0 6px 18px -6px rgba(0,0,0,0.55),
-    0 0 28px -10px rgba(0,255,255,0.35),
-    0 0 32px -10px rgba(255,0,255,0.28);
-  transition: box-shadow 0.35s ease, transform 0.35s ease;
-}
-.card-glow:before, .card-glow:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  z-index: 0; /* keep highlight behind content */
-  transition: opacity 0.35s ease;
-}
-.card-glow:before {
-  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(0,255,255,0.25), rgba(0,255,255,0) 60%);
-  mix-blend-mode: screen;
-}
-.card-glow:after {
-  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,0,255,0.22), rgba(255,0,255,0) 65%);
-  mix-blend-mode: screen;
-}
-.card-glow:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.10),
-    0 10px 24px -6px rgba(0,0,0,0.65),
-    0 0 38px -8px rgba(0,255,255,0.55),
-    0 0 44px -8px rgba(255,0,255,0.45);
-}
-.card-glow:hover:before,
-.card-glow:hover:after { opacity: 1; }
-
-/* Ensure card content stays above glow layers */
-.card-glow > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* Unified section surface */
-.section-shell {
-  position: relative;
-  border-radius: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(10, 13, 19, 0.92);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.02),
-    0 30px 60px rgba(3, 4, 7, 0.65);
-  padding: clamp(1.5rem, 4vw, 3rem);
-  overflow: hidden;
-  backdrop-filter: blur(14px);
-  --section-mx: 50%;
-  --section-my: 50%;
-}
-
-.section-shell::before,
-.section-shell::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 0;
-}
-
-.section-shell::before {
-  background:
-    radial-gradient(circle at var(--section-mx, 50%) var(--section-my, 50%), rgba(0, 255, 255, 0.28), transparent 55%),
-    radial-gradient(circle at var(--section-mx, 50%) calc(var(--section-my, 50%) + 10%), rgba(255, 0, 255, 0.22), transparent 60%);
-  mix-blend-mode: screen;
-}
-
-.section-shell::after {
-  background: radial-gradient(circle at var(--section-mx, 50%) var(--section-my, 50%), rgba(255, 255, 255, 0.06), transparent 65%);
-}
-
-.section-shell:hover::before,
-.section-shell:hover::after {
-  opacity: 1;
-}
-
-.section-shell > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* JS-less pointer position tracking placeholder removed */
-
-
-/* Brand gradient text (matches Project titles) */
+/* No glow/glass effects in the editorial theme */
 .text-gradient-brand{ color: var(--foreground); }
 html {
   scroll-behavior: smooth;
@@ -253,33 +154,27 @@ section[id] {
   animation-play-state: paused;
 }
 
-/* Subtle layered background matching neon dark palette */
+/* Premium dark background (near-black gradient) + subtle grain */
 .app-bg {
-  background-color: #0D1117;
+  background-color: #0b0b0b;
   background-image:
-    radial-gradient(circle at 28% 22%, #161B22 0%, rgba(22,27,34,0.8) 35%, rgba(13,17,23,0.55) 60%, rgba(13,17,23,0) 70%),
-    radial-gradient(circle at 72% 78%, #161B22 0%, rgba(22,27,34,0.8) 30%, rgba(13,17,23,0.55) 55%, rgba(13,17,23,0) 70%);
+    linear-gradient(180deg, #0b0b0b 0%, #0f0f0f 100%);
   background-attachment: fixed;
-  background-repeat: no-repeat;
 }
 
-/* Fine grid texture overlay for depth (performance-friendly) */
 .app-bg::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
+  opacity: 0.08;
   background-image:
-    linear-gradient(0deg, rgba(0,255,255,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,255,0.035) 1px, transparent 1px);
-  background-size: 40px 40px, 40px 40px;
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.06) 0px,
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px,
+      transparent 3px
+    );
   mix-blend-mode: overlay;
-}
-
-@media (max-width: 640px) {
-  .app-bg {
-    background-image:
-      radial-gradient(circle at 50% 28%, #161B22 0%, rgba(22,27,34,0.8) 38%, rgba(13,17,23,0.55) 65%, rgba(13,17,23,0) 75%);
-  }
-  .app-bg::before { background-size: 32px 32px, 32px 32px; }
 }

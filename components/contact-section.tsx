@@ -2,82 +2,49 @@
 
 import { motion } from "framer-motion";
 import Section from "@/components/section";
-import Link from "next/link";
-import { Github, Linkedin, Instagram, Mail } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { socialLinks } from "@/lib/social";
 
 export default function ContactSection() {
   return (
-    <Section id="contact" title="Get in Touch" subtitle="Let's build something together">
-      <div className="relative">
+    <Section id="contact" title="Let’s Connect" subtitle="Open to collaborations, full-time roles, and interesting problems.">
+      <div className="grid gap-6 lg:grid-cols-2 lg:gap-10">
         <motion.div
-          className="relative rounded-3xl border border-input bg-card shadow-lg overflow-hidden"
-          whileHover={{ scale: 1.003 }}
-          transition={{ type: "spring", stiffness: 220, damping: 22 }}
+          className="rounded-3xl border border-border bg-card p-6 sm:p-7"
+          whileHover={{ y: -1 }}
+          transition={{ type: "spring", stiffness: 260, damping: 22 }}
         >
-          <div className="relative p-5 sm:p-6">
-            <div className="grid gap-6 sm:grid-cols-2 items-start">
-              {/* Left: CTAs */}
-              <div className="space-y-4">
-                <p className="text-base sm:text-lg text-foreground/80 text-center sm:text-left">
-                  Prefer email for fastest response. I’m also available on LinkedIn and GitHub.
-                </p>
-                <div className="flex flex-wrap gap-3 justify-center sm:justify-start">
-                  <a href="mailto:0.krishna1120@gmail.com" className="rounded-xl px-5 py-2.5 bg-primary text-primary-foreground shadow-sm hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring/60">
-                    Say Hello
-                  </a>
-                  <Link href="/hire" className="rounded-xl px-5 py-2.5 border border-input hover:bg-secondary/30 transition">
-                    Hire Me
-                  </Link>
-                  <a href="#projects" className="rounded-xl px-5 py-2.5 border border-input hover:bg-secondary/30 transition">
-                    See Projects
-                  </a>
-                </div>
-              </div>
-
-              {/* Right: (details list intentionally omitted for clean layout) */}
-            </div>
-          </div>
-        </motion.div>
-        {/* Icons row below the contact box */}
-  <div className="mt-4 flex items-center justify-center gap-4 sm:gap-6">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            The fastest way to reach me is email. I usually respond within 1–2 business days.
+          </p>
           <a
             href="mailto:0.krishna1120@gmail.com"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
-            aria-label="Email"
-            title="Email"
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground/90 transition hover:bg-accent"
           >
-            <Mail className="h-5 w-5 text-foreground" />
+            0.krishna1120@gmail.com <ArrowRight className="h-4 w-4" />
           </a>
-          <a
-            href="https://www.linkedin.com/in/krishna-singh-172642323/"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
-            aria-label="LinkedIn"
-            title="LinkedIn"
-          >
-            <Linkedin className="h-5 w-5 text-foreground" />
-          </a>
-          <a
-            href="https://github.com/Kri01ceram"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
-            aria-label="GitHub"
-            title="GitHub"
-          >
-            <Github className="h-5 w-5 text-foreground" />
-          </a>
-          <a
-            href="https://www.instagram.com/"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-input bg-card hover:bg-secondary/30 transition"
-            aria-label="Instagram"
-            title="Instagram"
-          >
-            <Instagram className="h-5 w-5 text-foreground" />
-          </a>
+        </motion.div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          {socialLinks.map((s) => (
+            <motion.a
+              key={s.platform}
+              href={s.href}
+              target="_blank"
+              rel="noreferrer noopener"
+              whileHover={{ y: -1 }}
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+              className="rounded-3xl border border-border bg-card p-6 hover:bg-accent"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-sm text-foreground">{s.platform}</p>
+                  <p className="mt-2 text-sm text-muted-foreground">{s.username}</p>
+                </div>
+                <ArrowUpRight className="h-4 w-4 text-muted-foreground" aria-hidden />
+              </div>
+            </motion.a>
+          ))}
         </div>
       </div>
     </Section>

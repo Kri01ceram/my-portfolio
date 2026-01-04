@@ -1,114 +1,123 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-const ROLES = ["Developer", "Freelancer", "Engineer", "Problem Solver", "Creator"];
+const PROFILE = {
+  firstName: "Krishna",
+  lastName: "Singh",
+  mission:
+    "I build reliable, high-performing products with thoughtful UX and clean engineering.",
+  availability: "Available for work",
+  location: "Based in India",
+  resumeUrl: "/resume.pdf",
+  links: {
+    github: "https://github.com/Kri01ceram",
+    linkedin: "https://www.linkedin.com/in/krishna-singh-172642323/",
+    leetcode: "https://leetcode.com/",
+  },
+  currently: {
+    role: "Full‑Stack Developer",
+    company: "Independent",
+    companyLocation: "Remote",
+    duration: "2024 — Present",
+  },
+  skills: ["Flutter", "React", "Next.js", "Firebase", "Supabase", "GCP"],
+};
 
 export default function Hero() {
-  // Typewriter state
-  const [displayText, setDisplayText] = useState(ROLES[0]);
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [phase, setPhase] = useState<"erase"|"type"|"pause">("pause");
-  const eraseSpeed = 50;
-  const typeSpeed = 60;
-  const pauseDuration = 1500;
-  const timeoutRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    const run = () => {
-      if (phase === "pause") {
-        timeoutRef.current = window.setTimeout(() => setPhase("erase"), pauseDuration);
-        return;
-      }
-      if (phase === "erase") {
-        if (displayText.length === 0) {
-          setPhase("type");
-          setRoleIndex((i) => (i + 1) % ROLES.length);
-          return;
-        }
-        timeoutRef.current = window.setTimeout(() => {
-          setDisplayText((t) => t.slice(0, -1));
-        }, eraseSpeed);
-        return;
-      }
-      if (phase === "type") {
-        const next = ROLES[roleIndex];
-        if (displayText === next) {
-          setPhase("pause");
-          return;
-        }
-        timeoutRef.current = window.setTimeout(() => {
-          setDisplayText(next.slice(0, displayText.length + 1));
-        }, typeSpeed);
-      }
-    };
-    run();
-    return () => { if (timeoutRef.current) window.clearTimeout(timeoutRef.current); };
-  }, [phase, displayText, roleIndex]);
-
-  // Initialize pause phase after mount
-  useEffect(() => { setPhase("erase"); }, []);
-
   return (
-  <section className="mx-auto max-w-[1100px] px-3 sm:px-5 lg:px-6 py-14 sm:py-16 lg:py-18">
+    <section id="home" className="mx-auto max-w-[1200px] px-4 sm:px-6 py-14 sm:py-18">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="grid items-center gap-8 lg:gap-12 sm:grid-cols-2"
-        style={{
-          gridTemplateColumns: 'minmax(0,1fr) minmax(320px,480px)'
-        }}
+        className="grid gap-10 lg:grid-cols-2 lg:gap-14"
       >
-        <div>
-          <div className="relative inline-block pb-3">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-foreground text-left space-y-1">
-              <span className="block">Hi,</span>
-              <span className="block">I&apos;m Krishna Singh</span>
-            </h1>
-            <div className="mt-3 h-8 flex items-center">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-cyan-300 to-fuchsia-500 font-semibold text-xl sm:text-2xl md:text-3xl tracking-tight">
-                {displayText}
-                <span className="ml-1 inline-block w-4 h-6 align-middle bg-gradient-to-b from-cyan-400 to-fuchsia-500 animate-pulse rounded-sm" />
-              </span>
-            </div>
-            <span className="pointer-events-none absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full bg-foreground/10" />
-          </div>
-          <p className="mt-4 text-base sm:text-lg text-foreground/80 max-w-prose mx-0 text-left">
-            Full-stack developer & ML data analyst. I build fast, delightful web experiences with Next.js, React, and modern tooling.
+        <div className="flex flex-col justify-center">
+          <p className="text-xs tracking-[0.28em] text-muted-foreground">PORTFOLIO / 2025</p>
+
+          <h1 className="mt-5 text-5xl sm:text-6xl lg:text-7xl leading-[0.95] font-light tracking-tight">
+            <span className="block text-foreground">{PROFILE.firstName}</span>
+            <span className="block text-foreground/75">{PROFILE.lastName}</span>
+          </h1>
+
+          <p className="mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-muted-foreground">
+            {PROFILE.mission}
           </p>
-          <div className="mt-6 flex flex-wrap gap-3 sm:gap-3.5 justify-center sm:justify-start">
-            <a href="#projects" className="rounded-xl px-5 py-2.5 bg-primary text-primary-foreground shadow-sm hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-ring/60">
-              View Projects
-            </a>
-            <a href="#contact" className="rounded-xl px-5 py-2.5 border border-input hover:bg-secondary/30 transition">
-              Contact Me
-            </a>
+
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-muted-foreground">
+            <span className="inline-flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-emerald-400" aria-hidden />
+              {PROFILE.availability}
+            </span>
+            <span className="h-4 w-px bg-border" aria-hidden />
+            <span>{PROFILE.location}</span>
+          </div>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href={PROFILE.resumeUrl}
+              target="_blank"
+              className="inline-flex items-center rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground/90 transition hover:bg-accent"
+            >
+              Resume
+            </Link>
+            <Link
+              href={PROFILE.links.github}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground/90 transition hover:bg-accent"
+            >
+              GitHub
+            </Link>
+            <Link
+              href={PROFILE.links.linkedin}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground/90 transition hover:bg-accent"
+            >
+              LinkedIn
+            </Link>
+            <Link
+              href={PROFILE.links.leetcode}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground/90 transition hover:bg-accent"
+            >
+              LeetCode
+            </Link>
           </div>
         </div>
-  <div className="mx-auto w-full max-w-[380px] sm:max-w-[420px] md:max-w-[450px] lg:max-w-[480px] order-first sm:order-none">
-          <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            whileHover={{ scale: 1.02 }}
-            className="relative aspect-square select-none"
-          >
-            <div className="absolute inset-0 rounded-full border-2 border-foreground/70" />
-            <div className="relative h-full w-full rounded-full overflow-hidden shadow-md">
-              <Image
-                src="/images/KRISHNA.png"
-                alt="Portrait of Krishna Singh"
-                width={600}
-                height={600}
-                className="object-cover w-full h-full select-none"
-                draggable={false}
-                priority
-              />
+
+        <div className="flex items-center">
+          <div className="w-full rounded-3xl border border-border bg-card p-6 sm:p-7">
+            <p className="text-xs tracking-[0.28em] text-muted-foreground">CURRENTLY</p>
+            <h2 className="mt-3 text-2xl font-normal text-foreground">{PROFILE.currently.role}</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {PROFILE.currently.company} · {PROFILE.currently.companyLocation}
+            </p>
+            <p className="mt-1 text-sm text-muted-foreground">{PROFILE.currently.duration}</p>
+
+            <Link
+              href="#experience"
+              className="mt-5 inline-flex items-center gap-2 text-sm text-foreground/90 underline underline-offset-4 decoration-border hover:decoration-foreground/50"
+            >
+              View Experience <ArrowRight className="h-4 w-4" />
+            </Link>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {PROFILE.skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-xs text-muted-foreground"
+                >
+                  {skill}
+                </span>
+              ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </motion.div>
     </section>

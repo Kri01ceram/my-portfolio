@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import ScrollIndicator from "@/components/scroll-indicator";
 
 export const metadata: Metadata = {
   title: "Krishna Singh — Portfolio",
@@ -26,7 +27,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning className="dark">
       <body className="relative bg-background text-foreground app-bg">
         <Header />
-        <main className="min-h-screen">{children}</main>
+        <ScrollIndicator
+          sections={[
+            { id: "home", label: "Home" },
+            { id: "experience", label: "Experience" },
+            { id: "projects", label: "Projects" },
+            { id: "education", label: "Education" },
+            { id: "contact", label: "Contact" },
+          ]}
+        />
+        <main className="min-h-screen pt-[64px]">{children}</main>
         <Footer />
       </body>
     </html>
