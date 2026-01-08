@@ -4,11 +4,11 @@ export const projects: Project[] = [
   {
     title: "CABSHARENITR",
     description: "Ride-sharing app for the NIT Rourkela community to share cabs and fares.",
-    tags: ["Next.js", "tRPC/REST", "Prisma", "Postgres", "Auth"],
+    tags: ["Next.js", "tRPC/REST", "Firebase", "Gemini-Api", "Auth"],
     domain: "web",
     category: "scaled",
-    link: "https://your-demo-link.example",
-    repo: "https://github.com/your/repo",
+    link: "project-cabshare.vercel.app",
+    repo: "https://github.com/Kri01ceram/project-cabshare",
   },
   {
     title: "Credit Risk Detection",
@@ -16,16 +16,16 @@ export const projects: Project[] = [
     tags: ["Python", "Pandas", "Scikit-learn", "XGBoost", "EDA"],
     domain: "ml",
     category: "valuable",
-    repo: "https://github.com/your/repo",
+    repo: "https://github.com/Kri01ceram/Credit-Risk-DEtection",
   },
-  {
-    title: "Portfolio Site",
-    description: "Personal portfolio built with Next.js app router and Tailwind.",
-    tags: ["Next.js", "TypeScript", "Tailwind"],
-    domain: "web",
-    link: "https://your-demo-link.example",
-    repo: "https://github.com/your/repo",
-  },
+  // {
+  //   title: "Portfolio Site",
+  //   description: "Personal portfolio built with Next.js app router and Tailwind.",
+  //   tags: ["Next.js", "TypeScript", "Tailwind"],
+  //   domain: "web",
+  //   link: "https://your-demo-link.example",
+  //   repo: "https://github.com/your/repo",
+  // },
   {
     title: "Socio",
     description: "MERN stack social media app with real-time chat, notifications, and media sharing.",
@@ -33,7 +33,7 @@ export const projects: Project[] = [
     domain: "web",
     category: "practice",
     
-    repo: "https://github.com/your/repo",
+    repo: "https://github.com/Kri01ceram/socio",
   },
   {
     title: "Quickshow",
@@ -42,7 +42,7 @@ export const projects: Project[] = [
     domain: "web",
     category: "valuable",
     
-    repo: "https://github.com/your/repo",
+    repo: "https://github.com/Kri01ceram/movie-booking-app",
   },
   {
     title: "Movie-Recommender System",
@@ -51,6 +51,6 @@ export const projects: Project[] = [
     domain: "ml",
     category: "valuable",
     
-    repo: "https://github.com/your/repo",
+    repo: "https://github.com/Kri01ceram/Movie-Recomender",
   },
 ];
