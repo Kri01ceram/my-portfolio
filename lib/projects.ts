@@ -16,7 +16,6 @@ export const projects: Project[] = [
     tags: ["Python", "Pandas", "Scikit-learn", "XGBoost", "EDA"],
     domain: "ml",
     category: "valuable",
-    link: "https://your-demo-link.example",
     repo: "https://github.com/your/repo",
   },
   {
@@ -33,7 +32,7 @@ export const projects: Project[] = [
     tags: ["MongoDB", "Express", "React", "Node.js","inngest","imagekit.io"],
     domain: "web",
     category: "practice",
-    link: "https://your-demo-link.example",
+    
     repo: "https://github.com/your/repo",
   },
   {
@@ -42,7 +41,7 @@ export const projects: Project[] = [
     tags: ["Node.js", "React", "Express", "MongoDB"],
     domain: "web",
     category: "valuable",
-    link: "https://your-demo-link.example",
+    
     repo: "https://github.com/your/repo",
   },
   {
@@ -51,7 +50,7 @@ export const projects: Project[] = [
     tags: ["Python", "Pandas", "Scikit-learn", "Airflow"],
     domain: "ml",
     category: "valuable",
-    link: "https://your-demo-link.example",
+    
     repo: "https://github.com/your/repo",
   },
 ];
