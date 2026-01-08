@@ -14,16 +14,16 @@ const PROFILE = {
   resumeUrl: "/resume.pdf",
   links: {
     github: "https://github.com/Kri01ceram",
-    linkedin: "https://www.linkedin.com/in/krishna-singh-172642323/",
-    leetcode: "https://leetcode.com/",
+    linkedin: "https://www.linkedin.com/in/krishna1120/",
+    leetcode: "https://leetcode.com/u/0_Krishna_01/",
   },
   currently: {
     role: "Full‑Stack Developer",
-    company: "Independent",
+    company: "Freelance",
     companyLocation: "Remote",
     duration: "2024 — Present",
   },
-  skills: ["Flutter", "React", "Next.js", "Firebase", "Supabase", "GCP"],
+  skills: ["MERN", "DevOPs", "Next.js", "Firebase", "SQL", "AI-Engineering"],
 };
 
 export default function Hero() {
@@ -36,7 +36,7 @@ export default function Hero() {
         className="grid gap-10 lg:grid-cols-2 lg:gap-14"
       >
         <div className="flex flex-col justify-center">
-          <p className="text-xs tracking-[0.28em] text-muted-foreground">PORTFOLIO / 2025</p>
+          <p className="text-xs tracking-[0.28em] text-muted-foreground">PORTFOLIO / 2026</p>
 
           <h1 className="mt-5 text-5xl sm:text-6xl lg:text-7xl leading-[0.95] font-light tracking-tight">
             <span className="block text-foreground">{PROFILE.firstName}</span>
