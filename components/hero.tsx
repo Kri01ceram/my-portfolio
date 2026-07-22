@@ -5,6 +5,20 @@ import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
 import { site } from "@/lib/site";
 
+const developerAscii = [
+  "      .--.",
+  "     |o_o |",
+  "     |:_/ |",
+  "    //   \\\\",
+  "   (|     | )",
+  "  /'\\_   _/\\",
+  "  \\___)=(___/",
+  "",
+  "  Krishna Singh",
+  "  Full-stack + ML",
+  "  Build. Ship. Repeat.",
+].join("\n");
+
 const PROFILE = {
   firstName: "Krishna",
   lastName: "Singh",
@@ -36,7 +50,15 @@ export default function Hero() {
           <p className="text-xs tracking-[0.28em] text-muted-foreground">PORTFOLIO / 2026</p>
 
           <h1 className="mt-5 text-5xl sm:text-6xl lg:text-7xl leading-[0.95] font-light tracking-tight">
-            <span className="block text-foreground">{PROFILE.firstName}</span>
+            <span className="group relative inline-block text-foreground" tabIndex={0}>
+              <span className="inline-flex cursor-help items-center gap-2">
+                {PROFILE.firstName}
+                <span className="sr-only"> summary about education and hobbies</span>
+              </span>
+              <span className="pointer-events-none absolute left-0 top-full z-20 mt-3 w-[min(22rem,80vw)] origin-top-left rounded-2xl border border-border bg-background/95 p-4 text-left text-sm leading-relaxed text-muted-foreground opacity-0 shadow-xl backdrop-blur transition duration-200 group-hover:opacity-100 group-focus:opacity-100">
+                B.Tech CSE focused on software engineering, systems, and applied ML. Outside work, I like building side projects, exploring new tools, and listening to music.
+              </span>
+            </span>
             <span className="block text-foreground/75">{PROFILE.lastName}</span>
           </h1>
 
@@ -96,21 +118,10 @@ export default function Hero() {
 
         <div className="flex items-center">
           <div className="w-full rounded-3xl border border-border bg-card p-6 sm:p-7">
-            <p className="text-xs tracking-[0.28em] text-muted-foreground">CURRENTLY</p>
-            <h2 className="mt-3 text-2xl font-normal text-foreground">{PROFILE.currently.role}</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              {PROFILE.currently.company} · {PROFILE.currently.companyLocation}
-            </p>
-            <p className="mt-1 text-sm text-muted-foreground">{PROFILE.currently.duration}</p>
+            <p className="text-xs tracking-[0.28em] text-muted-foreground">ASCII DEVELOPER</p>
+            <pre className="mt-4 overflow-x-auto rounded-2xl border border-border bg-background p-4 text-xs leading-5 text-foreground/80">{developerAscii}</pre>
 
-            <Link
-              href="#experience"
-              className="mt-5 inline-flex items-center gap-2 text-sm text-foreground/90 underline underline-offset-4 decoration-border hover:decoration-foreground/50"
-            >
-              View Experience <ArrowRight className="h-4 w-4" />
-            </Link>
-
-            <div className="mt-6 flex flex-wrap gap-2">
+            <div className="mt-5 flex flex-wrap gap-2">
               {PROFILE.skills.map((skill) => (
                 <span
                   key={skill}
@@ -120,6 +131,13 @@ export default function Hero() {
                 </span>
               ))}
             </div>
+
+            <Link
+              href="#experience"
+              className="mt-5 inline-flex items-center gap-2 text-sm text-foreground/90 underline underline-offset-4 decoration-border hover:decoration-foreground/50"
+            >
+              View Experience <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </motion.div>
