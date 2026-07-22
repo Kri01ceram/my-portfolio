@@ -41,16 +41,6 @@ export const projects: Project[] = [
     tags: ["Node.js", "React", "Express", "MongoDB"],
     domain: "web",
     category: "valuable",
-    
     repo: "https://github.com/Kri01ceram/movie-booking-app",
-  },
-  {
-    title: "Movie-Recommender System",
-    description: "Content-based movie recommender using NLP techniques like TF-IDF and cosine similarity to suggest movies based on user preferences.",
-    tags: ["Python", "Pandas", "Scikit-learn", "Airflow"],
-    domain: "ml",
-    category: "valuable",
-    
-    repo: "https://github.com/Kri01ceram/Movie-Recomender",
   },
 ];

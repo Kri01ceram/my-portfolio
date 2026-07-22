@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Menu, X, Moon } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { site } from "@/lib/site";
 
@@ -44,29 +44,31 @@ export default function Header() {
     }
 
     const sectionIds = links.map((link) => link.href.replace("#", ""));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0));
-        const current = visible[0]?.target as HTMLElement | undefined;
-        if (current?.id) {
-          setActiveId(current.id);
+    const updateActiveSection = () => {
+      const offset = 120;
+      let currentId = sectionIds[0] ?? "";
+
+      for (const id of sectionIds) {
+        const element = document.getElementById(id);
+        if (!element) continue;
+
+        const top = element.getBoundingClientRect().top + window.scrollY;
+        if (window.scrollY + offset >= top) {
+          currentId = id;
         }
-      },
-      {
-        root: null,
-        rootMargin: "-30% 0px -58% 0px",
-        threshold: [0.1, 0.2, 0.35, 0.5, 0.75],
       }
-    );
 
-    sectionIds.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) observer.observe(element);
-    });
+      setActiveId(currentId);
+    };
 
-    return () => observer.disconnect();
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
   }, [onHome]);
 
   useEffect(() => {
@@ -187,13 +189,6 @@ export default function Header() {
               </Link>
             );
           })}
-          <span
-            className="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card text-foreground/70"
-            aria-label="Dark mode"
-            title="Dark mode"
-          >
-            <Moon className="h-4 w-4" />
-          </span>
         </div>
 
         {/* Mobile hamburger */}
@@ -253,11 +248,6 @@ export default function Header() {
                     </Link>
                   )
                 )}
-                <div className="pt-2">
-                  <div className="flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2 text-sm text-foreground/70">
-                    <Moon className="h-4 w-4" /> Dark mode
-                  </div>
-                </div>
                 <div className="rounded-xl border border-border bg-card px-4 py-3 text-xs text-muted-foreground">
                   Shortcuts: <span className="font-medium text-foreground">G</span> GitHub, <span className="font-medium text-foreground">E</span> email, <span className="font-medium text-foreground">R</span> resume.
                 </div>
