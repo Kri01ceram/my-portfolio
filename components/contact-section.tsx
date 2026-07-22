@@ -1,11 +1,25 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Section from "@/components/section";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, Copy } from "lucide-react";
 import { socialLinks } from "@/lib/social";
+import { site } from "@/lib/site";
 
 export default function ContactSection() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(site.email);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      window.location.href = `mailto:${site.email}`;
+    }
+  };
+
   return (
     <Section id="contact" title="Let’s Connect" subtitle="Open to collaborations, full-time roles, and interesting problems.">
       <div className="grid gap-6 lg:grid-cols-2 lg:gap-10">
@@ -17,12 +31,22 @@ export default function ContactSection() {
           <p className="text-sm leading-relaxed text-muted-foreground">
             The fastest way to reach me is email. I usually respond within 1–2 business days.
           </p>
-          <a
-            href="mailto:0.krishna1120@gmail.com"
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground/90 transition hover:bg-accent"
-          >
-            0.krishna1120@gmail.com <ArrowRight className="h-4 w-4" />
-          </a>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href={`mailto:${site.email}`}
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground/90 transition hover:bg-accent"
+            >
+              {site.email} <ArrowRight className="h-4 w-4" />
+            </a>
+            <button
+              type="button"
+              onClick={handleCopyEmail}
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground/90 transition hover:bg-accent"
+            >
+              {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+              {copied ? "Copied" : "Copy Email"}
+            </button>
+          </div>
         </motion.div>
 
         <div className="grid gap-4 sm:grid-cols-2">

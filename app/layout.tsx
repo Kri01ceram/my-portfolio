@@ -4,18 +4,34 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import ScrollIndicator from "@/components/scroll-indicator";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Krishna Singh — Portfolio",
-  description: "Full-stack developer & ML data analyst.",
+  metadataBase: new URL(site.url),
+  title: site.title,
+  description: site.description,
   keywords: ["Krishna Singh", "Portfolio", "Full-stack", "ML", "Data Analyst", "Next.js"],
-  creator: "Krishna Singh",
+  creator: site.name,
   openGraph: {
-    title: "Krishna Singh — Portfolio",
-    description: "Full-stack developer & ML data analyst.",
-    url: "https://example.com",
-    siteName: "Krishna Singh Portfolio",
+    title: site.title,
+    description: site.description,
+    url: site.url,
+    siteName: `${site.name} Portfolio`,
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: `${site.name} portfolio preview`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.title,
+    description: site.description,
+    images: ["/twitter-image"],
   },
   robots: { index: true, follow: true },
 };

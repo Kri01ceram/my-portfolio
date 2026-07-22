@@ -64,42 +64,50 @@ export default function ScrollIndicator({ sections }: { sections: ScrollSection[
   if (sections.length === 0) return null;
 
   return (
-    <aside className="hidden lg:block fixed left-6 top-1/2 -translate-y-1/2 z-40" aria-label="Section progress">
-      <div className="relative flex items-center">
-        <div className="relative h-[220px] w-px bg-border">
-          <div
-            className="absolute left-0 top-0 w-px bg-foreground/70"
-            style={{ height: `${Math.round(progress * 220)}px` }}
-            aria-hidden
-          />
-        </div>
-
-        <nav className="ml-4 flex flex-col gap-3">
-          {sections.map((s) => {
-            const isActive = s.id === activeId;
-            return (
-              <a
-                key={s.id}
-                href={`#${s.id}`}
-                className={
-                  "group inline-flex items-center gap-2 text-xs tracking-wide transition" +
-                  (isActive ? " text-foreground" : " text-muted-foreground hover:text-foreground")
-                }
-                aria-current={isActive ? "true" : undefined}
-              >
-                <span
-                  className={
-                    "h-1.5 w-1.5 rounded-full transition-colors" +
-                    (isActive ? " bg-foreground" : " bg-border group-hover:bg-foreground/70")
-                  }
-                  aria-hidden
-                />
-                {s.label}
-              </a>
-            );
-          })}
-        </nav>
+    <>
+      <div className="fixed left-0 right-0 top-[64px] z-40 h-0.5 bg-border/70" aria-hidden>
+        <div
+          className="h-full bg-foreground/70 transition-[width] duration-200 ease-out"
+          style={{ width: `${Math.round(progress * 100)}%` }}
+        />
       </div>
-    </aside>
+      <aside className="hidden lg:block fixed left-6 top-[calc(50%+16px)] -translate-y-1/2 z-40" aria-label="Section progress">
+        <div className="relative flex items-center">
+          <div className="relative h-[220px] w-px bg-border">
+            <div
+              className="absolute left-0 top-0 w-px bg-foreground/70 transition-[height] duration-200 ease-out"
+              style={{ height: `${Math.round(progress * 220)}px` }}
+              aria-hidden
+            />
+          </div>
+
+          <nav className="ml-4 flex flex-col gap-3">
+            {sections.map((s) => {
+              const isActive = s.id === activeId;
+              return (
+                <a
+                  key={s.id}
+                  href={`#${s.id}`}
+                  className={
+                    "group inline-flex items-center gap-2 text-xs tracking-wide transition" +
+                    (isActive ? " text-foreground" : " text-muted-foreground hover:text-foreground")
+                  }
+                  aria-current={isActive ? "true" : undefined}
+                >
+                  <span
+                    className={
+                      "h-1.5 w-1.5 rounded-full transition-colors" +
+                      (isActive ? " bg-foreground" : " bg-border group-hover:bg-foreground/70")
+                    }
+                    aria-hidden
+                  />
+                  {s.label}
+                </a>
+              );
+            })}
+          </nav>
+        </div>
+      </aside>
+    </>
   );
 }

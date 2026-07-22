@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
+import { site } from "@/lib/site";
 
 const PROFILE = {
   firstName: "Krishna",
@@ -11,12 +12,8 @@ const PROFILE = {
     "I build reliable, high-performing products with thoughtful UX and clean engineering.",
   availability: "Available for work",
   location: "Based in India",
-  resumeUrl: "/resume.pdf",
-  links: {
-    github: "https://github.com/Kri01ceram",
-    linkedin: "https://www.linkedin.com/in/krishna1120/",
-    leetcode: "https://leetcode.com/u/0_Krishna_01/",
-  },
+  resumeUrl: site.resumeUrl,
+  links: site.links,
   currently: {
     role: "Full‑Stack Developer",
     company: "Freelance",
@@ -60,9 +57,11 @@ export default function Hero() {
             <Link
               href={PROFILE.resumeUrl}
               target="_blank"
+              rel="noreferrer noopener"
+              download
               className="inline-flex items-center rounded-full border border-border bg-card px-4 py-2 text-sm text-foreground/90 transition hover:bg-accent"
             >
-              Resume
+              <Download className="mr-2 h-4 w-4" /> Download Resume
             </Link>
             <Link
               href={PROFILE.links.github}
@@ -89,6 +88,10 @@ export default function Hero() {
               LeetCode
             </Link>
           </div>
+
+          <p className="mt-4 text-xs text-muted-foreground">
+            Shortcuts: <span className="font-medium text-foreground">G</span> GitHub, <span className="font-medium text-foreground">E</span> email, <span className="font-medium text-foreground">R</span> resume.
+          </p>
         </div>
 
         <div className="flex items-center">

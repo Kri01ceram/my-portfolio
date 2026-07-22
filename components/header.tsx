@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { site } from "@/lib/site";
 
 const links = [
   { href: "#home", label: "Home" },
@@ -18,8 +19,10 @@ export default function Header() {
   const pathname = usePathname();
   const onHome = pathname === "/";
   const [open, setOpen] = useState(false);
+  const [activeId, setActiveId] = useState("home");
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
+
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const targetId = href.replace('#', '');
@@ -33,6 +36,66 @@ export default function Header() {
     }
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (!onHome) {
+      setActiveId("");
+      return;
+    }
+
+    const sectionIds = links.map((link) => link.href.replace("#", ""));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0));
+        const current = visible[0]?.target as HTMLElement | undefined;
+        if (current?.id) {
+          setActiveId(current.id);
+        }
+      },
+      {
+        root: null,
+        rootMargin: "-30% 0px -58% 0px",
+        threshold: [0.1, 0.2, 0.35, 0.5, 0.75],
+      }
+    );
+
+    sectionIds.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, [onHome]);
+
+  useEffect(() => {
+    const onKeyDown = (ev: KeyboardEvent) => {
+      if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
+
+      const target = ev.target as HTMLElement | null;
+      const isTypingField =
+        target?.tagName === "INPUT" ||
+        target?.tagName === "TEXTAREA" ||
+        target?.tagName === "SELECT" ||
+        target?.isContentEditable;
+      if (isTypingField) return;
+
+      const key = ev.key.toLowerCase();
+      if (key === "g") {
+        window.open(site.links.github, "_blank", "noopener,noreferrer");
+      }
+      if (key === "r") {
+        window.open(site.resumeUrl, "_blank", "noopener,noreferrer");
+      }
+      if (key === "e") {
+        window.location.href = `mailto:${site.email}`;
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   // Close on outside click or Escape
   useEffect(() => {
@@ -92,17 +155,25 @@ export default function Header() {
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-1">
           {links.map((link) => {
+            const linkId = link.href.replace("#", "");
+            const isActive = onHome && activeId === linkId;
             // On the home page, use smooth scrolling to in-page anchors.
             if (onHome) {
               return (
-                <a
+                <motion.a
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleSmoothScroll(e, link.href)}
-                  className="inline-flex items-center rounded-full px-3 py-1.5 text-sm font-medium text-foreground/80 hover:text-foreground border border-transparent hover:border-border hover:bg-accent transition-colors"
+                  className="relative inline-flex items-center rounded-full px-3 py-1.5 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
                 >
                   {link.label}
-                </a>
+                  <motion.span
+                    className="absolute inset-x-3 -bottom-0.5 h-px origin-center rounded-full bg-foreground/70"
+                    initial={false}
+                    animate={{ scaleX: isActive ? 1 : 0 }}
+                    transition={{ duration: 0.22, ease: "easeOut" }}
+                  />
+                </motion.a>
               );
             }
             // On other pages (e.g., /hire, /projects), link back to home with hash.
@@ -186,6 +257,9 @@ export default function Header() {
                   <div className="flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2 text-sm text-foreground/70">
                     <Moon className="h-4 w-4" /> Dark mode
                   </div>
+                </div>
+                <div className="rounded-xl border border-border bg-card px-4 py-3 text-xs text-muted-foreground">
+                  Shortcuts: <span className="font-medium text-foreground">G</span> GitHub, <span className="font-medium text-foreground">E</span> email, <span className="font-medium text-foreground">R</span> resume.
                 </div>
               </div>
             </div>
