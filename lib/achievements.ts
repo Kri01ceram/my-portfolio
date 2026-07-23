@@ -6,18 +6,33 @@ export type Achievement = {
 
 export const achievements: Achievement[] = [
   {
-    title: "Built and shipped multiple full-stack portfolio projects",
-    year: "2024 — 2026",
-    description: "Focused on production-ready UX, clean architecture, and maintainable delivery across web apps.",
+    title: "LeetCode (1842)",
+    year: "2024 — Present",
+    description:
+      "Ranked in the top 6.4% globally with 500+ solved problems across diverse data structures and algorithms.",
   },
   {
-    title: "Strengthened ML and data workflow foundations",
-    year: "2023 — 2025",
-    description: "Worked through practical machine learning, SQL, and data analysis problems alongside app development.",
+    title: "Codeforces Specialist",
+    year: "2024 — Present",
+    description:
+      "Achieved the Specialist rating by consistently solving algorithmic challenges and competing in rated Codeforces contests.",
   },
   {
-    title: "Consistent open learning and problem solving",
-    year: "Ongoing",
-    description: "Kept building through side projects, interview prep, and regular coding practice.",
+    title: "ICPC Regionalist",
+    year: "2025",
+    description:
+      "Qualified as an ICPC Regionalist, demonstrating strong competitive programming and algorithmic problem-solving skills.",
+  },
+  {
+    title: "Hacktoberfest",
+    year: "2025",
+    description:
+      "Completed 7+ accepted open-source contributions across multiple repositories during Hacktoberfest.",
+  },
+  {
+    title: "Adobe India Hackathon Finalist",
+    year: "2025",
+    description:
+      "Secured a Pre-Placement Interview (PPI) offer by finishing among the top 50 teams nationwide.",
   },
 ];
