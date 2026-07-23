@@ -65,12 +65,6 @@ export default function ScrollIndicator({ sections }: { sections: ScrollSection[
 
   return (
     <>
-      <div className="fixed left-0 right-0 top-[64px] z-40 h-0.5 bg-border/70" aria-hidden>
-        <div
-          className="h-full bg-foreground/70 transition-[width] duration-200 ease-out"
-          style={{ width: `${Math.round(progress * 100)}%` }}
-        />
-      </div>
       <aside className="hidden lg:block fixed left-6 top-[calc(50%+16px)] -translate-y-1/2 z-40" aria-label="Section progress">
         <div className="relative flex items-center">
           <div className="relative h-[220px] w-px bg-border">

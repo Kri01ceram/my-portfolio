@@ -145,10 +145,10 @@ export default function Header() {
   }, [open]);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 border-b border-border bg-background/85 backdrop-blur">
-      <nav className="mx-auto max-w-[1200px] px-4 sm:px-6 py-3 relative flex items-center justify-center">
+    <header className="fixed top-0 inset-x-0 z-50 bg-transparent">
+      <nav className="mx-auto mt-3 flex w-fit max-w-[1200px] items-center justify-center rounded-full bg-background/90 px-3 py-2 backdrop-blur">
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center justify-center gap-1">
+        <div className="hidden md:flex items-center justify-center gap-3 lg:gap-4">
           {links.map((link) => {
             const linkId = link.href.replace("#", "");
             const isActive = onHome && activeId === linkId;
@@ -159,7 +159,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleSmoothScroll(e, link.href)}
-                  className="relative inline-flex items-center rounded-full px-3 py-1.5 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+                  className="relative inline-flex items-center rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
                 >
                   {link.label}
                   <motion.span
@@ -176,7 +176,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={`/${link.href}`}
-                className="inline-flex items-center rounded-full px-3 py-1.5 text-sm font-medium text-foreground/80 hover:text-foreground border border-transparent hover:border-border hover:bg-accent transition-colors"
+                className="inline-flex items-center rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground border border-transparent hover:border-border hover:bg-accent transition-colors"
               >
                 {link.label}
               </Link>
@@ -187,7 +187,7 @@ export default function Header() {
         {/* Mobile hamburger */}
         <button
           aria-label="Toggle Menu"
-          className="md:hidden absolute right-4 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-card hover:bg-accent transition"
+          className="md:hidden absolute right-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card hover:bg-accent transition"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-menu"

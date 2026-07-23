@@ -161,20 +161,3 @@ section[id] {
     linear-gradient(180deg, #0b0b0b 0%, #0f0f0f 100%);
   background-attachment: fixed;
 }
-
-.app-bg::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.08;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.06) 0px,
-      rgba(255, 255, 255, 0.06) 1px,
-      transparent 1px,
-      transparent 3px
-    );
-  mix-blend-mode: overlay;
-}
