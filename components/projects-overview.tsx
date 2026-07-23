@@ -20,7 +20,7 @@ export default function ProjectsOverview() {
             <div className="flex items-start justify-between gap-6">
               <div>
                 <span className="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-[11px] tracking-[0.22em] text-muted-foreground">
-                  {project.title === "CABSHARENITR" || project.repo?.includes("project-cabshare") ? "CABSHARE" : "DEVELOPED"}
+                  {project.title === "CABSHARENITR" || project.repo?.includes("project-cabshare") ? "CONTRIBUTED" : "DEVELOPED"}
                 </span>
                 <h3 className="mt-4 text-lg sm:text-xl font-normal text-foreground">{project.title}</h3>
               </div>
