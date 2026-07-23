@@ -41,10 +41,10 @@ export default function ProjectsOverview() {
 
             <div className="mt-6 flex flex-wrap items-center gap-4 text-sm">
               <Link
-                href={project.domain ? `/projects/${project.domain}` : "/projects"}
+                href={project.link ?? project.repo ?? "/#projects"}
                 className="inline-flex items-center gap-2 text-foreground/90 underline underline-offset-4 decoration-border hover:decoration-foreground/50"
               >
-                View more <ArrowRight className="h-4 w-4" />
+                {project.link ? "View live URL" : project.repo ? "View repo" : "View more"} <ArrowRight className="h-4 w-4" />
               </Link>
               {project.link && (
                 <a
