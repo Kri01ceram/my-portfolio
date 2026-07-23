@@ -152,7 +152,7 @@ export default function Header() {
           className="text-sm sm:text-base font-medium tracking-tight text-foreground hover:opacity-80 transition"
           aria-label="Krishna Singh's Portfolio"
         >
-          Krishna&apos;s Portfolio
+          Hello, I'm <span className="font-bold">Krishna Singh</span>
         </Link>
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-1">

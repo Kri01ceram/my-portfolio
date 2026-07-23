@@ -6,15 +6,15 @@ import { ArrowRight, Download } from "lucide-react";
 import { site } from "@/lib/site";
 
 const developerAscii = [
-  "      .--.",
-  "     |o_o |",
-  "     |:_/ |",
-  "    //   \\\\",
-  "   (|     | )",
-  "  /'\\_   _/\\",
-  "  \\___)=(___/",
+  "     ████████                                             .--.",
+  "   ███████████████                                       |o_o |",
+  " ███████ ●                                               |:_/ |",
+  " █████                                                  //   \\\\",
+  " ████             0  0  0  0  0  0  0  0  0  0  0  0   (|     | )",
+  " ███████                                              /'\\_   _/\\",
+  "   ███████████████                                    \\___)=(___/",
+  "      ████████████",
   "",
-
 ].join("\n");
 
 const PROFILE = {
@@ -115,7 +115,6 @@ export default function Hero() {
 
         <div className="flex items-center">
           <div className="w-full rounded-3xl border border-border bg-card p-6 sm:p-7">
-            
             <pre className="mt-4 overflow-x-auto rounded-2xl border border-border bg-background p-4 text-xs leading-5 text-foreground/80">{developerAscii}</pre>
 
             <div className="mt-5 flex flex-wrap gap-2">
