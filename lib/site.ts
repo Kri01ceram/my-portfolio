@@ -1,9 +1,11 @@
+
+
 export const site = {
   name: "Krishna Singh",
   title: "Krishna Singh — Portfolio",
   description: "Full-stack developer & ML data analyst.",
   email: "0.krishna1120@gmail.com",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/123cr0838_krishna_FTE.pdf",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com",
   lastUpdated: "July 22, 2026",
   links: {
