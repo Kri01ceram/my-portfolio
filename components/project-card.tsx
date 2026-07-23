@@ -18,7 +18,7 @@ export type Project = {
   tags: string[];
   link?: string;
   repo?: string;
-  domain?: "web" | "ml"; // project domain for filtering
+  domain?: "web" | "ml" | "web/ml"; // project domain for filtering
   category?: "valuable" | "practice" | "scaled"; // grouping within a domain
 };
 

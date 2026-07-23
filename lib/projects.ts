@@ -2,6 +2,14 @@ import type { Project } from "@/components/project-card";
 
 export const projects: Project[] = [
   {
+    title: "Metube",
+    description: "Video streaming and watching platform with recommender system for excellent UX",
+    tags: ["Node.js", "React", "Express", "NEonDB", "Prisma", "typescript"],
+    domain: "web/ml",
+    category: "valuable",
+    repo: "https://github.com/Kri01ceram/metube",
+  },
+  {
     title: "CABSHARENITR",
     description: "Ride-sharing app for the NIT Rourkela community to share cabs and fares.",
     tags: ["Next.js", "tRPC/REST", "Firebase", "Gemini-Api", "Auth"],
@@ -11,7 +19,7 @@ export const projects: Project[] = [
     repo: "https://github.com/Kri01ceram/project-cabshare",
   },
   {
-    title: "Credit Risk Detection",
+    title: "Credit Risk Detection Model",
     description: "Supervised learning model trained on real-world bank data to assess borrower risk. Includes feature engineering, model comparison, and explainability to support underwriting decisions.",
     tags: ["Python", "Pandas", "Scikit-learn", "XGBoost", "EDA"],
     domain: "ml",
@@ -35,12 +43,5 @@ export const projects: Project[] = [
     
     repo: "https://github.com/Kri01ceram/socio",
   },
-  {
-    title: "Quickshow",
-    description: "Scalable movie-booking website with real-time booking and seat selection.",
-    tags: ["Node.js", "React", "Express", "MongoDB"],
-    domain: "web",
-    category: "valuable",
-    repo: "https://github.com/Kri01ceram/movie-booking-app",
-  },
+  
 ];
