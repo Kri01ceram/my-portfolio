@@ -3,7 +3,7 @@ import type { Project } from "@/components/project-card";
 export const projects: Project[] = [
   {
     title: "Metube",
-    description: "Video streaming and watching platform with recommender system for excellent UX",
+    description: "Video streaming and watching platform with user based recommender system",
     tags: ["Node.js", "React", "Express", "NEonDB", "Prisma", "typescript"],
     domain: "web/ml",
     category: "valuable",

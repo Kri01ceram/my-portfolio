@@ -14,9 +14,7 @@ const developerAscii = [
   "  /'\\_   _/\\",
   "  \\___)=(___/",
   "",
-  "  Krishna Singh",
-  "  Full-stack + ML",
-  "  Build. Ship. Repeat.",
+
 ].join("\n");
 
 const PROFILE = {
@@ -47,7 +45,6 @@ export default function Hero() {
         className="grid gap-10 lg:grid-cols-2 lg:gap-14"
       >
         <div className="flex flex-col justify-center">
-          <p className="text-xs tracking-[0.28em] text-muted-foreground">PORTFOLIO / 2026</p>
 
           <h1 className="mt-5 text-5xl sm:text-6xl lg:text-7xl leading-[0.95] font-light tracking-tight">
             <span className="group relative inline-block text-foreground" tabIndex={0}>
@@ -118,18 +115,19 @@ export default function Hero() {
 
         <div className="flex items-center">
           <div className="w-full rounded-3xl border border-border bg-card p-6 sm:p-7">
-            <p className="text-xs tracking-[0.28em] text-muted-foreground">ASCII DEVELOPER</p>
+            
             <pre className="mt-4 overflow-x-auto rounded-2xl border border-border bg-background p-4 text-xs leading-5 text-foreground/80">{developerAscii}</pre>
 
             <div className="mt-5 flex flex-wrap gap-2">
-              {PROFILE.skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-xs text-muted-foreground"
-                >
-                  {skill}
-                </span>
-              ))}
+              <span className="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-xs text-muted-foreground">
+                BUILD
+              </span>
+              <span className="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-xs text-muted-foreground">
+                SHIP
+              </span>
+              <span className="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-xs text-muted-foreground">
+                REPEAT
+              </span>
             </div>
 
             <Link
