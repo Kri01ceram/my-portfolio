@@ -13,10 +13,10 @@ export type ExperienceItem = {
 export const experience: ExperienceItem[] = [
   {
     id: "current",
-    start: "2024",
-    end: "Present",
+    start: "MAY 2026",
+    end: "JUL 2026",
     role: "Full‑Stack Developer",
-    company: "Independent",
+    company: "Airace",
     location: "Remote",
     tech: ["Next.js", "React", "TypeScript", "Tailwind", "Firebase"],
     highlights: [
@@ -24,8 +24,6 @@ export const experience: ExperienceItem[] = [
       "Improved reliability and performance through profiling and iterative refactors.",
       "Collaborated with stakeholders to translate requirements into scoped deliverables.",
     ],
-    links: [
-      { label: "Projects", href: "#projects" },
-    ],
+    
   },
 ];
