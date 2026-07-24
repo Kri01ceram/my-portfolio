@@ -4,7 +4,7 @@ export const projects: Project[] = [
   {
     title: "Metube",
     description: "Video streaming and watching platform with user based recommender system",
-    tags: ["Node.js", "React", "Express", "NEonDB", "Prisma", "typescript"],
+    tags: ["Node.js", "React", "Express", "NEonDB", "Prisma", "typescript", "ML" , "Cloudflare"],
     domain: "web/ml",
     category: "valuable",
     repo: "https://github.com/Kri01ceram/metube",
